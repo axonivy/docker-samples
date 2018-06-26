@@ -1,0 +1,62 @@
+#!/bin/sh
+
+echo "Create System Database if missing"
+/opt/AxonIvyEngine/bin/EngineConfigCli create-db
+/opt/AxonIvyEngine/bin/EngineConfigCli create-admin admin nimda
+
+# -----------------------------------------------------------------------------
+# Description:
+# -----------------------------------------------------------------------------
+# Starts the Axon.ivy Engine
+#
+# Copyright 1994 - 2018 AXON IVY AG
+# -----------------------------------------------------------------------------
+
+# resolve links - $0 may be a softlink
+PRG="$0"
+
+while [ -h "$PRG" ] ; do
+  ls=`ls -ld "$PRG"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '.*/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "$PRG"`/"$link"
+  fi
+done
+
+
+PRGDIR=`dirname "$PRG"`
+
+if [ "x$1" = 'xstatus' ] || [ "x$1" = 'x-status' ] || [ "x$1" = 'xstop' ] || [ "x$1" = 'x-stop' ] || [ "x$1" = 'xstopdaemon' ] || [ "x$1" = 'x-stopdaemon' ]; then
+  # use configuration with less memory requirements for status and stop
+  RUN_CONF="$PRGDIR"/"control.conf"
+else
+  # use main settings for engine start
+  RUN_CONF="$PRGDIR"/"AxonIvyEngine.conf"
+fi
+
+
+if [ ! -r "$RUN_CONF" ]; then
+  echo "Cannot find $RUN_CONF"
+  echo "This file is needed to run the Axon.ivy Engine"
+  exit 1
+fi
+
+. "$RUN_CONF"
+export JAVA_OPTS
+
+EXECUTABLE=launcher.sh
+
+# Check that target executable exists
+if [ ! -x "$PRGDIR"/"$EXECUTABLE" ]; then
+  echo "Cannot find $PRGDIR/$EXECUTABLE"
+  echo "This file is needed to run the Axon.ivy Engine"
+  exit 1
+fi
+
+if [ -z "$1" ] || [ "x$1" = 'xstart' ] || [ "x$1" = 'x-start' ]; then
+  CONSOLE="-console"
+fi
+
+exec "$PRGDIR"/"$EXECUTABLE" $@ -application ch.ivyteam.ivy.server.exec.engine $CONSOLE
