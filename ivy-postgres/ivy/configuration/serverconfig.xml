@@ -2,7 +2,7 @@
 <serverConfiguration>
     <systemDatabase>
         <driverName>org.postgresql.Driver</driverName>
-        <connectionUrl>jdbc:postgresql://postgres:5432/AxonIvySystemDatabase</connectionUrl>
+        <connectionUrl>jdbc:postgresql://db:5432/AxonIvySystemDatabase</connectionUrl>
         <username>admin</username>
         <password>\u008C\u002F\u0065\u00D6\u0031\u002E\u001D\u0086\u0073\u0051\u005D\u00D2\u00B1\u00F6\u003D\u00C4\u0038\u00C8\u0090\u0006\u0063\u0005\u006E\u0067\u007E\u0023\u00C1\u0022\u0094\u005D\u0003\u00B1</password>
         <autoConvert>false</autoConvert>
