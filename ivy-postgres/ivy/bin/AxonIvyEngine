@@ -1,8 +1,8 @@
 #!/bin/sh
 
 echo "Create System Database if missing"
-/opt/AxonIvyEngine/bin/EngineConfigCli create-db
-/opt/AxonIvyEngine/bin/EngineConfigCli create-admin admin nimda
+/opt/ivy/bin/EngineConfigCli create-db
+/opt/ivy/bin/EngineConfigCli create-admin admin nimda
 
 # -----------------------------------------------------------------------------
 # Description:
