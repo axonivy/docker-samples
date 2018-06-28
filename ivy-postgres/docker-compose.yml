@@ -4,7 +4,7 @@ services:
     image: "zugprodocker:5000/axonivy/axonivy-engine:latest"
     hostname: ivy
     ports:
-     - "8090:8080"
+     - "8080:8080"
     volumes:
      - "./ivy/bin/AxonIvyEngine:/opt/ivy/bin/AxonIvyEngine"
      - "./ivy/configuration/serverconfig.xml:/opt/ivy/configuration/serverconfig.xml"
