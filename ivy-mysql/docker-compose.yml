@@ -21,3 +21,5 @@ services:
     image: "mysql:5"
     environment:
       MYSQL_ROOT_PASSWORD: 1234
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
