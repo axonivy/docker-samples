@@ -20,5 +20,5 @@ ivy, mysql and elasticsearch.
 ## ivy-postgres
 
 Setup of an ivy engine with postgres as system database.
-`serverconfig.xml` is used to setup the connection between
+`ivy.config` is used to setup the connection between
 ivy and postgres.

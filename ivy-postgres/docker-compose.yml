@@ -7,7 +7,7 @@ services:
      - "8080:8080"
     volumes:
      - "./ivy/bin/AxonIvyEngine:/opt/ivy/bin/AxonIvyEngine"
-     - "./ivy/configuration/serverconfig.xml:/opt/ivy/configuration/serverconfig.xml"
+     - "./ivy/configuration/ivy.config:/opt/ivy/configuration/ivy.config"
      - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
     depends_on:
      - db
@@ -16,5 +16,5 @@ services:
     ports:
      - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: nimda
       POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
