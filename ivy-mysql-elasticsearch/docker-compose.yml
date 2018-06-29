@@ -8,6 +8,7 @@ services:
     volumes:
      - "./ivy/bin/AxonIvyEngine:/opt/ivy/bin/AxonIvyEngine"
      - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
+     - "./ivy/deploy/Portal/:/opt/ivy/deploy/Portal/"
     environment:
       IVY_SYSTEM_DATABASE_DRIVER: com.mysql.jdbc.Driver
       IVY_SYSTEM_DATABASE_URL: jdbc:mysql://db:3306/AxonIvySystemDatabase
@@ -15,11 +16,18 @@ services:
       IVY_SYSTEM_DATABASE_PASSWORD: 1234
       IVY_SYSTEM_DATABASE_AUTOCONVERT: "false"
       IVY_SYSTEM_DATABASE_PROPERTIES: "useSSL=false"
+      
+      IVY_ELASTICSEARCH_EXTERNALSERVER_URL: http://elasticsearch:9200
+      IVY_ELASTICSEARCH_EXTERNALSERVER_USERNAME: elastic
+      IVY_ELASTICSEARCH_EXTERNALSERVER_PASSWORD: changeme
     depends_on:
      - db
+     - elasticsearch
   db:
     image: "mysql:5"
     environment:
       MYSQL_ROOT_PASSWORD: 1234
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
+    ports:
+     - "9200:9200"
