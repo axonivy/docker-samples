@@ -17,6 +17,8 @@ elasticsearch as external service.
 Environments variables ared used to setup the connection between
 ivy, mysql and elasticsearch.
 
+Docker secrets are used to configure passwords.
+
 ## ivy-postgres
 
 Setup of an ivy engine with postgres as system database.
