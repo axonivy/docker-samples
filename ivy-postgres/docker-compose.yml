@@ -7,7 +7,7 @@ services:
      - "8080:8080"
     volumes:
      - "./ivy/bin/AxonIvyEngine:/opt/ivy/bin/AxonIvyEngine"
-     - "./ivy/configuration/ivy.config:/opt/ivy/configuration/ivy.config"
+     - "./ivy/configuration/ivy.yaml:/opt/ivy/configuration/ivy.yaml"
      - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
     depends_on:
      - db

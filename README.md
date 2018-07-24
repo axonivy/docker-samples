@@ -22,5 +22,5 @@ Docker secrets are used to configure passwords.
 ## ivy-postgres
 
 Setup of an ivy engine with postgres as system database.
-`ivy.config` is used to setup the connection between
+`ivy.yaml` is used to setup the connection between
 ivy and postgres.
