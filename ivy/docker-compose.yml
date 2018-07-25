@@ -1,6 +1,7 @@
 version: '3.3'
 services:
   ivy:
-    image: "zugprodocker:5000/axonivy/axonivy-engine:latest"
+    image: "axonivydev/axonivy-engine:latest"
+    entrypoint: /opt/ivy/bin/AxonIvyEngine
     ports:
      - "8080:8081"

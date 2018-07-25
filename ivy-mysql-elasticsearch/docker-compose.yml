@@ -1,12 +1,11 @@
 version: '3.3'
 services:
   ivy:
-    image: "zugprodocker:5000/axonivy/axonivy-engine:latest"
+    image: "axonivydev/axonivy-engine:latest"
     hostname: ivy
     ports:
      - "8080:8080"
     volumes:
-     - "./ivy/bin/AxonIvyEngine:/opt/ivy/bin/AxonIvyEngine"
      - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
      - "./ivy/deploy/Portal/:/opt/ivy/deploy/Portal/"
     environment:
@@ -16,7 +15,7 @@ services:
       IVY_SYSTEM_DATABASE_PASSWORD_FILE: /run/secrets/mysql_password
       IVY_SYSTEM_DATABASE_AUTOCONVERT: "false"
       IVY_SYSTEM_DATABASE_PROPERTIES: "useSSL::false"
-      
+
       IVY_ELASTICSEARCH_EXTERNALSERVER_URL: http://elasticsearch:9200
       IVY_ELASTICSEARCH_EXTERNALSERVER_USERNAME: elastic
       IVY_ELASTICSEARCH_EXTERNALSERVER_PASSWORD: changeme
@@ -24,7 +23,7 @@ services:
      - db
      - elasticsearch
     secrets:
-     - mysql_password
+     - mysql_password    
   db:
     image: "mysql:5"
     environment:
