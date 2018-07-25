@@ -2,6 +2,5 @@ version: '3.3'
 services:
   ivy:
     image: "axonivydev/axonivy-engine:latest"
-    entrypoint: /opt/ivy/bin/AxonIvyEngine
     ports:
      - "8080:8081"
