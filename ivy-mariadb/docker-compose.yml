@@ -14,10 +14,13 @@ services:
       IVY_SYSTEM_DATABASE_PASSWORD: 1234
       IVY_SYSTEM_DATABASE_AUTOCONVERT: "false"
       IVY_SYSTEM_DATABASE_PROPERTIES: "useSSL::false"
+
+      IVY_ADMIN_USER_NAME: "admin"
+      IVY_ADMIN_USER_PASSWORD: 1234
+      IVY_ADMIN_USER_EMAIL: "admin@localhost.com"
     depends_on:
      - db
   db:
     image: "mariadb:10"
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-

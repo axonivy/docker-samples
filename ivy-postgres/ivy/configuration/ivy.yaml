@@ -19,4 +19,8 @@ ivy:
       username: admin
       password: 1234
       autoconvert: false
-
+  admin:
+    user:
+      name: admin
+      password: 4321
+      email: admin@localhost.com

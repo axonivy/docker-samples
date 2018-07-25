@@ -13,6 +13,10 @@ services:
       IVY_SYSTEM_DATABASE_USERNAME: sa
       IVY_SYSTEM_DATABASE_PASSWORD: secure1234PASSWORD!
       IVY_SYSTEM_DATABASE_AUTOCONVERT: "false"
+
+      IVY_ADMIN_USER_NAME: "admin"
+      IVY_ADMIN_USER_PASSWORD: 1234
+      IVY_ADMIN_USER_EMAIL: "admin@localhost.com"
     depends_on:
      - db
   db:
