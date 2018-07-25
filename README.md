@@ -16,6 +16,13 @@ Setup of an ivy engine with maria db as system database.
 Environments variables ared used to setup the connection between
 ivy and mariadb.
 
+## ivy-mssql
+
+Setup of an ivy engine with microsoft sql server as system database.
+
+Environments variables ared used to setup the connection between
+ivy and mssql.
+
 ## ivy-mysql-elasticsearch
 
 Setup of an ivy engine with mysql as system database and

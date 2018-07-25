@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  ivy:
+    image: "axonivydev/axonivy-engine:latest"
+    hostname: ivy
+    ports:
+     - "8080:8080"
+    volumes:
+     - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
+    environment:
+      IVY_SYSTEM_DATABASE_DRIVER: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      IVY_SYSTEM_DATABASE_URL: jdbc:sqlserver://db:1433;DatabaseName=AxonIvySystemDatabase
+      IVY_SYSTEM_DATABASE_USERNAME: sa
+      IVY_SYSTEM_DATABASE_PASSWORD: secure1234PASSWORD!
+      IVY_SYSTEM_DATABASE_AUTOCONVERT: "false"
+    depends_on:
+     - db
+  db:
+    image: "microsoft/mssql-server-linux:latest"
+    environment:
+      ACCEPT_EULA: "Yes"
+      SA_PASSWORD: secure1234PASSWORD!
+      MSSQL_PID: "Express"
