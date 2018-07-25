@@ -9,6 +9,13 @@ This repository shows you different docker-compose setups with ivy.
 
 Running ivy in demo mode. Runs without license.
 
+## ivy-mariadb
+
+Setup of an ivy engine with maria db as system database.
+
+Environments variables ared used to setup the connection between
+ivy and mariadb.
+
 ## ivy-mysql-elasticsearch
 
 Setup of an ivy engine with mysql as system database and
