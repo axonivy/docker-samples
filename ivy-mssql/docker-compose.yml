@@ -8,15 +8,15 @@ services:
     volumes:
      - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
     environment:
-      IVY_SYSTEM_DATABASE_DRIVER: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      IVY_SYSTEM_DATABASE_URL: jdbc:sqlserver://db:1433;DatabaseName=AxonIvySystemDatabase
-      IVY_SYSTEM_DATABASE_USERNAME: sa
-      IVY_SYSTEM_DATABASE_PASSWORD: secure1234PASSWORD!
-      IVY_SYSTEM_DATABASE_AUTOCONVERT: "false"
+      IVY_SYSTEMDB_DRIVER: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      IVY_SYSTEMDB_URL: jdbc:sqlserver://db:1433;DatabaseName=AxonIvySystemDatabase
+      IVY_SYSTEMDB_USERNAME: sa
+      IVY_SYSTEMDB_PASSWORD: secure1234PASSWORD!
+      IVY_SYSTEMDB_AUTOCONVERT: "false"
 
-      IVY_ADMIN_USER_NAME: "admin"
-      IVY_ADMIN_USER_PASSWORD: 1234
-      IVY_ADMIN_USER_EMAIL: "admin@localhost.com"
+      IVY_ADMINISTRATOR_NAME: "admin"
+      IVY_ADMINISTRATOR_PASSWORD: 1234
+      IVY_ADMINISTRATOR_EMAIL: "admin@localhost.com"
     depends_on:
      - db
   db:

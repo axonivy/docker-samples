@@ -9,16 +9,16 @@ services:
      - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
      - "./ivy/deploy/Portal/:/opt/ivy/deploy/Portal/"
     environment:
-      IVY_SYSTEM_DATABASE_DRIVER: com.mysql.jdbc.Driver
-      IVY_SYSTEM_DATABASE_URL: jdbc:mysql://db:3306/AxonIvySystemDatabase
-      IVY_SYSTEM_DATABASE_USERNAME: root
-      IVY_SYSTEM_DATABASE_PASSWORD_FILE: /run/secrets/mysql_password
-      IVY_SYSTEM_DATABASE_AUTOCONVERT: "false"
-      IVY_SYSTEM_DATABASE_DriverProperties_useSSL: "false"
+      IVY_SYSTEMDB_DRIVER: com.mysql.jdbc.Driver
+      IVY_SYSTEMDB_URL: jdbc:mysql://db:3306/AxonIvySystemDatabase
+      IVY_SYSTEMDB_USERNAME: root
+      IVY_SYSTEMDB_PASSWORD_FILE: /run/secrets/mysql_password
+      IVY_SYSTEMDB_AUTOCONVERT: "false"
+      IVY_SYSTEMDB_DRIVERPROPERTIES_useSSL: "false"
 
-      IVY_ADMIN_USER_NAME: "admin"
-      IVY_ADMIN_USER_PASSWORD: 1234
-      IVY_ADMIN_USER_EMAIL: "admin@localhost.com"
+      IVY_ADMINISTRATOR_NAME: "admin"
+      IVY_ADMINISTRATOR_PASSWORD: 1234
+      IVY_ADMINISTRATOR_EMAIL: "admin@localhost.com"
 
       IVY_ELASTICSEARCH_EXTERNALSERVER_URL: http://elasticsearch:9200
       IVY_ELASTICSEARCH_EXTERNALSERVER_USERNAME: elastic

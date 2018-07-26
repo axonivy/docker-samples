@@ -12,15 +12,16 @@
 # See https://developer.axonivy.com/releases/ivy/latest/documents/EngineGuideHtml/configuration.html#configuration-sources
 
 ivy:
-  system:
-    database:
-      driver: org.postgresql.Driver
-      url: jdbc:postgresql://db:5432/AxonIvySystemDatabase
-      username: admin
-      password: 1234
-      autoconvert: false
-  admin:
-    user:
-      name: admin
-      password: 4321
-      email: admin@localhost.com
+  SystemDb:
+    Driver: org.postgresql.Driver
+    Url: jdbc:postgresql://db:5432/AxonIvySystemDatabase
+    Username: admin
+    Password: 1234
+    Autoconvert: false
+  Administrators:
+    - Name: admin
+      Password: 1111
+      Email: admin@localhost.com
+    - Name: admin2
+      Password: 3333
+      Email: admin2@localhost.com
