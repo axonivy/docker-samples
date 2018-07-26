@@ -14,7 +14,7 @@ services:
       IVY_SYSTEM_DATABASE_USERNAME: root
       IVY_SYSTEM_DATABASE_PASSWORD_FILE: /run/secrets/mysql_password
       IVY_SYSTEM_DATABASE_AUTOCONVERT: "false"
-      IVY_SYSTEM_DATABASE_PROPERTIES_useSSL: "false"
+      IVY_SYSTEM_DATABASE_DriverProperties_useSSL: "false"
 
       IVY_ADMIN_USER_NAME: "admin"
       IVY_ADMIN_USER_PASSWORD: 1234
