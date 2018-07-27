@@ -7,7 +7,6 @@ services:
      - "8080:8080"
     volumes:
      - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
-     - "./ivy/deploy/Portal/:/opt/ivy/deploy/Portal/"
     environment:
       IVY_SYSTEMDB_DRIVER: com.mysql.jdbc.Driver
       IVY_SYSTEMDB_URL: jdbc:mysql://db:3306/AxonIvySystemDatabase
@@ -15,6 +14,7 @@ services:
       IVY_SYSTEMDB_PASSWORD_FILE: /run/secrets/mysql_password
       IVY_SYSTEMDB_AUTOCONVERT: "false"
       IVY_SYSTEMDB_DRIVERPROPERTIES_useSSL: "false"
+      IVY_SYSTEMDB_DRIVERPROPERTIES_allowPublicKeyRetrieval: "true"
 
       IVY_ADMINISTRATOR_NAME: "admin"
       IVY_ADMINISTRATOR_PASSWORD: 1234
@@ -29,7 +29,7 @@ services:
     secrets:
      - mysql_password    
   db:
-    image: "mysql:5"
+    image: "mysql"
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_password
     secrets:
