@@ -7,16 +7,7 @@ services:
      - "8080:8080"
     volumes:
      - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
-    environment:
-      IVY_SYSTEMDB_DRIVER: com.microsoft.sqlserver.jdbc.SQLServerDriver
-      IVY_SYSTEMDB_URL: jdbc:sqlserver://db:1433;DatabaseName=AxonIvySystemDatabase
-      IVY_SYSTEMDB_USERNAME: sa
-      IVY_SYSTEMDB_PASSWORD: secure1234PASSWORD!
-      IVY_SYSTEMDB_AUTOCONVERT: "false"
-
-      IVY_ADMINISTRATOR_NAME: "admin"
-      IVY_ADMINISTRATOR_PASSWORD: 1234
-      IVY_ADMINISTRATOR_EMAIL: "admin@localhost.com"
+     - "./ivy.yaml:/opt/ivy/configuration/ivy.yaml"
     depends_on:
      - db
   db:
