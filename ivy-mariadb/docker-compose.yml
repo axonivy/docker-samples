@@ -7,19 +7,10 @@ services:
      - "8080:8080"
     volumes:
      - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
-    environment:
-      IVY_SYSTEMDB_DRIVER: org.mariadb.jdbc.Driver
-      IVY_SYSTEMDB_URL: jdbc:mariadb://db:3306/AxonIvySystemDatabase
-      IVY_SYSTEMDB_USERNAME: root
-      IVY_SYSTEMDB_PASSWORD: 1234
-      IVY_SYSTEMDB_AUTOCONVERT: "false"
-
-      IVY_ADMINISTRATOR_NAME: "admin"
-      IVY_ADMINISTRATOR_PASSWORD: 1234
-      IVY_ADMINISTRATOR_EMAIL: "admin@localhost.com"
+     - "./ivy.yaml:/opt/ivy/configuration/ivy.yaml"
     depends_on:
      - db
   db:
-    image: "mariadb:10"
+    image: "mariadb"
     environment:
       MYSQL_ROOT_PASSWORD: 1234
