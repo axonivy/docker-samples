@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  ivy:
+    image: "axonivydev/axonivy-engine:latest"
+    hostname: ivy
+    ports:
+     - "8080:8080"
+    volumes:
+     - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
+     - "./ivy.yaml:/opt/ivy/configuration/ivy.yaml"
+    depends_on:
+     - db
+  db:
+    image: "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234

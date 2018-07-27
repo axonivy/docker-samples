@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  ivy:
+    image: "axonivydev/axonivy-engine:latest"
+    ports:
+     - "8080:8081"
+    volumes:
+     - "./ivy.yaml:/opt/ivy/configuration/ivy.yaml"
+    depends_on:
+     - elasticsearch
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.3"

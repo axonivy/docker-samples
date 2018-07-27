@@ -11,7 +11,7 @@ services:
       IVY_SYSTEMDB_DRIVER: com.mysql.jdbc.Driver
       IVY_SYSTEMDB_URL: jdbc:mysql://db:3306/AxonIvySystemDatabase
       IVY_SYSTEMDB_USERNAME: root
-      IVY_SYSTEMDB_PASSWORD_FILE: /run/secrets/mysql_password
+      IVY_SYSTEMDB_PASSWORD: 1234
       IVY_SYSTEMDB_AUTOCONVERT: "false"
       IVY_SYSTEMDB_DRIVERPROPERTIES_useSSL: "false"
       IVY_SYSTEMDB_DRIVERPROPERTIES_allowPublicKeyRetrieval: "true"
@@ -19,25 +19,9 @@ services:
       IVY_ADMINISTRATOR_NAME: "admin"
       IVY_ADMINISTRATOR_PASSWORD: 1234
       IVY_ADMINISTRATOR_EMAIL: "admin@localhost.com"
-
-      IVY_ELASTICSEARCH_EXTERNALSERVER_URL: http://elasticsearch:9200
-      IVY_ELASTICSEARCH_EXTERNALSERVER_USERNAME: elastic
-      IVY_ELASTICSEARCH_EXTERNALSERVER_PASSWORD: changeme
     depends_on:
      - db
-     - elasticsearch
-    secrets:
-     - mysql_password    
   db:
     image: "mysql"
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_password
-    secrets:
-      - mysql_password
-  elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
-    ports:
-     - "9200:9200"
-secrets:
-  mysql_password:
-    file: ./secrets/mysql_password.txt
+      MYSQL_ROOT_PASSWORD: 1234
