@@ -6,37 +6,26 @@ This repository shows you different docker-compose setups with ivy.
 
 Running ivy in demo mode. Runs without license.
 
-## ivy-mariadb
+## ivy-db-mariadb
+## ivy-db-mssql
+## ivy-db-mysql
+## ivy-db-postgres
 
-Setup of an ivy engine with maria db as system database.
+Setup of an ivy engine with a particular database.
 
-Environments variables ared used to setup the connection between
-ivy and mariadb.
+## ivy-elasticsearch
 
-## ivy-mssql
-
-Setup of an ivy engine with microsoft sql server as system database.
-
-Environments variables ared used to setup the connection between
-ivy and mssql.
-
-## ivy-mysql-elasticsearch
-
-Setup of an ivy engine with mysql as system database and
-elasticsearch as external service.
-
-Environments variables ared used to setup the connection between
-ivy, mysql and elasticsearch.
-
-Docker secrets are used to configure passwords.
+Setup of an ivy engine with an external elasticsearch server.
 
 Maybe you face the following issue with the elasticsearch container: `Max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]` In this case you must increase vm.max_map_count: `sudo sysctl -w vm.max_map_count=262144`
 
-## ivy-postgres
+## ivy-enviornemnt-variables
 
-Setup of an ivy engine with postgres as system database.
-`ivy.yaml` is used to setup the connection between
-ivy and postgres.
+Setup of an ivy engine which is conifugred with enviornment variables.
+
+## ivy-secrets
+
+Setup of an ivy engine which uses docker secrets for passwords.
 
 ### Remarks
 
