@@ -6,7 +6,7 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - "./ivy/configuration/ivy.yaml:/opt/ivy/configuration/ivy.yaml"
+     - "./ivy.yaml:/opt/ivy/configuration/ivy.yaml"
      - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
     depends_on:
      - db
