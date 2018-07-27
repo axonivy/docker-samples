@@ -12,8 +12,6 @@ services:
      - db
   db:
     image: "postgres:latest"
-    ports:
-     - "5432:5432"
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
