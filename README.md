@@ -2,9 +2,6 @@
 
 This repository shows you different docker-compose setups with ivy.
 
-    Attention: You need to copy a valid license file in ivy/configuration
-    with the hostname ivy.
-
 ## ivy
 
 Running ivy in demo mode. Runs without license.
@@ -46,3 +43,10 @@ In this case you must increase vm.max_map_count:
 Setup of an ivy engine with postgres as system database.
 `ivy.yaml` is used to setup the connection between
 ivy and postgres.
+
+### Remarks
+
+#### Licence
+
+All these samples are shipped with a demo-licence. You can 
+run the Portal application with one user at a time.

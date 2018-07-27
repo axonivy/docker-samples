@@ -6,7 +6,7 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
+     - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
      - "./ivy/deploy/Portal/:/opt/ivy/deploy/Portal/"
     environment:
       IVY_SYSTEMDB_DRIVER: com.mysql.jdbc.Driver

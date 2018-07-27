@@ -7,7 +7,7 @@ services:
      - "8080:8080"
     volumes:
      - "./ivy/configuration/ivy.yaml:/opt/ivy/configuration/ivy.yaml"
-     - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
+     - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
     depends_on:
      - db
   db:

@@ -6,7 +6,7 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
+     - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
     environment:
       IVY_SYSTEMDB_DRIVER: com.microsoft.sqlserver.jdbc.SQLServerDriver
       IVY_SYSTEMDB_URL: jdbc:sqlserver://db:1433;DatabaseName=AxonIvySystemDatabase

@@ -6,7 +6,7 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - "./ivy/configuration/license.lic:/opt/ivy/configuration/license.lic"
+     - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
     environment:
       IVY_SYSTEMDB_DRIVER: org.mariadb.jdbc.Driver
       IVY_SYSTEMDB_URL: jdbc:mariadb://db:3306/AxonIvySystemDatabase
