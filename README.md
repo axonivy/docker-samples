@@ -15,6 +15,8 @@ Switch in a directory of your choice
 Start the docker compose setup
 
     docker-compose up
+    
+Afterwards the Axon.ivy Engine is available under http://localhost:8080/ivy
 
 ## Licence
 
