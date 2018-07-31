@@ -1,5 +1,7 @@
 # docker-samples
 
+![Axon Ivy Engine on Docker](axonivy-engine-on-docker.png)
+
 This repository shows you different [docker-compose](https://docs.docker.com/compose/) setups with ivy.
 
 All samples are based on the official [Axon.ivy Engine Docker Image](https://hub.docker.com/r/axonivydev/axonivy-engine/).
