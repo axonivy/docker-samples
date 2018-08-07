@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  ivy:
+    image: "axonivy/axonivy-engine"
+    volumes:
+     - "./log4jconfig.xml:/opt/ivy/configuration/log4jconfig.xml"
+    ports:
+     - "8080:8081"
+
