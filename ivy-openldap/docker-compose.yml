@@ -9,12 +9,18 @@ services:
      - "./ldap.zip:/opt/ivy/deploy/ldap.zip"
     depends_on:
      - openldap
-  openldap:
-    image: "osixia/openldap"
   openldapadmin:
     image: "osixia/phpldapadmin"
     ports:
-      - "8443:443"
+      - "8090:80"
     environment:
       PHPLDAPADMIN_LDAP_HOSTS: openldap
+      PHPLDAPADMIN_HTTPS: "false"
+    depends_on:
+    - openldap
+  openldap:
+    image: "osixia/openldap"
+    command: "--copy-service"
+    volumes:
+    - "./users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/users.ldif"
   

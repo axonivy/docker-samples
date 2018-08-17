@@ -27,5 +27,5 @@ ivy:
       Password: admin
       DefaultContext: "dc=example,dc=org"
       # OpenLdap specific configurations
-      JndiUserFilter: "objectClass=simpleSecurityObject"
       UserNameJndiAttribute: cn
+      UserFullNameJndiAttribute: displayName
