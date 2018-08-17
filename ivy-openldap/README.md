@@ -8,5 +8,5 @@ Open the __AdminUI__, navigate to the application `ldap` and synchronize the use
 
 You can browse the LDAP tree with the phpldapadmin tool: https://localhost:8443/
 
-User: `cn=admin,dc=example,dc=org`
-Password: `admin`
+* User: `cn=admin,dc=example,dc=org`
+* Password: `admin`
