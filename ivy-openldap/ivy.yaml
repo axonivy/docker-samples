@@ -8,11 +8,11 @@ ivy:
     # Security System 'OpenLdap'
     OpenLdap:
       # We do not officially support OpenLdap. Instead we use the Novell eDirectory provider which fits best
-      Provider: "Novell eDirectory"
+      Provider: "Novell eDirectory" 
       Url: "ldap://openldap:389"
       UserName: "cn=admin,dc=example,dc=org"
       Password: admin
       DefaultContext: "dc=example,dc=org"
       # OpenLdap specific configurations
-      UserNameJndiAttribute: cn
-      UserFullNameJndiAttribute: displayName
+      UserNameAttribute: cn
+      UserFullNameAttribute: displayName
