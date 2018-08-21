@@ -1,16 +1,3 @@
-#
-# Axon.ivy Engine Configuration 
-#
-# You can use this file to override any:
-# * System database configuration
-# * Axon.ivy system property value
-#
-# It is also possible to overwrite any property by an operating system environment variable.
-# Be aware that environment variable names are all upper case and dots nested objects are reflected with underlines (_).
-# Example: The environment variable to set the system database U is as follows: IVY_SYSTEM_DATABASE_URL
-#
-# See https://developer.axonivy.com/releases/ivy/latest/documents/EngineGuideHtml/configuration.html#configuration-sources
-
 ivy:
   Elasticsearch:
     ExternalServer:
