@@ -23,8 +23,13 @@ pipeline {
   stages {
     stage('test') {
       steps {
+        // cleanup previous created logs
+        script {
+            sh 'rm -f warn.log'
+        }
+
         // start containers
-        script {            
+        script {         
             sh 'docker-compose -f ivy/docker-compose.yml up -d'            
         }
         
@@ -48,7 +53,7 @@ pipeline {
             }
         }
 
-        archiveArtifacts 'warn.log'       
+        archiveArtifacts allowEmptyArchive: true, artifacts: 'warn.log'
       }
     }    
   }
