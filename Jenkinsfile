@@ -1,4 +1,8 @@
 pipeline {
+  // The main problem is that the we pollute the host (jenkins slave build node)
+  // with port mappings. If there are multiple builds which want to bind to 8080
+  // all execpt one will fail!
+
   agent {
       label 'docker-compose'
   }
