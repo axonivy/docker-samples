@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  ivy:
+    image: "axonivy/axonivy-engine:dev"
+    ports:
+     - "8080:8080"
+     - "9003:9003"
+    volumes:
+     - "./AxonIvyEngine.conf:/opt/ivy/bin/AxonIvyEngine.conf"
