@@ -6,9 +6,5 @@ ivy:
     Password: 1234
     Autoconvert: false
   Administrators:
-    - Name: admin1
-      Password: 1111
-      Email: admin1@localhost.com
-    - Name: admin2
-      Password: 2222
-      Email: admin2@localhost.com
+    - Name: admin
+      Password: admin

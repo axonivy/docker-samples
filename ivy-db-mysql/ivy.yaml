@@ -10,5 +10,4 @@ ivy:
        allowPublicKeyRetrieval: true
   Administrators:
     - Name: admin
-      Password: 1234
-      Email: admin@localhost.com
+      Password: admin
