@@ -1,10 +1,9 @@
-ivy:
-  SystemDb:
-    Driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    Url: jdbc:sqlserver://db:1433;DatabaseName=AxonIvySystemDatabase
-    Username: sa
-    Password: secure1234PASSWORD!
-    Autoconvert: false
-  Administrators:
-    - Name: admin
-      Password: admin
+SystemDb:
+  Driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  Url: jdbc:sqlserver://db:1433;DatabaseName=AxonIvySystemDatabase
+  UserName: sa
+  Password: secure1234PASSWORD!
+  Autoconvert: false
+Administrators:
+  - Name: admin
+    Password: admin

@@ -1,18 +1,17 @@
-ivy:
-  Applications:
-    # The application 'ldap' should use the security system OpenLdap
-    ldap:
-      SecuritySystem: OpenLdap
-  
-  SecuritySystems:
-    # Security System 'OpenLdap'
-    OpenLdap:
-      # We do not officially support OpenLdap. Instead we use the Novell eDirectory provider which fits best
-      Provider: "Novell eDirectory" 
-      Url: "ldap://openldap:389"
-      UserName: "cn=admin,dc=example,dc=org"
-      Password: admin
-      DefaultContext: "dc=example,dc=org"
-      # OpenLdap specific configurations
-      UserNameAttribute: cn
-      UserFullNameAttribute: displayName
+Applications:
+  # The application 'ldap' should use the security system OpenLdap
+  ldap:
+    SecuritySystem: OpenLdap
+ 
+SecuritySystems:
+  # Security System 'OpenLdap'
+  OpenLdap:
+    # We do not officially support OpenLdap. Instead we use the Novell eDirectory provider which fits best
+    Provider: "Novell eDirectory" 
+    Url: "ldap://openldap:389"
+    UserName: "cn=admin,dc=example,dc=org"
+    Password: admin
+    DefaultContext: "dc=example,dc=org"
+    # OpenLdap specific configurations
+    UserNameAttribute: cn
+    UserFullNameAttribute: displayName
