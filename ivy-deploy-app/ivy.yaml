@@ -1,0 +1,4 @@
+Applications:
+  app:
+    Properties:
+      superhero: batman

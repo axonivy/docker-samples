@@ -2,5 +2,7 @@ version: '3.3'
 services:
   ivy:
     build: .
+    volumes:
+     - "./ivy.yaml:/opt/ivy/configuration/ivy.yaml"
     ports:
      - "8080:8080"
