@@ -1,11 +1,14 @@
 Applications:
-  app:
-    ActiveEnvironment: testEnvironment
+  myApp:
+    ActiveEnvironment: production
+
+    EMailNotification:
+      DailySummaryOn: monday, tuesday, friday
+      OnNewTasks: true
+      Language: de
 
     Properties:
       superhero: batman
 
-    EMailNotification:
-      DailySummaryOn: never
-      OnNewTasks: true
-      Language: de
+    GlobalVariables:
+      ENABLE_USER_DESCRIPTION: true

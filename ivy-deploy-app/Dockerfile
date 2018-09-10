@@ -1,3 +1,3 @@
 FROM axonivy/axonivy-engine:dev
 
-ADD --chown=ivy:ivy app.zip ${IVY_HOME}/deploy
+RUN wget https://repo.axonivy.com/artifactory/libs-snapshot/ch/ivyteam/ivy/project/demo/ci/deploy/application/application/7.2.0-SNAPSHOT/application-7.2.0-SNAPSHOT.zip -O ${IVY_HOME}/deploy/myApp.zip
