@@ -1,4 +1,11 @@
 Applications:
   app:
+    ActiveEnvironment: testEnvironment
+
     Properties:
       superhero: batman
+
+    EMailNotification:
+      DailySummaryOn: never
+      OnNewTasks: true
+      Language: de
