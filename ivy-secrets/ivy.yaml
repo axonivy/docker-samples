@@ -2,12 +2,10 @@ SystemDb:
   Driver: com.mysql.jdbc.Driver
   Url: jdbc:mysql://db:3306/AxonIvySystemDatabase
   UserName: root
-  PasswordFile: /run/secrets/mysql_password
   Autoconvert: false
   DriverProperties:
     useSSL: false
     allowPublicKeyRetrieval: true
 Administrators:
   admin:
-    PasswordFile: /run/secrets/ivy_password
     Email: admin@localhost.com

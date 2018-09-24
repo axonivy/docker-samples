@@ -11,16 +11,16 @@ services:
     depends_on:
      - db
     secrets:
-     - mysql_password
-     - ivy_password
+     - ivy.SystemDb.Password
+     - ivy.Administrators.admin.Password
   db:
     image: "mysql"
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/ivy.SystemDb.Password
     secrets:
-      - mysql_password
+      - ivy.SystemDb.Password
 secrets:
-  mysql_password:
+  ivy.SystemDb.Password:
     file: ./secrets/mysql_password.txt
-  ivy_password:
+  ivy.Administrators.admin.Password:
     file: ./secrets/ivy_password.txt
