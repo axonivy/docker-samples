@@ -5,5 +5,5 @@ ivy:
       UserName: elastic
       Password: changeme
   Administrators:
-    - Name: admin
+    admin:
       Password: admin

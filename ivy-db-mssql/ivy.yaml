@@ -5,5 +5,5 @@ SystemDb:
   Password: secure1234PASSWORD!
   Autoconvert: false
 Administrators:
-  - Name: admin
+  admin:
     Password: admin

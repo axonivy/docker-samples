@@ -8,6 +8,6 @@ SystemDb:
     useSSL: false
     allowPublicKeyRetrieval: true
 Administrators:
-  - Name: admin
+  admin:
     PasswordFile: /run/secrets/ivy_password
     Email: admin@localhost.com

@@ -8,5 +8,5 @@ SystemDb:
     useSSL: false
     allowPublicKeyRetrieval: true
 Administrators:
-  - Name: admin
+  admin:
     Password: admin
