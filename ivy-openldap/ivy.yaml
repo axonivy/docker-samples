@@ -7,11 +7,17 @@ SecuritySystems:
   # Security System 'OpenLdap'
   OpenLdap:
     # We do not officially support OpenLdap. Instead we use the Novell eDirectory provider which fits best
-    Provider: "Novell eDirectory" 
-    Url: "ldap://openldap:389"
-    UserName: "cn=admin,dc=example,dc=org"
-    Password: admin
-    DefaultContext: "dc=example,dc=org"
+    Provider: "Novell eDirectory"
+    
+    Connection:
+      Url: "ldap://openldap:389"
+      UserName: "cn=admin,dc=example,dc=org"
+      Password: admin
+    
+    Binding:
+      DefaultContext: "dc=example,dc=org"
+
     # OpenLdap specific configurations
-    UserNameAttribute: cn
-    UserFullNameAttribute: displayName
+    UserAttribute:
+      Name: cn
+      FullName: displayName
