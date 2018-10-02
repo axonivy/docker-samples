@@ -1,0 +1,4 @@
+ivy:
+  Administrators:
+    - Name: admin
+      Password: admin

@@ -1,0 +1,56 @@
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+
+  location ~ ivy/.*/System/ {
+       deny		 all;
+       return   	 404;
+  }
+
+  location /ivy/info/ {
+	deny		all;
+	return		404;
+  }
+
+  location /ivy/error {
+        deny            all;
+        return          404;
+  }
+
+  location /ivy/pagearchive {
+        deny all;
+        return 404;
+   }
+
+
+ location /ivy/ {
+        #include /etc/nginx/myhost-reverse.conf;
+        proxy_redirect                 off;
+        proxy_set_header               Host $host;
+        proxy_set_header               X-Real-IP $remote_addr;
+        proxy_set_header               X-Forwarded-For $proxy_add_x_forwarded_for;
+        add_header                     X-Cache-Status $upstream_cache_status;
+        proxy_pass                     http://ivy:8080/ivy/; # added
+        #increase if you want to upload large files
+        client_max_body_size           20m;
+        client_body_buffer_size        128k;
+        proxy_connect_timeout          90;
+        proxy_send_timeout             90;
+        proxy_read_timeout             90;
+        proxy_buffering                off;
+        proxy_redirect                 off;
+        recursive_error_pages          on;
+        proxy_http_version             1.1;
+        proxy_set_header               Connection "";
+    }
+
+	root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+        }
+
+}
