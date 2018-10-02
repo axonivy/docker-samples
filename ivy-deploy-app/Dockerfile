@@ -1,3 +1,14 @@
 FROM axonivy/axonivy-engine:dev
 
-RUN wget https://repo.axonivy.com/artifactory/libs-snapshot/ch/ivyteam/ivy/project/demo/ci/deploy/application/application/7.2.0-SNAPSHOT/application-7.2.0-SNAPSHOT.zip -O ${IVY_HOME}/deploy/myApp.zip
+#
+# Download full application zip from artifactory with downloadApp.sh
+# Quickly install downloadApp.sh and its dependencies with root user
+#
+USER root
+RUN apt-get update -y && apt-get install curl -y
+ADD downloadApp.sh ./downloadApp.sh
+RUN chmod ugo+x ./downloadApp.sh
+USER ivy
+
+# Download latest full application zip
+RUN ./downloadApp.sh ch/ivyteam/ivy/project/demo/ci/deploy/application application zip
