@@ -1,9 +1,5 @@
-ivy:
-  Elasticsearch:
-    ExternalServer:
-      Url: http://elasticsearch:9200
-      UserName: elastic
-      Password: changeme
-  Administrators:
-    admin:
-      Password: admin
+Elasticsearch:
+  ExternalServer:
+    Url: http://elasticsearch:9200
+    UserName: elastic
+    Password: changeme
