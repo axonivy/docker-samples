@@ -135,11 +135,10 @@ def assertBusinessData() {
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
-  sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp' --user elastic:changeme"
+  sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
 
   // 3. Query Elastic Search
-  input 'hey'
-  def response = sh (script: "wget -qO- http://localhost:9200/_cat/indices", returnStdout: true)
+  def response = sh (script: "curl http://localhost:9200/_cat/indices --user elastic:changeme", returnStdout: true)
   def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";  
   echo "elastic search response: $response"
   if (!response.contains(elasticSearchIndex)) {
