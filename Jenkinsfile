@@ -41,7 +41,7 @@ pipeline {
           ]
 
           
-          export VISUAL_VM_EXAMPLE_REMOTE_HOST_IP=`hostname --all-ip-addresses | awk '{print $1}'`
+          sh "export VISUAL_VM_EXAMPLE_REMOTE_HOST_IP=`hostname --all-ip-addresses | awk '{print $1}'`"
 
           examples.each { entry ->
             def example = entry.key;
@@ -57,7 +57,7 @@ pipeline {
             }
           }
 
-          unset VISUAL_VM_EXAMPLE_REMOTE_HOST_IP
+          sh "unset VISUAL_VM_EXAMPLE_REMOTE_HOST_IP"
         }
       }
     }
