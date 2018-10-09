@@ -32,15 +32,12 @@ pipeline {
             // 'ivy-db-mariadb': { assertIvyIsNotRunningInDemoMode() },
             // 'ivy-db-mssql': { assertIvyIsNotRunningInDemoMode() },
             // 'ivy-deploy-app': { assertAppIsDeployed("app") },
-
+            // 'ivy-elasticsearch': { assertBusinessData() },  
             // 'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
             // 'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of 'file:/opt/ivy/configuration/ivy.yaml[prefixed: ivy.]'") },
             // 'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             // 'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
-
-            
-            //'ivy-visualvm': { assertJmxConnection() },
-            'ivy-elasticsearch': { assertBusinessData() },  
+            'ivy-visualvm': { assertJmxConnection() },
           ]
 
           
@@ -150,7 +147,7 @@ def assertJmxConnection() {
   def creds = ['admin', 'admin'] as String[]
   def env = [ (JMXConnector.CREDENTIALS) : creds ]
   //def serverUrl = 'service:jmx:rmi:///jndi/rmi://192.168.3.136:9003/jmxrmi'
-  def serverUrl = 'service:jmx:rmi:///jndi/rmi://localhost:9003/jmxrmi'
+  def serverUrl = 'service:jmx:rmi:///jndi/rmi://127.0.0.1:9003/jmxrmi'
   String beanName = "ivy Engine:type=Application,name=System"
   echo "try to connect $serverUrl with env $env to bean $beanName"
 
