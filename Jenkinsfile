@@ -38,10 +38,11 @@ pipeline {
             // 'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             // 'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
 
-            'ivy-visualvm': { assertJmxConnection() },
+            
+            //'ivy-visualvm': { assertJmxConnection() },
+            'ivy-elasticsearch': { assertBusinessData() },  
           ]
 
-          //'ivy-elasticsearch': { assertBusinessData() },  
           
           //export VISUAL_VM_EXAMPLE_REMOTE_HOST_IP=
 
@@ -129,7 +130,18 @@ def assertLogin(application, user, password) {
 }
 
 def assertBusinessData() {
-  // 1. Deploy Demo to new app
+  // 1. Deploy Test Project
+  sh "docker cp test.iar ivyelasticsearch_ivy_1:/opt/ivy/deploy/test.zip"
+
+  // 2. Execute Process which create business data
+  sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
+
+  // 3. Query Elastic Search
+  def response = sh (script: "wget -qO- http://localhost:9200/_cat/indices", returnStdout: true)
+  def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";
+  if (!response.contains(elasticSearchIndex)) {
+    writeWarnLog("could not find elastic search index $elasticSearchIndex in response $response")
+  }
 }
 
 def assertJmxConnection() {
