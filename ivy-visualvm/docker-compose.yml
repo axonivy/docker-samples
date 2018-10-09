@@ -5,5 +5,7 @@ services:
     ports:
      - "8080:8080"
      - "9003:9003"
+    environment:
+      VISUAL_VM_EXAMPLE_REMOTE_HOST_IP: ${VISUAL_VM_EXAMPLE_REMOTE_HOST_IP}
     volumes:
      - "./AxonIvyEngine.conf:/opt/ivy/bin/AxonIvyEngine.conf"
