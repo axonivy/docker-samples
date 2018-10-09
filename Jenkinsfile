@@ -40,9 +40,6 @@ pipeline {
             'ivy-visualvm': { assertJmxConnection() },
           ]
 
-          
-          sh "export VISUAL_VM_EXAMPLE_REMOTE_HOST_IP=`hostname --all-ip-addresses | awk '{print $1}'`"
-
           examples.each { entry ->
             def example = entry.key;
             def assertion = entry.value;
@@ -56,8 +53,6 @@ pipeline {
               dockerComposeDown(example)
             }
           }
-
-          sh "unset VISUAL_VM_EXAMPLE_REMOTE_HOST_IP"
         }
       }
     }
@@ -146,7 +141,7 @@ def assertBusinessData() {
 def assertJmxConnection() {
   def creds = ['admin', 'admin'] as String[]
   def env = [ (JMXConnector.CREDENTIALS) : creds ]
-  //def serverUrl = 'service:jmx:rmi:///jndi/rmi://192.168.3.136:9003/jmxrmi'
+  def serverUrl = 'service:jmx:rmi:///jndi/rmi://127.0.0.1:9003/jmxrmi'
   String beanName = "ivy Engine:type=Application,name=System"
   echo "try to connect $serverUrl with env $env to bean $beanName"
 
