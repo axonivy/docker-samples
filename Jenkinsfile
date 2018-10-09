@@ -131,14 +131,17 @@ def assertLogin(application, user, password) {
 
 def assertBusinessData() {
   // 1. Deploy Test Project
-  sh "docker cp test.iar ivyelasticsearch_ivy_1:/opt/ivy/deploy/test.zip"
+  sh "docker cp test.iar ivy-elasticsearch_ivy_1:/opt/ivy/deploy/test.zip"  
+  sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
-  sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
+  sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp' --user elastic:changeme"
 
   // 3. Query Elastic Search
+  input 'hey'
   def response = sh (script: "wget -qO- http://localhost:9200/_cat/indices", returnStdout: true)
-  def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";
+  def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";  
+  echo "elastic search response: $response"
   if (!response.contains(elasticSearchIndex)) {
     writeWarnLog("could not find elastic search index $elasticSearchIndex in response $response")
   }
