@@ -1,3 +1,7 @@
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXConnector
+
 pipeline {
   agent {
     label 'docker-compose'
@@ -22,21 +26,24 @@ pipeline {
       steps {
         script {
           def examples = [
-            'ivy': { assertIvyIsRunningInDemoMode() },
-            'ivy-db-postgres': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-db-mysql': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-db-mariadb': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-db-mssql': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-deploy-app': { assertAppIsDeployed("app") },
+            // 'ivy': { assertIvyIsRunningInDemoMode() },
+            // 'ivy-db-postgres': { assertIvyIsNotRunningInDemoMode() },
+            // 'ivy-db-mysql': { assertIvyIsNotRunningInDemoMode() },
+            // 'ivy-db-mariadb': { assertIvyIsNotRunningInDemoMode() },
+            // 'ivy-db-mssql': { assertIvyIsNotRunningInDemoMode() },
+            // 'ivy-deploy-app': { assertAppIsDeployed("app") },
 
-            'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of 'file:/opt/ivy/configuration/ivy.yaml[prefixed: ivy.]'") },
-            'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
-            'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
+            // 'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
+            // 'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of 'file:/opt/ivy/configuration/ivy.yaml[prefixed: ivy.]'") },
+            // 'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
+            // 'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
+
+            'ivy-visualvm': { assertJmxConnection() },
           ]
 
-          // 'ivy-elasticsearch': { assert() },
-          // 'ivy-visualvm': { assertJmxConnection() },
+          //'ivy-elasticsearch': { assertBusinessData() },  
+          
+          //export VISUAL_VM_EXAMPLE_REMOTE_HOST_IP=
 
           examples.each { entry ->
             def example = entry.key;
@@ -51,6 +58,8 @@ pipeline {
               dockerComposeDown(example)
             }
           }
+
+          //unset VISUAL_VM_EXAMPLE_REMOTE_HOST_IP
         }
       }
     }
@@ -119,14 +128,27 @@ def assertLogin(application, user, password) {
   }
 }
 
-// def assertJmxConnection() {
-//   wget 'http://crawler.archive.org/cmdline-jmxclient/cmdline-jmxclient-0.10.3.jar'
-//   def mbean = "'ivy Engine:type=Application,name=System'";
-//   def response = sh (script: "java -jar ./cmdline-jmxclient-0.10.3.jar admin:admin localhost:9003 $mbean", returnStdout: true)
-//   if (!response.contains("system: True if the current application is the system  application, otherwise false (type=java.lang.Boolean)")) {
-//     writeWarnLog("could not read $mbean via jmx")
-//   }
-// }
+def assertBusinessData() {
+  // 1. Deploy Demo to new app
+}
+
+def assertJmxConnection() {
+  def creds = ['admin', 'admin'] as String[]
+  def env = [ (JMXConnector.CREDENTIALS) : creds ]
+  //def serverUrl = 'service:jmx:rmi:///jndi/rmi://192.168.3.136:9003/jmxrmi'
+  def serverUrl = 'service:jmx:rmi:///jndi/rmi://localhost:9003/jmxrmi'
+  String beanName = "ivy Engine:type=Application,name=System"
+  echo "try to connect $serverUrl with env $env to bean $beanName"
+
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+  def dataSystem = new GroovyMBean(server, beanName)
+  echo "jmx connected to:\n$dataSystem\n"
+
+  def systemAttribute = dataSystem.getProperty("system");
+  if (systemAttribute == false) {
+    writeWarnLog("jmx attribute 'system' must be set to true of the system application, but was $systemAttribute")
+  }
+}
 
 def writeWarnLog(message) {
   currentBuild.result = 'UNSTABLE'
