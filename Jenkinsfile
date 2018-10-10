@@ -106,7 +106,7 @@ def assertAppIsDeployed(applicationName) {
 def assertIvyConsoleLog(folder, message) {
   def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
   if (!log.contains(message)) {
-    writeWarnLog("console log of ivy does not contain $message")
+    writeWarnLog("console log of ivy does not contain $message. log: $log")
   }
 }
 
