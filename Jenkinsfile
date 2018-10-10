@@ -30,7 +30,7 @@ pipeline {
             'ivy-deploy-app': { assertAppIsDeployed("app") },
             'ivy-elasticsearch': { assertBusinessData() },  
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of 'file:/opt/ivy/configuration/ivy.yaml[prefixed: ivy.]'") },
+            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of 'file:/opt/ivy/configuration/ivy.yaml'") },
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
             // 'ivy-visualvm': { assertJmxConnection() },
@@ -106,7 +106,7 @@ def assertAppIsDeployed(applicationName) {
 def assertIvyConsoleLog(folder, message) {
   def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
   if (!log.contains(message)) {
-    writeWarnLog("console log of ivy does not contain $message. log: $log")
+    writeWarnLog("console log of ivy does not contain $message.")
   }
 }
 
