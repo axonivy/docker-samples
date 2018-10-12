@@ -32,6 +32,7 @@ pipeline {
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
             'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of 'file:/opt/ivy/configuration/ivy.yaml'") },
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
+            'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
             // 'ivy-visualvm': { assertJmxConnection() },
           ]
@@ -115,6 +116,12 @@ def assertLogin(application, user, password) {
   if (!htmlResponse.contains("Logged in as $user")) {
     writeWarnLog("could not login to application $application as $user")
   }
+}
+
+def assertPatching() {
+  def sample = "ivy-patching"
+  assertIvyConsoleLog(sample, "Install patches for classes: ch.ivyteam.ivy.globalvars.GlobalVariableManager")
+  assertIvyConsoleLog(sample, "This Global Variable has been patched for Demo Purpose")
 }
 
 def assertBusinessData() {
