@@ -106,7 +106,7 @@ def assertAppIsDeployed(applicationName) {
 }
 
 def assertIvyConsoleLog(folder, message) {
-  def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
+  def log = sh (script: "docker-compose -f $folder/docker-compose.yml ivy logs", returnStdout: true)
   if (!log.contains(message)) {
     writeWarnLog("console log of ivy does not contain $message.")
     writeDockerLog(folder)
@@ -114,7 +114,7 @@ def assertIvyConsoleLog(folder, message) {
 }
 
 def assertNoErrorOrWarnInIvyLog(folder) {
-  def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
+  def log = sh (script: "docker-compose -f $folder/docker-compose.yml ivy logs", returnStdout: true)
   if (log.contains("WARN")) {
     writeWarnLog("console log of ivy contains a warn")
     writeDockerLog(folder)
@@ -161,7 +161,7 @@ def writeWarnLog(message) {
 }
 
 def writeDockerLog(folder) {
-  sh "docker-compose -f $folder/docker-compose.yml logs >> warn.log"
+  sh "docker-compose -f $folder/docker-compose.yml ivy logs >> warn.log"
 }
 
 // Does not work, because build node connect to 127.0.0.1
