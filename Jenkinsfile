@@ -34,7 +34,7 @@ pipeline {
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
-            // 'ivy-visualvm': { assertJmxConnection() },
+            //'ivy-visualvm': { assertJmxConnection() },
           ]
 
           examples.each { entry ->
@@ -164,21 +164,13 @@ def writeDockerLog(folder) {
   sh "docker-compose -f $folder/docker-compose.yml logs ivy >> warn.log"
 }
 
-// Does not work, because build node connect to 127.0.0.1
-// def assertJmxConnection() {
-//   def creds = ['admin', 'admin'] as String[]
-//   def env = [ (javax.management.remote.JMXConnector.CREDENTIALS) : creds ]
-//   def serverUrl = 'service:jmx:rmi:///jndi/rmi://127.0.0.1:9003/jmxrmi'
-//   String beanName = "ivy Engine:type=Application,name=System"
-//   echo "try to connect $serverUrl with env $env to bean $beanName"
-
-//   def jmxUrl = new javax.management.remote.JMXServiceURL(serverUrl)
-//   def server = javax.management.remote.JMXConnectorFactory.connect(jmxUrl, env).MBeanServerConnection
-//   def dataSystem = new GroovyMBean(server, beanName)
-//   echo "jmx connected to:\n$dataSystem\n"
-
-//   def systemAttribute = dataSystem.getProperty("system");
-//   if (systemAttribute == false) {
-//     writeWarnLog("jmx attribute 'system' must be set to true of the system application, but was $systemAttribute")
-//   }
-// }
+def assertJmxConnection() {
+  sh 'wget https://github.com/weissreto/jmx-cli/releases/download/v0.1.0/jmx-cli-0.1.0-linux.zip'
+  sh "docker cp jmx-cli-0.1.0-linux.zip ivy-visualvm_ivy_1:/var/jmx-cli.zip"
+  sh "docker exec ivy-visualvm_ivy_1 unzip /var/jmx-cli.zip"
+  def stdout = sh (script: "docker exec -t ivy-visualvm_ivy_1 /opt/ivy/jmx-cli-0.1.0/bin/jmcli list beans", returnStdout: true)
+  if (!stdout.contains("ivy Engine:type=Service,name=Page Engine System/AdminUI"))
+  {
+    writeWarnLog("stdout does not contain a mbean for admin")
+  }
+}
