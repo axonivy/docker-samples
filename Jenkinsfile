@@ -86,35 +86,35 @@ def waitUntilIvyIsRunning() {
 def assertIvyIsRunningInDemoMode() {
   def responseHtml = sh (script: "wget -qO- http://localhost:8080/ivy/info/index.jsp", returnStdout: true)
   if (!responseHtml.contains('Demo Mode')) {      
-    writeWarnLog('ivy is not running in demo mode')
+    writeWarnLog("ivy is not running in demo mode. responseHtml: $responseHtml")
   }
 }
 
 def assertIvyIsNotRunningInDemoMode() {
   def responseHtml = sh (script: "wget -qO- http://localhost:8080/ivy/info/index.jsp", returnStdout: true)
   if (responseHtml.contains('Demo Mode')) {      
-    writeWarnLog('ivy is running in demo mode')
+    writeWarnLog("ivy is running in demo mode. responseHtml: $responseHtml")
   }
 }
 
 def assertAppIsDeployed(applicationName) {
   def responseHtml = sh (script: "wget -qO- http://localhost:8080/ivy/wf/$applicationName/applicationHome", returnStdout: true)
   if (!responseHtml.contains("This is the home of the application $applicationName")) {
-    writeWarnLog("application $applicationName is not deployed")
+    writeWarnLog("application $applicationName is not deployed. responseHtml: $responseHtml")
   }
 }
 
 def assertIvyConsoleLog(folder, message) {
   def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
   if (!log.contains(message)) {
-    writeWarnLog("console log of ivy does not contain $message.")
+    writeWarnLog("console log of ivy does not contain $message. log: $log")
   }
 }
 
 def assertLogin(application, user, password) {
   def htmlResponse = sh (script: "curl 'http://localhost:8080/ivy/wf/$application/login.jsp' --data 'username=$user&password=$password' -L -i -b cookie.txt", returnStdout: true)
   if (!htmlResponse.contains("Logged in as $user")) {
-    writeWarnLog("could not login to application $application as $user")
+    writeWarnLog("could not login to application $application as $user. htmlResponse: $htmlResponse")
   }
 }
 
@@ -143,7 +143,7 @@ def assertBusinessData() {
 
 def writeWarnLog(message) {
   currentBuild.result = 'UNSTABLE'
-  sh "echo $message >> warn.log"
+  sh "echo \"$message\" >> warn.log"
 }
 
 // Does not work, because build node connect to 127.0.0.1
