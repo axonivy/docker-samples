@@ -46,6 +46,7 @@ pipeline {
               dockerComposeUp(example)
               waitUntilIvyIsRunning()
               assertion.call()
+              assertNoErrorOrWarnInIvyLog(example)
             } finally {
               dockerComposeDown(example)
             }
@@ -108,6 +109,16 @@ def assertIvyConsoleLog(folder, message) {
   def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
   if (!log.contains(message)) {
     writeWarnLog("console log of ivy does not contain $message. log: $log")
+  }
+}
+
+def assertNoErrorOrWarnInIvyLog(folder) {
+  def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
+  if (log.contains("WARN")) {
+    writeWarnLog("console log of ivy contains a warn. log: $log")
+  }
+  if (log.contains("ERROR")) {
+    writeWarnLog("console log of ivy contains an error. log: $log")
   }
 }
 
