@@ -108,17 +108,20 @@ def assertAppIsDeployed(applicationName) {
 def assertIvyConsoleLog(folder, message) {
   def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
   if (!log.contains(message)) {
-    writeWarnLog("console log of ivy does not contain $message. log: $log")
+    writeWarnLog("console log of ivy does not contain $message.")
+    writeDockerLog(folder)
   }
 }
 
 def assertNoErrorOrWarnInIvyLog(folder) {
   def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs", returnStdout: true)
   if (log.contains("WARN")) {
-    writeWarnLog("console log of ivy contains a warn. log: $log")
+    writeWarnLog("console log of ivy contains a warn")
+    writeDockerLog(folder)
   }
   if (log.contains("ERROR")) {
-    writeWarnLog("console log of ivy contains an error. log: $log")
+    writeWarnLog("console log of ivy contains an error")
+    writeDockerLog(folder)
   }
 }
 
@@ -155,6 +158,10 @@ def assertBusinessData() {
 def writeWarnLog(message) {
   currentBuild.result = 'UNSTABLE'
   sh "echo \"$message\" >> warn.log"
+}
+
+def writeDockerLog(folder) {
+  sh "docker-compose -f $folder/docker-compose.yml logs >> warn.log"
 }
 
 // Does not work, because build node connect to 127.0.0.1
