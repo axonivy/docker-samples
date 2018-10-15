@@ -30,7 +30,7 @@ pipeline {
             'ivy-deploy-app': { assertAppIsDeployed("app") },
             'ivy-elasticsearch': { assertBusinessData() },  
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of 'file:/opt/ivy/configuration/ivy.yaml'") },
+            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/opt/ivy/configuration/ivy.yaml'") },
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
