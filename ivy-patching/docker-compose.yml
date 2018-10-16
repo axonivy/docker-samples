@@ -5,4 +5,4 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - "./GlobalVariableManager.class:/opt/ivy/system/patches/ch/ivyteam/ivy/globalvars/GlobalVariableManager.class"
+     - "./GlobalVariableManager.class:/opt/ivy/system/patches/ch.ivyteam.ivy.globalvars.GlobalVariableManager.class"
