@@ -34,7 +34,7 @@ pipeline {
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
-            //'ivy-visualvm': { assertJmxConnection() },
+            'ivy-visualvm': { assertJmxConnection() },
           ]
 
           examples.each { entry ->
@@ -47,6 +47,10 @@ pipeline {
               waitUntilIvyIsRunning()
               assertion.call()
               assertNoErrorOrWarnInIvyLog(example)
+            } catch (ex) {
+              currentBuild.result = 'UNSTABLE'
+              sh "echo \"${ex.message}\" >> warn.log"
+              writeDockerLog(example);
             } finally {
               dockerComposeDown(example)
             }
@@ -63,16 +67,21 @@ pipeline {
   }
 }
 
+
 def pullEngineImage() {
   sh 'docker pull axonivy/axonivy-engine:dev'
 }
 
-def dockerComposeUp(folder) {
-  sh "docker-compose -f $folder/docker-compose.yml up -d"
+def dockerComposeUp(example) {
+  sh "docker-compose -f $example/docker-compose.yml up -d"
 }
 
-def dockerComposeDown(folder) {
-  sh "docker-compose -f $folder/docker-compose.yml down"
+def dockerComposeDown(example) {
+  sh "docker-compose -f $example/docker-compose.yml down"
+}
+
+def writeDockerLog(example) {
+  sh "docker-compose -f $example/docker-compose.yml logs ivy >> warn.log"
 }
 
 def waitUntilIvyIsRunning() {
@@ -85,51 +94,52 @@ def waitUntilIvyIsRunning() {
 }
 
 def assertIvyIsRunningInDemoMode() {
-  def responseHtml = sh (script: "wget -qO- http://localhost:8080/ivy/info/index.jsp", returnStdout: true)
-  if (!responseHtml.contains('Demo Mode')) {      
-    writeWarnLog("ivy is not running in demo mode. responseHtml: $responseHtml")
+  if (!isIvyRunningInDemoMode()) {
+    throw new Exception("ivy is not running in demo mode")
   }
 }
 
 def assertIvyIsNotRunningInDemoMode() {
-  def responseHtml = sh (script: "wget -qO- http://localhost:8080/ivy/info/index.jsp", returnStdout: true)
-  if (responseHtml.contains('Demo Mode')) {      
-    writeWarnLog("ivy is running in demo mode. responseHtml: $responseHtml")
+  if (isIvyRunningInDemoMode()) {      
+    throw new Exception("ivy is running in demo mode")
   }
 }
 
-def assertAppIsDeployed(applicationName) {
-  def responseHtml = sh (script: "wget -qO- http://localhost:8080/ivy/wf/$applicationName/applicationHome", returnStdout: true)
-  if (!responseHtml.contains("This is the home of the application $applicationName")) {
-    writeWarnLog("application $applicationName is not deployed. responseHtml: $responseHtml")
+def isIvyRunningInDemoMode() {
+  def response = sh (script: "wget -qO- http://localhost:8080/ivy/info/index.jsp", returnStdout: true)
+  return response.contains('Demo Mode')
+}
+
+def assertLogin(appName, user, password) {
+  def response = sh (script: "curl 'http://localhost:8080/ivy/wf/$appName/login.jsp' --data 'username=$user&password=$password' -L -i -b cookie.txt", returnStdout: true)
+  if (!response.contains("Logged in as $user")) {
+    throw new Exception("could not login to app $appName as $user");
   }
 }
 
-def assertIvyConsoleLog(folder, message) {
-  def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs ivy", returnStdout: true)
+def assertAppIsDeployed(appName) {
+  def response = sh (script: "wget -qO- http://localhost:8080/ivy/wf/$appName/applicationHome", returnStdout: true)
+  if (!response.contains("This is the home of the application $appName")) {
+    throw new Exception("app $appName is not deployed");
+  }
+}
+
+def assertIvyConsoleLog(example, message) {
+  def log = getIvyConsoleLog(example)
   if (!log.contains(message)) {
-    writeWarnLog("console log of ivy does not contain $message.")
-    writeDockerLog(folder)
+    throw new Exception("console log of ivy does not contain $message");
   }
 }
 
-def assertNoErrorOrWarnInIvyLog(folder) {
-  def log = sh (script: "docker-compose -f $folder/docker-compose.yml logs ivy", returnStdout: true)
-  if (log.contains("WARN")) {
-    writeWarnLog("console log of ivy contains a warn")
-    writeDockerLog(folder)
-  }
-  if (log.contains("ERROR")) {
-    writeWarnLog("console log of ivy contains an error")
-    writeDockerLog(folder)
+def assertNoErrorOrWarnInIvyLog(example) {
+  def log = getIvyConsoleLog(example)
+  if (log.contains("WARN") || log.contains("ERROR")) {
+    throw new Exception("console log of ivy contains WARN/ERROR messages");
   }
 }
 
-def assertLogin(application, user, password) {
-  def htmlResponse = sh (script: "curl 'http://localhost:8080/ivy/wf/$application/login.jsp' --data 'username=$user&password=$password' -L -i -b cookie.txt", returnStdout: true)
-  if (!htmlResponse.contains("Logged in as $user")) {
-    writeWarnLog("could not login to application $application as $user. htmlResponse: $htmlResponse")
-  }
+def getIvyConsoleLog(example) {
+  return sh (script: "docker-compose -f $example/docker-compose.yml logs ivy", returnStdout: true)
 }
 
 def assertPatching() {
@@ -151,26 +161,17 @@ def assertBusinessData() {
   def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";  
   echo "elastic search response: $response"
   if (!response.contains(elasticSearchIndex)) {
-    writeWarnLog("could not find elastic search index $elasticSearchIndex in response $response")
+    throw new Exception("could not find elastic search index $elasticSearchIndex in response $response");
   }
 }
 
-def writeWarnLog(message) {
-  currentBuild.result = 'UNSTABLE'
-  sh "echo \"$message\" >> warn.log"
-}
-
-def writeDockerLog(folder) {
-  sh "docker-compose -f $folder/docker-compose.yml logs ivy >> warn.log"
-}
-
-def assertJmxConnection() {
-  sh 'wget https://github.com/weissreto/jmx-cli/releases/download/v0.1.0/jmx-cli-0.1.0-linux.zip'
-  sh "docker cp jmx-cli-0.1.0-linux.zip ivy-visualvm_ivy_1:/var/jmx-cli.zip"
-  sh "docker exec ivy-visualvm_ivy_1 unzip /var/jmx-cli.zip"
-  def stdout = sh (script: "docker exec -t ivy-visualvm_ivy_1 /opt/ivy/jmx-cli-0.1.0/bin/jmcli list beans", returnStdout: true)
-  if (!stdout.contains("ivy Engine:type=Service,name=Page Engine System/AdminUI"))
-  {
-    writeWarnLog("stdout does not contain a mbean for admin")
-  }
-}
+//def assertJmxConnection() {
+//  sh 'wget https://github.com/weissreto/jmx-cli/releases/download/v0.1.0/jmx-cli-0.1.0-linux.zip'
+//  sh "docker cp jmx-cli-0.1.0-linux.zip ivy-visualvm_ivy_1:/var/jmx-cli.zip"
+//  sh "docker exec ivy-visualvm_ivy_1 unzip /var/jmx-cli.zip"
+//  def stdout = sh (script: "docker exec -t ivy-visualvm_ivy_1 /opt/ivy/jmx-cli-0.1.0/bin/jmcli list beans", returnStdout: true)
+//  if (!stdout.contains("ivy Engine:type=Service,name=Page Engine System/AdminUI"))
+//  {
+//    writeWarnLog("stdout does not contain a mbean for admin")
+//  }
+//}
