@@ -34,7 +34,7 @@ pipeline {
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-visualvm': { assertJmxConnection() },
+            //'ivy-visualvm': { assertJmxConnection() },
           ]
 
           examples.each { entry ->
