@@ -34,7 +34,6 @@ pipeline {
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
-            //'ivy-visualvm': { assertJmxConnection() },
           ]
 
           examples.each { entry ->
@@ -164,14 +163,3 @@ def assertBusinessData() {
     throw new Exception("could not find elastic search index $elasticSearchIndex in response $response");
   }
 }
-
-//def assertJmxConnection() {
-//  sh 'wget https://github.com/weissreto/jmx-cli/releases/download/v0.1.0/jmx-cli-0.1.0-linux.zip'
-//  sh "docker cp jmx-cli-0.1.0-linux.zip ivy-visualvm_ivy_1:/var/jmx-cli.zip"
-//  sh "docker exec ivy-visualvm_ivy_1 unzip /var/jmx-cli.zip"
-//  def stdout = sh (script: "docker exec -t ivy-visualvm_ivy_1 /opt/ivy/jmx-cli-0.1.0/bin/jmcli list beans", returnStdout: true)
-//  if (!stdout.contains("ivy Engine:type=Service,name=Page Engine System/AdminUI"))
-//  {
-//    writeWarnLog("stdout does not contain a mbean for admin")
-//  }
-//}
