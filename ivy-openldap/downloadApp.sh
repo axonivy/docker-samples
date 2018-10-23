@@ -17,4 +17,4 @@ url=$path/$version/$file
 
 # Download
 echo $url
-wget -O /usr/lib/axonivy-engine/deploy/app.zip -q -N $url
+wget -O /usr/lib/axonivy-engine/deploy/ldap.zip -q -N $url
