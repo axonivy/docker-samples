@@ -6,8 +6,8 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - "../demo-licence.lic:/opt/ivy/configuration/demo-licence.lic"
-     - "./ivy.yaml:/opt/ivy/configuration/ivy.yaml"
+     - "../demo-licence.lic:/usr/lib/axonivy-engine/configuration/demo-licence.lic"
+     - "./ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml"
     depends_on:
      - db
     secrets:

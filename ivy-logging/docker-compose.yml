@@ -3,7 +3,7 @@ services:
   ivy:
     image: "axonivy/axonivy-engine:dev"
     volumes:
-     - "./log4jconfig.xml:/opt/ivy/configuration/log4jconfig.xml"
+     - "./log4jconfig.xml:/usr/lib/axonivy-engine/configuration/log4jconfig.xml"
     ports:
      - "8080:8080"
 

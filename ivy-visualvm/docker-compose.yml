@@ -6,4 +6,4 @@ services:
      - "8080:8080"
      - "9003:9003"
     volumes:
-     - "./AxonIvyEngine.conf:/opt/ivy/bin/AxonIvyEngine.conf"
+     - "./AxonIvyEngine.conf:/usr/lib/axonivy-engine/bin/AxonIvyEngine.conf"

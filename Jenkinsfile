@@ -30,7 +30,7 @@ pipeline {
             'ivy-deploy-app': { assertAppIsDeployed("app") },
             'ivy-elasticsearch': { assertBusinessData() },  
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/opt/ivy/configuration/ivy.yaml'") },
+            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/usr/lib/axonivy-engine-7x/configuration/ivy.yaml'") },
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
@@ -149,7 +149,7 @@ def assertPatching() {
 
 def assertBusinessData() {
   // 1. Deploy Test Project
-  sh "docker cp test.iar ivy-elasticsearch_ivy_1:/opt/ivy/deploy/test.zip"  
+  sh "docker cp test.iar ivy-elasticsearch_ivy_1:/usr/lib/axonivy-engine/deploy/test.zip"  
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
