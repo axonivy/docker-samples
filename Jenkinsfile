@@ -51,9 +51,11 @@ pipeline {
               currentBuild.result = 'UNSTABLE'
               echo ex.message
               sh "echo \"${ex.message}\" >> warn.log"
+              sh 'cat docker-compose-up.log >> warn.log'
               writeDockerLog(example);
-              echo getIvyConsoleLog(example)
             } finally {
+              sh 'rm docker-compose-up.log'
+              echo getIvyConsoleLog(example)
               dockerComposeDown(example)
               echo "==========================================================="
             }
@@ -76,7 +78,7 @@ def pullEngineImage() {
 }
 
 def dockerComposeUp(example) {
-  sh "docker-compose -f $example/docker-compose.yml up -d"
+  sh "docker-compose -f $example/docker-compose.yml up -d > docker-compose-up.log"
 }
 
 def dockerComposeDown(example) {
