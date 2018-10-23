@@ -49,8 +49,8 @@ pipeline {
               assertNoErrorOrWarnInIvyLog(example)
             } catch (ex) {
               currentBuild.result = 'UNSTABLE'
-              echo ex.message
-              sh "echo \"${ex.message}\" >> warn.log"
+              echo ex.getMessage()
+              sh "echo \"${ex.getMessage()}\" >> warn.log"
               sh 'cat docker-compose-up.log >> warn.log'
               writeDockerLog(example);
             } finally {
