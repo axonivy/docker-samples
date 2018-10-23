@@ -41,7 +41,7 @@ pipeline {
             def assertion = entry.value;
 
             echo "==========================================================="
-            echo "START TESTING $example"
+            echo "START TESTING EXAMPLE $example"
             try {
               dockerComposeUp(example)
               waitUntilIvyIsRunning()
@@ -52,6 +52,7 @@ pipeline {
               echo ex.message
               sh "echo \"${ex.message}\" >> warn.log"
               writeDockerLog(example);
+              echo getIvyConsoleLog(example)
             } finally {
               dockerComposeDown(example)
               echo "==========================================================="
