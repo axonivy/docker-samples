@@ -40,6 +40,7 @@ pipeline {
             def example = entry.key;
             def assertion = entry.value;
 
+            echo "==========================================================="
             echo "START TESTING $example"
             try {
               dockerComposeUp(example)
@@ -48,10 +49,12 @@ pipeline {
               assertNoErrorOrWarnInIvyLog(example)
             } catch (ex) {
               currentBuild.result = 'UNSTABLE'
+              echo ex.message
               sh "echo \"${ex.message}\" >> warn.log"
               writeDockerLog(example);
             } finally {
               dockerComposeDown(example)
+              echo "==========================================================="
             }
           }
         }
