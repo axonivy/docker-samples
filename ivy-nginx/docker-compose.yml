@@ -2,9 +2,12 @@ version: '3.3'
 services:
   ivy:
     image: "axonivy/axonivy-engine:dev"
+    volumes:
+     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
   frontend:
     image: "nginx"
     ports:
      - "80:80"
     volumes:
      - "./ivy.conf:/etc/nginx/conf.d/default.conf"
+     - "./ivy-reverse.conf:/etc/nginx/ivy-reverse.conf"
