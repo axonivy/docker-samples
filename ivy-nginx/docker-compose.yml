@@ -2,6 +2,8 @@ version: '3.3'
 services:
   ivy:
     image: "axonivy/axonivy-engine:dev"
+    ports:
+     - "8080:8080"
     volumes:
      - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
   frontend:
