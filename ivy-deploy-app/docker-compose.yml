@@ -3,6 +3,6 @@ services:
   ivy:
     build: .
     volumes:
-     - "./ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml"
+     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
     ports:
      - "8080:8080"

@@ -6,7 +6,7 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - "../demo-licence.lic:/usr/lib/axonivy-engine/configuration/demo-licence.lic"
+     - "../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic"
     environment:
       IVY_SYSTEMDB_DRIVER: com.mysql.jdbc.Driver
       IVY_SYSTEMDB_URL: jdbc:mysql://db:3306/AxonIvySystemDatabase
