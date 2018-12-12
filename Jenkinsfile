@@ -32,8 +32,8 @@ pipeline {
             'ivy-elasticsearch-cluster': { assertBusinessData("ivy-elasticsearch-cluster_elasticsearch3_1", 9201) },  
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
             'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-7x/ivy.yaml'") },
-            'ivy-reverse-proxy-nginx': { assertFrontendServer() },
-            'ivy-reverse-proxy-apache': { assertFrontendServer() },
+            'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
+            'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
@@ -156,10 +156,17 @@ def assertPatching() {
   assertIvyConsoleLog(sample, "This Global Variable has been patched for Demo Purpose")
 }
 
-def assertFrontendServer() {
+def assertFrontendServerNginx() {
   def response = sh (script: "wget -qO- http://localhost/", returnStdout: true)
   if (!response.contains('Welcome')) {
     throw new Exception("frontend server does not redirect to portal login page");
+  }
+}
+
+def assertFrontendServerApache() {
+  def response = sh (script: "wget -qO- http://localhost/", returnStdout: true)
+  if (!response.contains('Demo')) {
+    throw new Exception("frontend server does not route to ivy");
   }
 }
 
