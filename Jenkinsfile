@@ -32,6 +32,7 @@ pipeline {
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
             'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-7x/ivy.yaml'") },
             'ivy-reverse-proxy-nginx': { assertFrontendServer() },
+            'ivy-reverse-proxy-apache': { assertFrontendServer() },
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
