@@ -190,6 +190,9 @@ def assertElasticsearchCluster() {
   // 2. Execute Process which create business data
   sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
 
+  // wait until cluster is green, needs some time...
+  sleep(10)
+
   // 3. All Nodes are available
   checkElasticsearchHealth(9201);
   checkElasticsearchHealth(9202);
