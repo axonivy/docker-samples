@@ -202,7 +202,7 @@ def assertElasticsearchCluster() {
 }
 
 def checkElasticsearchHealth(port) {
-  def response = sh (script: "curl http://localhost:$port/_cat/health--user elastic:changeme", returnStdout: true)
+  def response = sh (script: "curl http://localhost:$port/_cat/health --user elastic:changeme", returnStdout: true)
   if (!response.contains("green")) {
     throw new Exception("elasticsearch node health is not green");
   }
