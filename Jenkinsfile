@@ -191,7 +191,7 @@ def assertElasticsearchCluster() {
   sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
 
   // wait until cluster is green, needs some time...
-  sleep(10)
+  sleep(15)
 
   // 3. All Nodes are available
   checkElasticsearchHealth(9201);
@@ -208,7 +208,7 @@ def checkElasticsearchHealth(port) {
   def url = "http://localhost:$port/_cat/health"
   def response = sh (script: "curl $url  --user elastic:changeme", returnStdout: true)
   if (!response.contains("green")) {
-    throw new Exception("elasticsearch node health is not green $url");
+    throw new Exception("elasticsearch node health is not green $url response: $response");
   }
 }
 
