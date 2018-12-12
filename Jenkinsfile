@@ -29,7 +29,7 @@ pipeline {
             'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
             'ivy-deploy-app': { assertAppIsDeployed("app") },
             'ivy-elasticsearch': { assertBusinessData("ivy-elasticsearch_ivy_1", 9200) },  
-            'ivy-elasticsearch-cluster': { assertBusinessData("ivy-elasticsearch_ivy_1", 9203) },  
+            'ivy-elasticsearch-cluster': { assertBusinessData("ivy-elasticsearch-cluster_ivy_1", 9203) },  
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
             'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-7x/ivy.yaml'") },
             'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
