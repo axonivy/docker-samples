@@ -202,7 +202,7 @@ def assertElasticsearchCluster() {
 }
 
 def checkElasticsearchHealth(port) {
-  $url = "http://localhost:$port/_cat/health"
+  def url = "http://localhost:$port/_cat/health"
   def response = sh (script: "curl $url  --user elastic:changeme", returnStdout: true)
   if (!response.contains("green")) {
     throw new Exception("elasticsearch node health is not green $url");
@@ -210,7 +210,7 @@ def checkElasticsearchHealth(port) {
 }
 
 def checkBusinessDataIndex(port) {
-  $url = "http://localhost:$port/_cat/indices"
+  def url = "http://localhost:$port/_cat/indices"
   def response = sh (script: "curl $url --user elastic:changeme", returnStdout: true)
   def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";  
   echo "elastic search response: $response"
