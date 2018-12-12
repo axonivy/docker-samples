@@ -23,10 +23,10 @@ pipeline {
         script {
           def examples = [
             'ivy': { assertIvyIsRunningInDemoMode() },
-            'ivy-db-postgres': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-db-mysql': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-db-mariadb': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-db-mssql': { assertIvyIsNotRunningInDemoMode() },
+            'ivy-systemdb-postgres': { assertIvyIsNotRunningInDemoMode() },
+            'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
+            'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
+            'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
             'ivy-deploy-app': { assertAppIsDeployed("app") },
             'ivy-elasticsearch': { assertBusinessData() },  
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
