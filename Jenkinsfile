@@ -28,8 +28,8 @@ pipeline {
             'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
             'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
             'ivy-deploy-app': { assertAppIsDeployed("app") },
-            'ivy-elasticsearch': { assertBusinessData("ivy-elasticsearch_ivy_1", 9200) },  
-            'ivy-elasticsearch-cluster': { assertBusinessData("ivy-elasticsearch-cluster_ivy_1", 9203) },  
+            'ivy-elasticsearch': { assertElasticsearch() },  
+            'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
             'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-7x/ivy.yaml'") },
             'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
@@ -170,16 +170,46 @@ def assertFrontendServerApache() {
   }
 }
 
-def assertBusinessData(container, elasticPort) {
+def assertElasticsearch() {
   // 1. Deploy Test Project
-  sh "docker cp test.iar $container:/usr/lib/axonivy-engine/deploy/test.zip"  
+  sh "docker cp test.iar ivy-elasticsearch_ivy_1:/usr/lib/axonivy-engine/deploy/test.zip"  
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
   sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
 
   // 3. Query Elastic Search
-  def response = sh (script: "curl http://localhost:$elasticPort/_cat/indices --user elastic:changeme", returnStdout: true)
+  checkBusinessDataIndex(9200); 
+}
+
+def assertElasticsearchCluster() {
+  // 1. Deploy Test Project
+  sh "docker cp test.iar ivy-elasticsearch-cluster_ivy_1:/usr/lib/axonivy-engine/deploy/test.zip"  
+  sleep(5) // wait until is deployed
+
+  // 2. Execute Process which create business data
+  sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
+
+  // 3. All Nodes are available
+  checkElasticsearchHealth(9201);
+  checkElasticsearchHealth(9202);
+  checkElasticsearchHealth(9203);  
+
+  // 3. Query Elastic Search
+  checkBusinessDataIndex(9201);
+  checkBusinessDataIndex(9202);
+  checkBusinessDataIndex(9203);  
+}
+
+def checkElasticsearchHealth(port) {
+  def response = sh (script: "curl http://localhost:$port/_cat/health--user elastic:changeme", returnStdout: true)
+  if (!response.contains("green")) {
+    throw new Exception("elasticsearch node health is not green");
+  }
+}
+
+def checkBusinessDataIndex(port) {
+  def response = sh (script: "curl http://localhost:$port/_cat/indices --user elastic:changeme", returnStdout: true)
   def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";  
   echo "elastic search response: $response"
   if (!response.contains(elasticSearchIndex)) {
