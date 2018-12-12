@@ -28,7 +28,8 @@ pipeline {
             'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
             'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
             'ivy-deploy-app': { assertAppIsDeployed("app") },
-            'ivy-elasticsearch': { assertBusinessData() },  
+            'ivy-elasticsearch': { assertBusinessData("ivy-elasticsearch_ivy_1", 9200) },  
+            'ivy-elasticsearch-cluster': { assertBusinessData("ivy-elasticsearch-cluster_elasticsearch3_1", 9201) },  
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
             'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-7x/ivy.yaml'") },
             'ivy-reverse-proxy-nginx': { assertFrontendServer() },
@@ -162,16 +163,16 @@ def assertFrontendServer() {
   }
 }
 
-def assertBusinessData() {
+def assertBusinessData(container, elasticPort) {
   // 1. Deploy Test Project
-  sh "docker cp test.iar ivy-elasticsearch_ivy_1:/usr/lib/axonivy-engine/deploy/test.zip"  
+  sh "docker cp test.iar $container:/usr/lib/axonivy-engine/deploy/test.zip"  
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
   sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
 
   // 3. Query Elastic Search
-  def response = sh (script: "curl http://localhost:9200/_cat/indices --user elastic:changeme", returnStdout: true)
+  def response = sh (script: "curl http://localhost:$elasticPort/_cat/indices --user elastic:changeme", returnStdout: true)
   def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";  
   echo "elastic search response: $response"
   if (!response.contains(elasticSearchIndex)) {

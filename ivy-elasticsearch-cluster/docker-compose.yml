@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+  ivy:
+    image: "axonivy/axonivy-engine:dev"
+    ports:
+     - "8080:8080"
+    volumes:
+     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
+    depends_on:
+     - elasticsearch1
+     - elasticsearch2
+     - elasticsearch3
+  elasticsearch1:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.3"    
+    ports:
+     - "9201:9200"
+    environment:
+      - cluster.name=elasticsearch-cluster
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"      
+  elasticsearch2:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
+    ports:
+     - "9202:9200"
+    environment:
+      - cluster.name=elasticsearch-cluster
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.zen.ping.unicast.hosts=elasticsearch1"
+  elasticsearch3:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
+    ports:
+     - "9203:9200"
+    environment:
+      - cluster.name=elasticsearch-cluster
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.zen.ping.unicast.hosts=elasticsearch1"
