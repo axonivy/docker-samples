@@ -164,7 +164,7 @@ def assertFrontendServerNginx() {
 }
 
 def assertFrontendServerApache() {
-  def response = sh (script: "wget -qO- http://localhost/", returnStdout: true)
+  def response = sh (script: "wget -qO- http://localhost/ivy", returnStdout: true)
   if (!response.contains('Demo')) {
     throw new Exception("frontend server does not route to ivy");
   }
