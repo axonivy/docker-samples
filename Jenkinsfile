@@ -207,7 +207,7 @@ def checkElasticsearchHealth(port) {
       def url = "http://localhost:$port/_cat/health"
       def response = sh (script: "curl $url  --user elastic:changeme", returnStdout: true)
       echo "elastic search response: $response"
-      return response.contains("green"))
+      return response.contains("green")
     }
   }
 }
