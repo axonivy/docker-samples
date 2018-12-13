@@ -89,7 +89,7 @@ def dockerComposeDown(example) {
 }
 
 def writeDockerLog(example) {
-  sh "docker-compose -f $example/docker-compose.yml logs ivy >> warn.log"
+  sh "docker-compose -f $example/docker-compose.yml logs >> warn.log"
 }
 
 def waitUntilIvyIsRunning() {
