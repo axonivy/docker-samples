@@ -190,28 +190,10 @@ def assertElasticsearchCluster() {
   // 2. Execute Process which create business data
   sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
 
-  sleep(15)
-
-  // 3. All Nodes are available
-  //checkElasticsearchHealth(9201);
-  //checkElasticsearchHealth(9202);
-  //checkElasticsearchHealth(9203);  
-
   // 3. Query Elastic Search
   checkBusinessDataIndex(9201);
   checkBusinessDataIndex(9202);
   checkBusinessDataIndex(9203);  
-}
-
-def checkElasticsearchHealth(port) {
-  timeout(2) {
-    waitUntil {
-      def url = "http://localhost:$port/_cat/health"
-      def response = sh (script: "curl $url  --user elastic:changeme", returnStdout: true)
-      echo "elastic search response: $response"
-      return response.contains("green")
-    }
-  }
 }
 
 def checkBusinessDataIndex(port) {
