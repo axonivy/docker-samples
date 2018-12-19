@@ -1,5 +1,5 @@
 Elasticsearch:
   ExternalServer:
-    Url: http://elasticsearch1:9200
+    Url: http://proxy:9200
     UserName: elastic
     Password: changeme
