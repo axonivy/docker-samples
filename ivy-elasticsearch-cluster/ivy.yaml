@@ -1,4 +1,5 @@
-Elasticsearch:
+# https://developer.axonivy.com/doc/latest/EngineGuideHtml/configuration.html#ref_Elasticsearch
+Elasticsearch:  
   ExternalServer:
     Url: http://proxy:9200
     UserName: elastic
