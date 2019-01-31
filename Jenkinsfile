@@ -176,6 +176,7 @@ def assertElasticsearch() {
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
+  sleep(10) // FIXME: sometimes es cluster is still not available. we have to fix that in the engine startup, wait on elasticsearch.
   sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
 
   // 3. Query Elastic Search
