@@ -7,7 +7,7 @@ services:
     volumes:
      - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
   frontend:
-    image: "nginx"
+    image: "nginx:stable-alpine"
     ports:
      - "80:80"
      - "443:443"
