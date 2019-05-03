@@ -13,7 +13,7 @@ Ivy can neatly be integrated into your existing website in an iframe. Nginx sets
 Visit http://localhost/frame.html for a sample.
 
 ## Modern procotols
-NGINX is perfect as a frontend webserver before and ivy engine if modern protocols must be enforced. This approach works regardless whether these protocols are already natively provided by the ivy engine serving the real contents. In this demo modern protocols are enabled on the HTTPS endpoint:
+NGINX is perfect as a frontend webserver before the ivy engine if modern protocols must be enforced. This approach works regardless of the protocols natively provided by the ivy engine. In this demo modern protocols are enabled on the HTTPS endpoint:
 
 https://localhost
 
@@ -22,7 +22,7 @@ The configurations shows that NGINX can serve TLS v1.3 encrypted traffic over HT
 For demonstration purpose the HTTPS endpoint is protected by a self-signed certificate.
 See `ssl_protocols TLSv1.2 TLSv1.3;`in `ivy.conf`.
 
-Be aware that a recent distribution is required containing at least OpenSSL 1.1.1 in order to server TLS v1.3. Thats why `nginx:stable-alpine` is used in `docker-compose.yaml`.
+Be aware that a recent distribution is required containing at least OpenSSL 1.1.1 in order to serve TLS v1.3. Thats why `nginx:stable-alpine` is used in `docker-compose.yaml`.
 
 ### HTTP2
 Over HTTPS the fast revised HTTP/2 protocol is supported. The fallback to HTTP/1.1 is allowed if the client doesn't support HTTP/2.
