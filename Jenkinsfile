@@ -153,7 +153,7 @@ def getIvyConsoleLog(example) {
 
 def assertPatching() {
   def sample = "ivy-patching"
-  assertIvyConsoleLog(sample, "Install patches for classes: ch.ivyteam.ivy.globalvars.GlobalVariableManager")
+  assertIvyConsoleLog(sample, "Install patches for classes: ch.ivyteam.ivy.search.internal.SearchManager")
   assertIvyConsoleLog(sample, "This Global Variable has been patched for Demo Purpose")
   assertIvyConsoleLog(sample, "starting patched Lucene base seach manager")
 }
