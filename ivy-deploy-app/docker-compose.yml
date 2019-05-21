@@ -3,9 +3,6 @@ services:
   ivy:
     build: .
     volumes:
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-     
-     # mount this directory in production mode. see readme.
-     # - "./applications:/var/lib/axonivy-engine-7x/applications"     
+     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"     
     ports:
      - "8080:8080"
