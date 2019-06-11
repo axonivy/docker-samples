@@ -1,0 +1,9 @@
+ActiveEnvironment: production
+
+EMailNotification:
+  DailySummaryOn: monday, tuesday, friday
+  OnNewTasks: true
+  Language: de
+
+GlobalVariables:
+  ENABLE_USER_DESCRIPTION: true

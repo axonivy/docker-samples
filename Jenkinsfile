@@ -28,7 +28,7 @@ pipeline {
             'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
             'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
             'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-deploy-app': { assertAppIsDeployed("app") },
+            'ivy-deploy-app': { assertAppIsDeployed("myApp") },
             'ivy-elasticsearch': { assertElasticsearch() },  
             'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
