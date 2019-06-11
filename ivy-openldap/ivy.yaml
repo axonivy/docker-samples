@@ -1,8 +1,3 @@
-Applications:
-  # The application 'ldap' should use the security system OpenLdap
-  ldap:
-    SecuritySystem: OpenLdap
- 
 SecuritySystems:
   # Security System 'OpenLdap'
   OpenLdap:

@@ -6,6 +6,7 @@ services:
      - "8080:8080"
     volumes:
      - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
+     - "./app-ldap.yaml:/etc/axonivy-engine/app-ldap.yaml"
     depends_on:
      - openldap
   openldapadmin:
