@@ -82,6 +82,7 @@ def pullEngineImage() {
 }
 
 def dockerComposeUp(example) {
+  sh "docker-compose -f $example/docker-compose.yml build > docker-compose-up.log"
   sh "docker-compose -f $example/docker-compose.yml up -d > docker-compose-up.log"
 }
 
