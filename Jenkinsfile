@@ -38,6 +38,7 @@ pipeline {
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
+            'ivy-valve': { assertValve() },
           ]
 
           examples.each { entry ->
@@ -157,6 +158,13 @@ def assertPatching() {
   assertIvyConsoleLog(sample, "Install patches for classes: ch.ivyteam.ivy.search.internal.SearchManager")
   assertIvyConsoleLog(sample, "This Global Variable has been patched for Demo Purpose")
   assertIvyConsoleLog(sample, "starting patched Lucene base seach manager")
+}
+
+def assertValve() {
+  def log =  sh (script: "docker exec ivy-valve_ivy_1 cat /var/log/axonivy-engine-7x/ivy.log", returnStdout: true)
+  if (!log.contains("Header -->")) {
+    throw new Exception("ivy.log of ivy does not contains Header -->");
+  }  
 }
 
 def assertFrontendServerNginx() {

@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+  ivy:
+    build: .
+    ports:
+     - "8080:8080"
+    volumes:
+     - "./context.xml:/etc/axonivy-engine/context.xml" 
