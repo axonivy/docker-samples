@@ -212,7 +212,7 @@ def checkBusinessDataIndex(port) {
   timeout(2) {
     waitUntil {
       def url = "http://localhost:$port/_cat/indices"
-      def response = sh (script: "curl $url --user elastic:changeme", returnStdout: true)
+      def response = sh (script: "curl $url", returnStdout: true)
       def elasticSearchIndex = "ivy.businessdata-test.testbusinessdata";  
       echo "elastic search response: $response"
       return response.contains(elasticSearchIndex);

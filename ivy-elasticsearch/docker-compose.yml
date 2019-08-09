@@ -1,5 +1,6 @@
 version: '3.3'
 services:
+
   ivy:
     image: "axonivy/axonivy-engine:dev"
     ports:
@@ -8,10 +9,11 @@ services:
      - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
     depends_on:
      - elasticsearch
+
   elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:5.5.3"
+    image: "elasticsearch:7.3.0"
     ports:
      - "9200:9200"
     environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"   
-     
+      # development mode
+      - "discovery.type=single-node"
