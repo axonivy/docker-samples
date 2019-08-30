@@ -1,0 +1,15 @@
+################################################################
+
+# JMX Settings
+# enable these settings if you want to have jmx access from another
+# user on the same machine or from a remote host.
+
+-Dcom.sun.management.jmxremote.port=9003
+-Dcom.sun.management.jmxremote.login.config=jmx
+-Djava.security.auth.login.config=configuration/jaas.config
+-Dcom.sun.management.jmxremote.ssl=false
+-Dcom.sun.management.jmxremote.autodiscovery=true 
+
+-Dcom.sun.management.jmxremote.local.only=false
+-Dcom.sun.management.jmxremote.rmi.port=9003
+-Djava.rmi.server.hostname=127.0.0.1
