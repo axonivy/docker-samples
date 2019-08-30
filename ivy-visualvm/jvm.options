@@ -1,5 +1,3 @@
-################################################################
-
 # JMX Settings
 # enable these settings if you want to have jmx access from another
 # user on the same machine or from a remote host.
