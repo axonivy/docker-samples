@@ -49,7 +49,7 @@ pipeline {
             echo "START TESTING EXAMPLE $example"
             try {
               dockerComposeUp(example)
-              waitUntilIvyIsRunning()
+              waitUntilIvyIsRunning(example)
               assertion.call()
               assertNoErrorOrWarnInIvyLog(example)
             } catch (ex) {
@@ -95,10 +95,10 @@ def writeDockerLog(example) {
   sh "docker-compose -f $example/docker-compose.yml logs >> warn.log"
 }
 
-def waitUntilIvyIsRunning() {
+def waitUntilIvyIsRunning(def example) {
   timeout(2) {
     waitUntil {
-      def r = sh script: 'wget -q http://localhost:8080/ivy -O /dev/null', returnStatus: true
+      def r = sh script: "docker-compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ivy -O /dev/null", returnStatus: true
       return (r == 0);
     }
   }
