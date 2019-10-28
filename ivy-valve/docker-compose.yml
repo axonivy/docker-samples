@@ -6,3 +6,6 @@ services:
      - "8080:8080"
     volumes:
      - "./context.xml:/etc/axonivy-engine/context.xml" 
+
+     # change log level for console to INFO to see logs in console output
+     - "./log4jconfig.xml:/etc/axonivy-engine/log4jconfig.xml" 
