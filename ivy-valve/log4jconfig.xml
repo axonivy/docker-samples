@@ -28,7 +28,7 @@
 
   <!-- appender that writes log messages with priority WARN or higher to the console -->
   <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
-    <param name="Threshold" value="INFO"/>
+    <param name="Threshold" value="WARN"/>
     <layout class="ch.ivyteam.log.layout.IvyLog4jLayout">
       <param name="DateFormat" value="HH:mm:ss.SSS"/>
       <param name="ContextPrinting" value="false"/>
