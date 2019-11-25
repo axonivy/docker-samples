@@ -130,7 +130,7 @@ def assertLogin(appName, user, password) {
 
 def assertAppIsDeployed(appName) {
   def response = sh (script: "wget -qO- http://localhost:8080/ivy/wf/$appName/applicationHome", returnStdout: true)
-  if (!response.contains("This is the home of the application $appName")) {
+  if (!response.contains("This is the home of the application '$appName'")) {
     throw new Exception("app $appName is not deployed");
   }
 }
