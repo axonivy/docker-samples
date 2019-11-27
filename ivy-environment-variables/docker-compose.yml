@@ -15,8 +15,7 @@ services:
       IVY_SYSTEMDB_DRIVERPROPERTIES_useSSL: "false"
       IVY_SYSTEMDB_DRIVERPROPERTIES_allowPublicKeyRetrieval: "true"
 
-      IVY_ADMINISTRATOR_USERNAME: "admin"
-      IVY_ADMINISTRATOR_PASSWORD: admin
+      IVY_ADMINISTRATORS_ADMIN_PASSWORD: admin
     depends_on:
      - db
   db:
