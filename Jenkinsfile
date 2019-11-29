@@ -32,7 +32,7 @@ pipeline {
             'ivy-elasticsearch': { assertElasticsearch() },  
             'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-7x/ivy.yaml'") },
+            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-8/ivy.yaml'") },
             'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
             'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
             'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
@@ -161,7 +161,7 @@ def assertPatching() {
 }
 
 def assertValve() {
-  def log =  sh (script: "docker exec ivy-valve_ivy_1 cat /var/log/axonivy-engine-7x/ivy.log", returnStdout: true)
+  def log =  sh (script: "docker exec ivy-valve_ivy_1 cat log/ivy.log", returnStdout: true)
   if (!log.contains("Header -->")) {
     throw new Exception("ivy.log of ivy does not contains Header -->");
   }  
