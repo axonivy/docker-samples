@@ -55,13 +55,17 @@ pipeline {
             } catch (ex) {
               currentBuild.result = 'UNSTABLE'
               echo ex.getMessage()
-              sh "echo ================================== >> warn.log"
-              sh "echo SAMPLE ${example} FAILED >> warn.log"
-              sh "echo -- >> warn.log"
-              sh "echo \"${ex.getMessage()}\" >> warn.log"
-              sh 'cat docker-compose-up.log >> warn.log'
-              sh "echo ================================== >> warn.log"
-              writeDockerLog(example);
+              def log = "warn-${example}.log"
+              sh "echo ================================== >> ${log}"
+              sh "echo SAMPLE ${example} FAILED >> ${log}"              
+              sh "echo --------------- >> ${log}"
+
+              sh "echo \"Error Message: ${ex.getMessage()}\" >> ${log}"              
+              sh "echo --------------- >> ${log}"
+          
+              sh "echo docker-compose log >> ${log}"  
+              sh "cat docker-compose-up.log >> ${log}"
+              sh "echo --------------- >> ${log}"              
             } finally {
               sh 'rm docker-compose-up.log'
               echo getIvyConsoleLog(example)
@@ -75,7 +79,7 @@ pipeline {
 
     stage('archive') {
       steps {        
-        archiveArtifacts allowEmptyArchive: true, artifacts: 'warn.log'
+        archiveArtifacts allowEmptyArchive: true, artifacts: 'warn*.log'
       }
     }
   }
@@ -87,16 +91,12 @@ def pullEngineImage() {
 }
 
 def dockerComposeUp(example) {
-  sh "docker-compose -f $example/docker-compose.yml build > docker-compose-up.log"
-  sh "docker-compose -f $example/docker-compose.yml up -d > docker-compose-up.log"
+  sh "docker-compose -f $example/docker-compose.yml build >> docker-compose-up.log"
+  sh "docker-compose -f $example/docker-compose.yml up -d >> docker-compose-up.log"
 }
 
 def dockerComposeDown(example) {
   sh "docker-compose -f $example/docker-compose.yml down"
-}
-
-def writeDockerLog(example) {
-  sh "docker-compose -f $example/docker-compose.yml logs >> warn.log"
 }
 
 def waitUntilIvyIsRunning(def example) {
