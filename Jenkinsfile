@@ -55,12 +55,12 @@ pipeline {
             } catch (ex) {
               currentBuild.result = 'UNSTABLE'
               echo ex.getMessage()
-              sh "echo \"==================================\" >> warn.log"
-              sh "echo \"SAMPLE ${example} FAILED\" >> warn.log"
-              sh "echo "" >> warn.log"
+              sh "echo ================================== >> warn.log"
+              sh "echo SAMPLE ${example} FAILED >> warn.log"
+              sh "echo -- >> warn.log"
               sh "echo \"${ex.getMessage()}\" >> warn.log"
               sh 'cat docker-compose-up.log >> warn.log'
-              sh "echo \"==================================\" >> warn.log"
+              sh "echo ================================== >> warn.log"
               writeDockerLog(example);
             } finally {
               sh 'rm docker-compose-up.log'
