@@ -35,7 +35,7 @@ pipeline {
             'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-8/ivy.yaml'") },
             'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
             'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
-            'ivy-openldap': { assertLogin("ldap", "rwei", "rwei") },
+            'ivy-openldap': { assertOpenLdap() },
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
             'ivy-valve': { assertValve() },
@@ -56,18 +56,20 @@ pipeline {
               currentBuild.result = 'UNSTABLE'
               echo ex.getMessage()
               def log = "warn-${example}.log"
-              sh "echo ================================== >> ${log}"
               sh "echo SAMPLE ${example} FAILED >> ${log}"              
-              sh "echo --------------- >> ${log}"
+              sh "echo =========================================================== >> ${log}"
+              
+              sh "echo \"Error Message: ${ex.getMessage()}\" >> ${log}"   
+              sh "echo =========================================================== >> ${log}"
+              
+              sh "echo DOCKER-COMPOSE BUILD LOG: >> ${log}"  
+              sh "cat docker-compose-build.log >> ${log}"
+              sh "echo =========================================================== >> ${log}"
 
-              sh "echo \"Error Message: ${ex.getMessage()}\" >> ${log}"              
-              sh "echo --------------- >> ${log}"
-          
-              sh "echo docker-compose log >> ${log}"  
-              sh "cat docker-compose-up.log >> ${log}"
-              sh "echo --------------- >> ${log}"              
+              sh "echo DOCKER-COMPOSE UP LOG: >> ${log}"
+              sh "docker-compose -f ${example}/docker-compose.yml logs >> ${log}"
             } finally {
-              sh 'rm docker-compose-up.log'
+              sh 'rm docker-compose-build.log'
               echo getIvyConsoleLog(example)
               dockerComposeDown(example)
               echo "==========================================================="
@@ -91,8 +93,8 @@ def pullEngineImage() {
 }
 
 def dockerComposeUp(example) {
-  sh "docker-compose -f $example/docker-compose.yml build >> docker-compose-up.log"
-  sh "docker-compose -f $example/docker-compose.yml up -d >> docker-compose-up.log"
+  sh "docker-compose -f $example/docker-compose.yml build >> docker-compose-build.log"
+  sh "docker-compose -f $example/docker-compose.yml up -d"
 }
 
 def dockerComposeDown(example) {
@@ -125,12 +127,12 @@ def isIvyRunningInDemoMode() {
   return response.contains('Demo Mode')
 }
 
-def assertLogin(appName, user, password) {
+def assertOpenLdap() {
   // using basic auth mechanism to login (process servlet has basic auth filter)
   // even if no login is required for process start, the request will fail, if authentication is wrong
-  def response = sh (script: "curl 'http://localhost:8080/ivy/pro/$appName/QuickStartTutorial/148655DDB7BB6588/start.ivp --user $user:$password -L -i -b cookie.txt", returnStdout: true)
-  if (!response.contains("Logged in as $user")) {
-    throw new Exception("could not login to app $appName as $user");
+  def response = sh (script: "curl 'http://localhost:8080/ivy/pro/ldap/QuickStartTutorial/148655DDB7BB6588/start.ivp' --user rwei:rwei -L -i -b cookie.txt -s -o /dev/null -D/dev/stdout", returnStdout: true)
+  if (response.contains("401")) { // 
+    throw new Exception("could not login to app ldap as rwei/rwei");
   }
 }
 
