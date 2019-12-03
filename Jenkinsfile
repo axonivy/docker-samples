@@ -165,7 +165,7 @@ def assertPatching() {
 }
 
 def assertValve() {
-  def log =  sh (script: "docker exec ivy-valve_ivy_1 cat log/ivy.log", returnStdout: true)
+  def log =  sh (script: "docker exec ivy-valve_ivy_1 cat logs/ivy.log", returnStdout: true)
   if (!log.contains("Header -->")) {
     throw new Exception("ivy.log of ivy does not contains Header -->");
   }  
