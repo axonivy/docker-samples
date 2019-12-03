@@ -126,7 +126,9 @@ def isIvyRunningInDemoMode() {
 }
 
 def assertLogin(appName, user, password) {
-  def response = sh (script: "curl 'http://localhost:8080/ivy/wf/$appName/login.jsp' --data 'username=$user&password=$password' -L -i -b cookie.txt", returnStdout: true)
+  // using basic auth mechanism to login (process servlet has basic auth filter)
+  // even if no login is required for process start, the request will fail, if authentication is wrong
+  def response = sh (script: "curl 'http://localhost:8080/ivy/pro/$appName/QuickStartTutorial/148655DDB7BB6588/start.ivp --user $user:$password -L -i -b cookie.txt", returnStdout: true)
   if (!response.contains("Logged in as $user")) {
     throw new Exception("could not login to app $appName as $user");
   }
