@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ========================================================================
+   Configures the embedded Tomcat Webserver of Axon.ivy
+  ========================================================================
+
+  Please keep the web.xml file on the designer and engine synchronous
+  to have the same settings on designer and engine,
+  because this file is not deployed from the designer to the engine.
+
+  See apache tomcat documentation for more information about this configuration:
+  http://tomcat.apache.org/tomcat-9.0-doc/config/
+  
+  After a change in the web.xml a restart of Axon.ivy is required 
+  to apply the new configuration.
+  
+-->
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"
+  metadata-complete="false">
+
+	<!-- ====================== Html Dialog Configuration =================== -->
+	
+	<!--
+	THEME:
+	https://developer.axonivy.com/doc/latest/designer-guide/user-interface/user-dialogs.html#themes
+	To set the primefaces theme (default is 'modena-ivy', was 'ivy' with 5.1)
+	remove the comment markers from around the context-param below
+	See available themes: http://primefaces.org/themes.html
+		-->
+	<!--
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>#{ivyPrimefacesThemeResolver.getTheme('modena-ivy')}</param-value>
+	</context-param>
+	-->
+	 
+	<!--
+	#{ivyThemeResolver.getThemes()} returns a list of all by default available themes. 
+	If additional customer specific themes are installed they can be configured as comma separated list in the context-param below.
+	#{ivyThemeResolver.getThemes()} will then additionally also return the configured customer specific themes.
+	-->
+	<!--
+	<context-param>
+		<param-name>primefaces.customer.themes</param-name>
+		<param-value></param-value>
+	</context-param>
+	-->  
+
+
+	<!-- ======================= Error pages ================================ -->
+	<!-- 
+	    Custom error pages can be added with error-page elements. 
+	    The referenced error-page must be placed in the folder 'webapps/ivy'.
+	    Use /faces location-prefix for xhtml pages.
+	    
+	    The pre-configured default error page is: 
+	    
+		<error-page>
+			<location>/faces/ivy-error-page.xhtml</location>
+		</error-page>
+	    
+	    By adding the <exception-type> tag to the <error-page> configuration 
+	    it is also possible to configure a specific error page for status codes 
+	    or kind of exceptions:
+	    
+		<error-page>
+			<exception-type>java.lang.Throwable</exception-type>
+			<location>/faces/custom-exception-error-page.xhtml</location>
+		</error-page>
+		<error-page>
+			<error-code>404</error-code>
+			<location>/faces/custom-404-error-page.xhtml</location>
+		</error-page>
+	
+		Implementation:
+		Use the 'ErrorPageMBean' to retrieve information about the thrown exception and the environment: 
+		https://developer.axonivy.com/doc/latest/public-api/ch/ivyteam/ivy/webserver/ErrorPageMBean.html 
+	-->
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/faces/error-404.xhtml</location>
+	</error-page>
+
+	<!-- ==================== Default Session Configuration ================= -->
+	<session-config>
+		<!-- 
+		session-timeout: [default=30]
+		
+		Defines the amount of time in minutes after which an inactive user session will be closed. 
+		Closing sessions means that server side state (e.g. Html Dialog instance) is flushed.
+		      -->
+		<session-timeout>30</session-timeout>
+		
+		<!--
+		cookie-config/secure: [default=false]
+		
+	 	Enable the secure flag when accessing the Webserver over HTTPS (strongly recommended).
+		When enabled the session cookie is only transmitted over HTTPS and not over HTTP.
+		-->
+		<!-- 
+		<cookie-config>
+			<secure>true</secure>
+		</cookie-config>
+		-->
+	</session-config>
+
+
+	<!-- ==================== Security Headers ============================== -->
+	<!--                                                                      -->
+	<!-- Some commonly recommended HTTP Security Headers are configured here  -->
+	<!-- for the /ivy web application.                                        -->
+	<!-- These Security Headers are added on the HTTP Responses               -->
+	<!-- to the Client Browser.                                               -->
+	<!-- But not all Security Headers are supported by all Web browsers.      -->
+	<!-- See: https://tomcat.apache.org/tomcat-9.0-doc/config/filter.html     -->
+	<!--                                                                      -->
+	<!-- |=========================|===============|                          -->
+	<!-- | HEADER                  | VALUE         |                          -->
+	<!-- |=========================|===============|                          -->
+	<!-- | X-Frame-Options         | SAMEORIGIN    |                          -->
+	<!-- | X-XSS-Protection        | 1; mode=block |                          -->
+	<!-- | X-Content-Type-Options  | nosniff       |                          -->
+	<!-- |=========================|===============|                          -->
+	<!--                                                                      -->
+	<filter-mapping>
+		<filter-name>httpSecurityHeaders</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	<filter>
+		<filter-name>httpSecurityHeaders</filter-name>
+		<filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>antiClickJackingOption</param-name>
+			<param-value>SAMEORIGIN</param-value>
+		</init-param>
+		<init-param>
+			<param-name>xssProtectionEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>blockContentTypeSniffingEnabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+</web-app>

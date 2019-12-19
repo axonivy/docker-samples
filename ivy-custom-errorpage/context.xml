@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ========================================================================
+  Configures Valves and Realms of the embedded Tomcat Webserver
+ ========================================================================
+
+ Please keep the context.xml file on the designer and engine in sync
+ to have the same settings on designer and engine
+ as this file is not deployed from the designer to the engine
+
+ See apache tomcat documentation for more information about context configuration:
+ https://tomcat.apache.org/tomcat-9.0-doc/config/context.html
+
+-->
+<Context antiResourceLocking="false" privileged="true" >
+
+	<!-- ====================== Resources ==================== -->
+	
+	<!--
+	  Warning:
+	  This flag MUST NOT be set to true on the Windows platform (or any other OS which does not have a 
+	  case sensitive filesystem), as it will disable case sensitivity checks, allowing JSP source code disclosure, 
+	  among other security problems.
+	  
+	  If you use the debian package or run in a docker container and you have some web.xml configurations (e.g. custom error-pages), 
+	  you need to set allowLinking to true.
+	 -->
+	<Resources allowLinking="true" />
+
+
+	<!-- ====================== Cookies ====================== -->
+	
+	<!-- 
+	  Prevents CSRF attacks by preventing the browser from sending cookies with cross-site requests.
+	  More information can be found here: https://www.owasp.org/index.php/SameSite
+	  Possible values are: 
+	  - 'strict': prevent cooky sharing in all cross-site browsing contexts. 
+	      Warning! This breakes process start and task mail links from third party sites and web mail clients.
+	  - 'lax': provides a reasonable balance between security and usability for websites
+	  - 'none': do not use same site cookie header
+	  By default the value 'lax' is used.
+	-->
+	<!-- <CookieProcessor sameSiteCookies="lax"/> -->
+	
+	<!-- ====================== Tomcat Valves ====================== -->
+	
+	<!--
+	  Limits the access to the ivy application to clients connecting from localhost.
+	-->
+	<!--
+	<Valve className="org.apache.catalina.valves.RemoteAddrValve"
+	       allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+	-->
+	
+	<!--
+	  Creates an access log entry for each request against the ivy application.
+	-->
+	<!--
+	<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+	       prefix="access_log." suffix=".txt"
+	       pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+	-->
+    
+	<!-- ====================== Axon.ivy Valves ==================== -->
+	   
+	<!--
+	  SingleSignOnValve:
+	  
+	  Enables single sign on of the user given in a request header field.  
+	  The name of the request header field can be configured in the attribute 'userNameHeader'.
+	  
+	  !! Only use this Valve if you exclusively access Axon.ivy over the WebApplication Firewall. !! 
+	  !! Otherwise this will be a security issue.                                                 !!                     
+	
+	  This Valve is useful if Axon.ivy is protected by a WebApplication Firewall (WAF) with an integrated 
+	  Identity and Access Management (IAM). Those systems will authenticate and authorize users. 
+	  The identified user is then sent from the WAF to Axon.ivy using a HTTP request header.
+	
+	  WebBrowser ==> WAF ==> Axon.ivy
+	                   
+	                  ^          |
+	                  |          |
+	                  v          v	
+	
+	                 IAM ==> Active Directory
+	                 
+	  https://developer.axonivy.com/doc/latest/engine-guide/integration/web-application-firewall.html#single-sign-on
+	 -->
+	<!-- 
+	<Valve className="ch.ivyteam.ivy.webserver.security.SingleSignOnValve" userNameHeader="user"/>
+	 -->
+
+
+
+	<!-- ====================== Custom Valves ====================== -->
+	
+	<!-- 
+	You can configure any third party valve or even your own implementation of a valve. 
+	A full valve sample implementation can be found on GitHub: 
+	
+	https://github.com/ivy-samples/ivy-extension-demos/tree/master/ProcessingValve
+	
+	-->
+	 
+</Context>

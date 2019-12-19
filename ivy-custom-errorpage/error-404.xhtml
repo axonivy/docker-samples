@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:pe="http://primefaces.org/ui/extensions"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:composition template="./error/error-template.xhtml">
+  <ui:define name="title">Error (Http Status Code #{errorPage.getStatusCode()})</ui:define>
+  <ui:define name="content">
+    <h:outputText value="404 - Not found" />
+    
+  </ui:define>
+</ui:composition>
+</html>
