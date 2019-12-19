@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   ivy:
-    image: "axonivy/axonivy-engine:latest"
+    image: "axonivy/axonivy-engine:dev"
     volumes:
      - "./context.xml:/etc/axonivy-engine/context.xml"
      - "./web.xml:/etc/axonivy-engine/web.xml"
