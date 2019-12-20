@@ -3,7 +3,6 @@ services:
   ivy:
     image: "axonivy/axonivy-engine:dev"
     volumes:
-     - "./context.xml:/etc/axonivy-engine/context.xml"
      - "./web.xml:/etc/axonivy-engine/web.xml"
      - "./error-404.xhtml:/usr/lib/axonivy-engine-8/webapps/ivy/error-404.xhtml"
     ports:
