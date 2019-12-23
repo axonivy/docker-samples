@@ -230,6 +230,6 @@ def checkBusinessDataIndex(port) {
 }
 
 def assertCustomErrorPage() {
-  def response = sh (script: "wget -qO- http://localhost:8080/ivy/sys/notfound.xhtml", returnStdout: true)
+  def response = sh (script: "curl http://localhost:8080/ivy/sys/notfound.xhtml", returnStdout: true)
   return response.contains('PAGE NOT FOUND')
 }
