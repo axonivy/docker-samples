@@ -39,6 +39,7 @@ pipeline {
             'ivy-patching': { assertPatching() },
             'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
             'ivy-valve': { assertValve() },
+            'ivy-custom-errorpage': { assertCustomErrorPage() },
           ]
 
           examples.each { entry ->
@@ -226,4 +227,9 @@ def checkBusinessDataIndex(port) {
       return response.contains(elasticSearchIndex);
     }
   }
+}
+
+def assertCustomErrorPage() {
+  def response = sh (script: "wget -qO- http://localhost:8080/ivy/sys/notfound.xhtml", returnStdout: true)
+  return response.contains('PAGE NOT FOUND')
 }
