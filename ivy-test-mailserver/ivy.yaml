@@ -1,0 +1,7 @@
+EMail:
+  Server:
+    Host: localhost
+    Port: 25
+    MailAddress: noreply@ivyserver.local
+    User: noreply@ivyserver.local
+    Password: admin
