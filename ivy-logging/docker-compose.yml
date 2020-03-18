@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    image: "axonivy/axonivy-engine:8.0"
     volumes:
      - "./log4jconfig.xml:/etc/axonivy-engine/log4jconfig.xml"
     ports:

@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    image: "axonivy/axonivy-engine:8.0"
     volumes:
      - "./web.xml:/etc/axonivy-engine/web.xml"
      - "./error-404.xhtml:/usr/lib/axonivy-engine-9/webapps/ivy/error-404.xhtml"
