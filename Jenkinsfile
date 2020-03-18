@@ -231,5 +231,7 @@ def checkBusinessDataIndex(port) {
 
 def assertCustomErrorPage() {
   def response = sh (script: "curl http://localhost:8080/ivy/sys/notfound.xhtml", returnStdout: true)
-  return response.contains('PAGE NOT FOUND')
+  if (!response.contains('PAGE NOT FOUND')) {
+    throw new Exception("could not find customer error page");
+  }
 }
