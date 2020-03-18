@@ -105,8 +105,8 @@ def dockerComposeDown(example) {
 def waitUntilIvyIsRunning(def example) {
   timeout(2) {
     waitUntil {
-      def r = sh script: "docker-compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ivy -O /dev/null", returnStatus: true
-      return (r == 0);
+      def exitCode = sh script: "docker-compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ivy -O /dev/null", returnStatus: true
+      return exitCode == 0;
     }
   }
 }
@@ -129,6 +129,7 @@ def isIvyRunningInDemoMode() {
 }
 
 def assertOpenLdap() {
+  waitUntilAppIsReady('ldap')
   // using basic auth mechanism to login (process servlet has basic auth filter)
   // even if no login is required for process start, the request will fail, if authentication is wrong
   def response = sh (script: "curl 'http://localhost:8080/ivy/pro/ldap/QuickStartTutorial/148655DDB7BB6588/start.ivp' --user rwei:rwei -L -i -b cookie.txt -s -o /dev/null -D/dev/stdout", returnStdout: true)
@@ -138,10 +139,17 @@ def assertOpenLdap() {
 }
 
 def assertAppIsDeployed(appName) {
+  waitUntilAppIsReady(appName)
   def response = sh (script: "wget -qO- http://localhost:8080/ivy/wf/$appName/applicationHome", returnStdout: true)
   if (!response.contains("This is the home of the application '$appName'")) {
     throw new Exception("app $appName is not deployed");
   }
+}
+
+def waitUntilAppIsReady(def appName) {
+  // apps will be deployed async while starting engines
+  // we could make a http request to the new app, but if its not exiting this will create ERROR messages in logs
+  sleep 10
 }
 
 def assertIvyConsoleLog(example, message) {
@@ -231,7 +239,7 @@ def checkBusinessDataIndex(port) {
 
 def assertCustomErrorPage() {
   def response = sh (script: "curl http://localhost:8080/ivy/sys/notfound.xhtml", returnStdout: true)
-  if (!response.contains('PAGE NOT FOUND')) {
-    throw new Exception("could not find customer error page");
+  if (!response.contains('Please contact the system administrator')) {
+    throw new Exception("could not load custom error page");
   }
 }
