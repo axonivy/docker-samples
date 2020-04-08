@@ -105,7 +105,7 @@ def dockerComposeDown(example) {
 def waitUntilIvyIsRunning(def example) {
   timeout(2) {
     waitUntil {
-      def exitCode = sh script: "docker-compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ivy -O /dev/null", returnStatus: true
+      def exitCode = sh script: "docker-compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
       return exitCode == 0;
     }
   }
@@ -124,7 +124,7 @@ def assertIvyIsNotRunningInDemoMode() {
 }
 
 def isIvyRunningInDemoMode() {
-  def response = sh (script: "wget -qO- http://localhost:8080/ivy/info/index.jsp", returnStdout: true)
+  def response = sh (script: "wget -qO- http://localhost:8080/info/index.jsp", returnStdout: true)
   return response.contains('Demo Mode')
 }
 
@@ -132,7 +132,7 @@ def assertOpenLdap() {
   waitUntilAppIsReady('ldap')
   // using basic auth mechanism to login (process servlet has basic auth filter)
   // even if no login is required for process start, the request will fail, if authentication is wrong
-  def response = sh (script: "curl 'http://localhost:8080/ivy/pro/ldap/QuickStartTutorial/148655DDB7BB6588/start.ivp' --user rwei:rwei -L -i -b cookie.txt -s -o /dev/null -D/dev/stdout", returnStdout: true)
+  def response = sh (script: "curl 'http://localhost:8080/ldap/pro/QuickStartTutorial/148655DDB7BB6588/start.ivp' --user rwei:rwei -L -i -b cookie.txt -s -o /dev/null -D/dev/stdout", returnStdout: true)
   if (response.contains("401")) { // 
     throw new Exception("could not login to app ldap as rwei/rwei");
   }
@@ -140,7 +140,7 @@ def assertOpenLdap() {
 
 def assertAppIsDeployed(appName) {
   waitUntilAppIsReady(appName)
-  def response = sh (script: "wget -qO- http://localhost:8080/ivy/wf/$appName/applicationHome", returnStdout: true)
+  def response = sh (script: "wget -qO- http://localhost:8080/$appName/wf/applicationHome", returnStdout: true)
   if (!response.contains("This is the home of the application '$appName'")) {
     throw new Exception("app $appName is not deployed");
   }
@@ -192,7 +192,7 @@ def assertFrontendServerNginx() {
 }
 
 def assertFrontendServerApache() {
-  def response = sh (script: "wget -qO- http://localhost/ivy/info/index.jsp", returnStdout: true)
+  def response = sh (script: "wget -qO- http://localhost/info/index.jsp", returnStdout: true)
   if (!response.contains('Demo')) {
     throw new Exception("frontend server does not route to ivy");
   }
@@ -205,7 +205,7 @@ def assertElasticsearch() {
 
   // 2. Execute Process which create business data
   sleep(10) // FIXME: sometimes es cluster is still not available. we have to fix that in the engine startup, wait on elasticsearch.
-  sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
+  sh "curl 'http://localhost:8080/test/pro/test/1665799EBA281E4C/start.ivp'"
 
   // 3. Query Elastic Search
   checkBusinessDataIndex(9200); 
@@ -217,7 +217,7 @@ def assertElasticsearchCluster() {
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
-  sh "curl 'http://localhost:8080/ivy/pro/test/test/1665799EBA281E4C/start.ivp'"
+  sh "curl 'http://localhost:8080/test/pro/test/1665799EBA281E4C/start.ivp'"
 
   // 3. Query Elastic Search
   checkBusinessDataIndex(9201);
@@ -238,7 +238,7 @@ def checkBusinessDataIndex(port) {
 }
 
 def assertCustomErrorPage() {
-  def response = sh (script: "curl http://localhost:8080/ivy/sys/notfound.xhtml", returnStdout: true)
+  def response = sh (script: "curl http://localhost:8080/sys/notfound.xhtml", returnStdout: true)
   if (!response.contains('Please contact the system administrator')) {
     throw new Exception("could not load custom error page");
   }
