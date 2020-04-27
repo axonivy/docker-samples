@@ -132,7 +132,7 @@ def assertOpenLdap() {
   waitUntilAppIsReady('ldap')
   // using basic auth mechanism to login (process servlet has basic auth filter)
   // even if no login is required for process start, the request will fail, if authentication is wrong
-  def response = sh (script: "curl 'http://localhost:8080/ldap/pro/QuickStartTutorial/148655DDB7BB6588/start.ivp' --user rwei:rwei -L -i -b cookie.txt -s -o /dev/null -D/dev/stdout", returnStdout: true)
+  def response = sh (script: "curl 'http://localhost:8080/ldap/pro/quick-start-tutorial/148655DDB7BB6588/start.ivp' --user rwei:rwei -L -i -b cookie.txt -s -o /dev/null -D/dev/stdout", returnStdout: true)
   if (response.contains("401")) { // 
     throw new Exception("could not login to app ldap as rwei/rwei");
   }
