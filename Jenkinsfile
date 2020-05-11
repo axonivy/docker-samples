@@ -238,7 +238,7 @@ def checkBusinessDataIndex(port) {
 }
 
 def assertCustomErrorPage() {
-  def response = sh (script: "curl http://localhost:8080/sys/notfound.xhtml", returnStdout: true)
+  def response = sh (script: "curl http://localhost:8080/faces/notfound.xhtml", returnStdout: true)
   if (!response.contains('Please contact the system administrator')) {
     throw new Exception("could not load custom error page");
   }
