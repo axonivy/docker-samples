@@ -1,0 +1,39 @@
+<html>
+<head>
+	<title>Demo Webserver Home</title>
+</head>
+<body>
+	<h1>
+		Demo Webserver Home
+	</h1>
+
+	<p>
+		Your webserver is working. However, most of the stuff is configured to work with SSL and Authentication only.
+	</p>
+	
+	<p>
+		The test users are working for SAML as well as OAuth/OIDC, as it comes from same ID-Provider Server.
+		<ul>
+			<li>user "admin" and password "admin"</li>
+			<li>user "demo" and password "demo"</li>
+		</ul>
+
+		You can find <a href="https://localhost:8443/">JBoss Keycloak</a> IDP here. Login to admin panel with user "admin" and password "admin".
+	</p>
+
+
+	<h2>
+		OAuth/OIDC Examples (working on HTTPS with default port)
+	</h2>
+	<p>
+		Please change to <a href="https://localhost">https://localhost</a>
+	</p>
+
+
+	<h2>
+		No SSL and no auth
+	</h2>
+	<p>
+		You can test forwarding to <a href="/ivy/">Axon.ivy Server</a> without any security here.
+	</p>
+</body>
