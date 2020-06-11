@@ -6,7 +6,7 @@ services:
      - "./ivy-config/ivy.yaml:/etc/axonivy-engine/ivy.yaml"
      - "./ivy-config/context.xml:/etc/axonivy-engine/context.xml" 
      - "./ivy-config/log4jconfig.xml:/etc/axonivy-engine/log4jconfig.xml"      
-     - "./ivy-config/header_logger_valve_1.0.1.jar:/usr/lib/axonivy-engine-9/dropins/header_logger_valve_1.0.1.jar"
+     - "./ivy-config/header_logger_valve_1.0.1.jar:/usr/lib/axonivy-engine/dropins/header_logger_valve_1.0.1.jar"
   webserver:
     build: webserver
     ports:

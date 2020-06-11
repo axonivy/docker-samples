@@ -33,7 +33,6 @@ After running the docker composition, visit http://localhost
 
 ## Currently not provided / not solved
 
-- Improve documentation
 - Solve issues with self-signed HTTPS certs
 - sync users beween Ivy and Keycloak with LDAP?
 
