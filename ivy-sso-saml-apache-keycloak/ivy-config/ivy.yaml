@@ -7,3 +7,6 @@ Frontend:
   HostName: localhost
   Port: 443
   Protocol: https
+
+# Use context "ivy" for the application server.
+WebServer.IvyContextName: "ivy"

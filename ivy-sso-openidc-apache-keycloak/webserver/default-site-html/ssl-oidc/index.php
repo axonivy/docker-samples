@@ -7,7 +7,7 @@
 
 <ul>
 	<li><a href="/ivy/">Axon.ivy Server</a></li>
-	<li><a href="/ivy/wf/demo-portal/applicationHome">Axon.ivy Portal Home</a></li>
+	<li><a href="/ivy/demo-portal">Axon.ivy Portal Home</a></li>
 	<li><a href="oidc-env-dump.php">Dump all OIDC_ Environment Variables</a></li>
 	<li><a href="https://jwt.ms/#id_token=<?= urlencode( $_SERVER['OIDC_access_token'] ) ?>">Show access token at jwt.ms</a></li>
 	

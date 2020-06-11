@@ -1,10 +1,10 @@
-# ivy-sso-saml-apache-keycloak
+# ivy-sso-openidc-apache-keycloak
 
 
-This repository shows you how to setup SAML 2.0 including all needed components:
+This repository shows you how to setup Open ID Connect including all needed components:
 - Axon.ivy Server acting as application server
-- Apache httpd acting as web application firewall and authentication endpoint
-- Keycloak acting as SAML 2.0 ID Provider
+- Apache httpd with mod_auth_openidc acting as web application firewall and authentication endpoint
+- Keycloak acting as ID Provider
 
 ![Infrastructure Overview](infrastructure.png)
 
@@ -21,13 +21,8 @@ After running the docker composition, visit http://localhost
 - webserver -- Folder containing configuration of the web server and authentication endpoint
 -- Dockerfile
 -- 000-default.conf -- VHost configuration for startup page without any security
--- default-ssl.conf -- VHost configuration for secured site, including the SAML config with [mod_auth_mellon](https://github.com/latchset/mod_auth_mellon)
+-- default-ssl.conf -- VHost configuration for secured site, including the Open ID Connect config with [mod_auth_openidc](https://github.com/zmartzone/mod_auth_openidc)
 -- default-site-html -- Containing some HTML pages to guide you through this sample and also small PHP script for dumping the data we get after authentication
--- saml-config -- Folder containing the configuration files we need for the SAML config
--- client-cert.pem -- Certificate for signatures.
--- client-private-key.pem -- Private key for signatures.
--- idp-metadata.xml -- SAML metadata for ID provider (exported from Keycloak)
--- sp-metadata.xml -- SAML metadata for service provider. This means data of our Apache and mod_auth_mellon config.
 - ivy-config -- Folder containing configuration for Axon.ivy
 -- context.xml -- Here we define the SSL valve which will use the user name from HTTP header to initialize the Axon.ivy session.
 -- header_logger_valve_1.0.1.jar -- Valve used for dumping all HTTP header into the logs. Only used for debugging.
@@ -37,7 +32,8 @@ After running the docker composition, visit http://localhost
 
 ## Currently not provided / not solved
 
-- Issues with self-signed HTTPS certs
-- Sync users beween Ivy and Keycloak with LDAP?
+- Improve documentation
+- Solve issues with self-signed HTTPS certs
+- sync users beween Ivy and Keycloak with LDAP?
 
 
