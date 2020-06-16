@@ -115,17 +115,28 @@ def assertIvyIsRunningInDemoMode() {
   if (!isIvyRunningInDemoMode()) {
     throw new Exception("ivy is not running in demo mode")
   }
+  if (isIvyRunningInMaintenanceMode()) {
+    throw new Exception("ivy is running in maintenance mode");
+  }
 }
 
 def assertIvyIsNotRunningInDemoMode() {
   if (isIvyRunningInDemoMode()) {      
     throw new Exception("ivy is running in demo mode")
   }
+  if (isIvyRunningInMaintenanceMode()) {
+    throw new Exception("ivy is running in maintenance mode");
+  }
 }
 
 def isIvyRunningInDemoMode() {
   def response = sh (script: "wget -qO- http://localhost:8080/info/index.jsp", returnStdout: true)
   return response.contains('Demo Mode')
+}
+
+def isIvyRunningInMaintenanceMode() {
+  def response = sh (script: "wget -qO- http://localhost:8080/info/index.jsp", returnStdout: true)
+  return response.contains('Maintenance Mode')
 }
 
 def assertOpenLdap() {
