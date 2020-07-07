@@ -90,7 +90,7 @@ pipeline {
 
 
 def pullEngineImage() {
-  sh 'docker pull axonivy/axonivy-engine:8.0'
+  sh 'docker pull axonivy/axonivy-engine:nightly-8'
 }
 
 def dockerComposeUp(example) {
