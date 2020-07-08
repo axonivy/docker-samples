@@ -141,7 +141,7 @@ def assertOpenLdap() {
 def assertAppIsDeployed(appName) {
   waitUntilAppIsReady(appName)
   def response = sh (script: "wget -qO- http://localhost:8080/ivy/wf/$appName/applicationHome", returnStdout: true)
-  if (!response.contains("This is the home of the application '$appName'")) {
+  if (!followDefaultPageRedirect("http://localhost:8080", response).contains("This is the home of the application '$appName'")) {
     throw new Exception("app $appName is not deployed");
   }
 }
@@ -186,7 +186,7 @@ def assertValve() {
 
 def assertFrontendServerNginx() {
   def response = sh (script: "wget -qO- http://localhost/", returnStdout: true)
-  if (!response.contains('Welcome')) {
+  if (!followDefaultPageRedirect("http://localhost", response).contains('Welcome')) {
     throw new Exception("frontend server does not redirect to portal login page");
   }
 }
@@ -242,4 +242,10 @@ def assertCustomErrorPage() {
   if (!response.contains('Please contact the system administrator')) {
     throw new Exception("could not load custom error page");
   }
+}
+
+def followDefaultPageRedirect(base, redirectPage) {
+  def url = redirectPage.split('<meta http-equiv=\"refresh\" content=\"0; URL=')[1]
+  url = base + url.split('\" />')[0]
+  return sh (script: "wget -qO- $url", returnStdout: true)
 }
