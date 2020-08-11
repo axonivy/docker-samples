@@ -28,6 +28,8 @@ pipeline {
             'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
             'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
             'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
+            'ivy-sso-saml-apache-keycloak': { assertSaml() },
+            'ivy-sso-openidc-apache-keycloak': { assertSaml() },
             'ivy-deploy-app': { assertAppIsDeployed("myApp") },
             'ivy-elasticsearch': { assertElasticsearch() },  
             'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
@@ -127,6 +129,14 @@ def assertIvyIsNotRunningInDemoMode() {
   if (isIvyRunningInMaintenanceMode()) {
     throw new Exception("ivy is running in maintenance mode");
   }
+}
+
+def assertSaml() {
+  sleep 20
+  def response = sh (script: 'curl -k -L https://localhost', returnStdout: true)
+  if (!response.contains('Log in to ivy-demo')) {
+    throw new Exception("not redirected to keycloak login page " + response)    
+  }  
 }
 
 def isIvyRunningInDemoMode() {

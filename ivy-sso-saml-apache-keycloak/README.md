@@ -1,8 +1,7 @@
 # ivy-sso-saml-apache-keycloak
 
-
 This repository shows you how to setup SAML 2.0 including all needed components:
-- Axon.ivy Server acting as application server
+- Axon.ivy Engine acting as application server
 - Apache httpd acting as web application firewall and authentication endpoint
 - Keycloak acting as SAML 2.0 ID Provider
 
@@ -13,8 +12,6 @@ This repository shows you how to setup SAML 2.0 including all needed components:
 After running Docker compose, visit http://localhost
 
 ## Guide to config files in this sample
-
-
 
 |file|description|
 |---|---|
@@ -34,14 +31,10 @@ After running Docker compose, visit http://localhost
 | - - sp-metadata.xml | SAML metadata for service provider. This means data of our Apache and mod_auth_mellon config. |
 | ivy-config | Folder containing configuration for Axon.ivy |
 | - context.xml | Here we define the SSL valve which will use the username from HTTP header to initialize the Axon.ivy session. |
-| - header_logger_valve_1.0.1.jar | Valve used for dumping all HTTP header into the logs. Only used for debugging. |
 | - ivy.yaml | Configuration of Axon.ivy context and web server frontend URL. |
-| - log4jconfig.xml | Lower log levels, so we can see more about what is happening on the console. |
 
 
 ## Currently not provided / not solved
 
 - Issues with self-signed HTTPS certs
 - Sync users between Ivy and Keycloak with LDAP?
-
-
