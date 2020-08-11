@@ -1,0 +1,18 @@
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" entityID="ivy-server">
+    <SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="false"
+            protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol http://schemas.xmlsoap.org/ws/2003/07/secext">
+        <KeyDescriptor use="signing">
+          <dsig:KeyInfo xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+            <dsig:X509Data>
+              <dsig:X509Certificate>MIICozCCAYsCBgFyVnnpGTANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDDAppdnktc2VydmVyMB4XDTIwMDUyNzE0MTAyOVoXDTMwMDUyNzE0MTIwOVowFTETMBEGA1UEAwwKaXZ5LXNlcnZlcjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJEB9jCezrcwBhoXyV0/pFiZt93fvCSm3rLBa4bPMwAiiMxwYlXOYKqvJN9lOzmPQX/fxEnzF6GD5jp078SH6Qzx77TCuLHxkUTHDT8OJMUTibdaZgHDdBhGRXcSPjw4bcHPzHM6Hghsddf1/Z4IYXawXDDRs7XtjFhFwpd/QI11eskw8FEjCmBRkK7LGN9pO/N94q/im21DU7UyZeyRGCzPTsLewCGtyUFjIxe6tRtZjoCzCIYFcj+yH/1P4o2cgxrCpqV0kH7ctNfeAmFh4pLyAOWabPQIW4TCIsxVzRaZQDMf9abJYyKr9KZAnKlCzvp81I0RZtwYdXhH04gGQFMCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAjhWvPP69E5zyWTwByXeSFYUGBV7Z9DMPQSqEQhMI0jjpydEWFyGCacFBOzeJHHVJpE633oM431P8pRYaJrJKHxfhP84Y54suTunOyoZYLIPMjN6w7FTHedpRcv3mZfVXcz1nVs4VuKHBGZz4ZB3ITD9PtuaFJfcRICSoJCt+H7cQbdu+/GOKHTQjHPNZzOdJKzjRFYCs9LTz67NlQef0PtKpnGmAsC0Gk1sCdL9ZzbSGJ9r/mTO3aUGAeoeba8DnbppmVjQXQAtU8uFuz5xS1XULZyuYzWh+qDG+GZow7J7YBbh4YNeOuOdllQa+OouRSatPVRkmPLfS3VUHHE6iqQ==</dsig:X509Certificate>
+            </dsig:X509Data>
+          </dsig:KeyInfo>
+        </KeyDescriptor>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="ERROR:ENDPOINT NOT SET"/>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
+        </NameIDFormat>
+        <AssertionConsumerService
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://localhost/saml/postResponse"
+                index="1" isDefault="true" />
+    </SPSSODescriptor>
+</EntityDescriptor>

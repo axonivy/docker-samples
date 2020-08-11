@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  ivy:
+    image: "axonivy/axonivy-engine:dev"
+    volumes:
+     - "./ivy-config/ivy.yaml:/etc/axonivy-engine/ivy.yaml"
+     - "./ivy-config/context.xml:/etc/axonivy-engine/context.xml" 
+     - "./ivy-config/log4jconfig.xml:/etc/axonivy-engine/log4jconfig.xml"      
+     - "./ivy-config/header_logger_valve_1.0.1.jar:/usr/lib/axonivy-engine/dropins/header_logger_valve_1.0.1.jar"
+  webserver:
+    build: webserver
+    ports:
+     - "80:80"
+     - "443:443"
+  idp:
+    image: "jboss/keycloak"
+    environment:
+     - KEYCLOAK_USER=admin
+     - KEYCLOAK_PASSWORD=admin
+     - KEYCLOAK_IMPORT=/shared/realm-ivydemo-import.json
+    volumes:
+     - "./idp-config:/shared"
+    ports:
+     - "8443:8443"  
