@@ -23,23 +23,25 @@ pipeline {
       steps {
         script {
           def examples = [
-            'ivy': { assertIvyIsRunningInDemoMode() },
-            'ivy-systemdb-postgres': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-deploy-app': { assertAppIsDeployed("myApp") },
-            'ivy-elasticsearch': { assertElasticsearch() },  
-            'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
-            'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-9/ivy.yaml'") },
-            'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
-            'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
-            'ivy-openldap': { assertOpenLdap() },
-            'ivy-patching': { assertPatching() },
-            'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-valve': { assertValve() },
-            'ivy-custom-errorpage': { assertCustomErrorPage() },
+            //'ivy': { assertIvyIsRunningInDemoMode() },
+            //'ivy-systemdb-postgres': { assertIvyIsNotRunningInDemoMode() },
+            //'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
+            //'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
+            //'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
+            'ivy-sso-saml-apache-keycloak': { assertSaml() },
+            'ivy-sso-openidc-apache-keycloak': { assertSaml() },
+            //'ivy-deploy-app': { assertAppIsDeployed("myApp") },
+            //'ivy-elasticsearch': { assertElasticsearch() },  
+            //'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
+            //'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
+            //'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-9/ivy.yaml'") },
+            //'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
+            //'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
+            //'ivy-openldap': { assertOpenLdap() },
+            //'ivy-patching': { assertPatching() },
+            //'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
+            //'ivy-valve': { assertValve() },
+            //'ivy-custom-errorpage': { assertCustomErrorPage() },
           ]
 
           examples.each { entry ->
@@ -127,6 +129,14 @@ def assertIvyIsNotRunningInDemoMode() {
   if (isIvyRunningInMaintenanceMode()) {
     throw new Exception("ivy is running in maintenance mode");
   }
+}
+
+def assertSaml() {
+  sleep 20
+  def response = sh (script: 'curl -k -L https://localhost', returnStdout: true)
+  if (!response.contains('Log in to ivy-demo')) {
+    throw new Exception("not redirected to keycloak login page " + response)    
+  }  
 }
 
 def isIvyRunningInDemoMode() {

@@ -1,8 +1,7 @@
 # ivy-sso-openidc-apache-keycloak
 
-
 This repository shows you how to setup Open ID Connect including all needed components:
-- Axon.ivy Server acting as application server
+- Axon.ivy Engine acting as application server
 - Apache httpd with mod_auth_openidc acting as web application firewall and authentication endpoint
 - Keycloak acting as ID Provider
 
@@ -27,13 +26,10 @@ After running Docker compose, visit http://localhost
 | - default-site-html | Containing some HTML pages to guide you through this sample and small PHP script for dumping the data we get after authentication |
 | ivy-config | Folder containing configuration for Axon.ivy |
 | - context.xml | Here we define the SSL valve which will use the username from HTTP header to initialize the Axon.ivy session. |
-| - header_logger_valve_1.0.1.jar | Valve used for dumping all HTTP header into the logs. Only used for debugging. |
 | - ivy.yaml | Configuration of Axon.ivy context and web server frontend URL. |
-| - log4jconfig.xml | Lower log levels, so we can see more about what is happening on the console. |
 
 ## Currently not provided / not solved
 
 - Solve issues with self-signed HTTPS certs
 - sync users between Ivy and Keycloak with LDAP?
-
 
