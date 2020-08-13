@@ -28,6 +28,8 @@ pipeline {
             'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
             'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
             'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
+            'ivy-sso-saml-apache-keycloak': { assertSaml() },
+            'ivy-sso-openidc-apache-keycloak': { assertSaml() },
             'ivy-deploy-app': { assertAppIsDeployed("myApp") },
             'ivy-elasticsearch': { assertElasticsearch() },  
             'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
@@ -115,17 +117,36 @@ def assertIvyIsRunningInDemoMode() {
   if (!isIvyRunningInDemoMode()) {
     throw new Exception("ivy is not running in demo mode")
   }
+  if (isIvyRunningInMaintenanceMode()) {
+    throw new Exception("ivy is running in maintenance mode");
+  }
 }
 
 def assertIvyIsNotRunningInDemoMode() {
   if (isIvyRunningInDemoMode()) {      
     throw new Exception("ivy is running in demo mode")
   }
+  if (isIvyRunningInMaintenanceMode()) {
+    throw new Exception("ivy is running in maintenance mode");
+  }
+}
+
+def assertSaml() {
+  sleep 20
+  def response = sh (script: 'curl -k -L https://localhost', returnStdout: true)
+  if (!response.contains('Log in to ivy-demo')) {
+    throw new Exception("not redirected to keycloak login page " + response)    
+  }  
 }
 
 def isIvyRunningInDemoMode() {
   def response = sh (script: "wget -qO- http://localhost:8080/info/index.jsp", returnStdout: true)
   return response.contains('Demo Mode')
+}
+
+def isIvyRunningInMaintenanceMode() {
+  def response = sh (script: "wget -qO- http://localhost:8080/info/index.jsp", returnStdout: true)
+  return response.contains('Maintenance Mode')
 }
 
 def assertOpenLdap() {
@@ -141,7 +162,7 @@ def assertOpenLdap() {
 def assertAppIsDeployed(appName) {
   waitUntilAppIsReady(appName)
   def response = sh (script: "wget -qO- http://localhost:8080/$appName/", returnStdout: true)
-  if (!response.contains("This is the home of the application '$appName'")) {
+  if (!followDefaultPageRedirect("http://localhost:8080", response).contains("Application: $appName")) {
     throw new Exception("app $appName is not deployed");
   }
 }
@@ -186,7 +207,7 @@ def assertValve() {
 
 def assertFrontendServerNginx() {
   def response = sh (script: "wget -qO- http://localhost/", returnStdout: true)
-  if (!response.contains('Welcome')) {
+  if (!followDefaultPageRedirect("http://localhost", response).contains('Welcome')) {
     throw new Exception("frontend server does not redirect to portal login page");
   }
 }
@@ -242,4 +263,10 @@ def assertCustomErrorPage() {
   if (!response.contains('Please contact the system administrator')) {
     throw new Exception("could not load custom error page");
   }
+}
+
+def followDefaultPageRedirect(base, redirectPage) {
+  def url = redirectPage.split('<meta http-equiv=\"refresh\" content=\"0; URL=')[1]
+  url = base + url.split('\" />')[0]
+  return sh (script: "wget -qO- $url", returnStdout: true)
 }
