@@ -16,6 +16,8 @@ services:
     image: "mysql"
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/ivy.SystemDb.Password
+      MYSQL_ROOT_PASSWORD: "" # explicit set this to empty sometimes container 
+                              # complains about 'Both MYSQL_ROOT_PASSWORD and MYSQL_ROOT_PASSWORD_FILE are set (but are exclusive)'
     secrets:
       - ivy.SystemDb.Password
 secrets:
