@@ -34,7 +34,7 @@ pipeline {
             'ivy-elasticsearch': { assertElasticsearch() },  
             'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-9/ivy.yaml'") },
+            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine") },
             'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
             'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
             'ivy-openldap': { assertOpenLdap() },
