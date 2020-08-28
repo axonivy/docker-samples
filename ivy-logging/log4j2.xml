@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+
+    <Console name="ConsoleLog" target="SYSTEM_OUT">
+      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable" />
+      <ThresholdFilter level="warn" />
+    </Console>
+  </Appenders>
+
+  <Loggers>
+    <Logger name="ch.ivyteam.ivy.audit.config" level="debug" includeLocation="false" additivity="false">
+      <AppenderRef ref="ConfigLog" />
+    </Logger>
+
+    <Logger name="org.apache.myfaces.application.ResourceHandlerImpl" level="off" />
+
+    <Root level="info" includeLocation="false">
+      <AppenderRef ref="ConsoleLog" />
+    </Root>
+  </Loggers>
+</Configuration>
