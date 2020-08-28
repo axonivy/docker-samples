@@ -3,8 +3,7 @@
   <Appenders>
 
     <Console name="ConsoleLog" target="SYSTEM_OUT">
-      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable" />
-      <ThresholdFilter level="info" />
+      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable" />      
     </Console>
 
     <RollingFile name="IvyLog" fileName="logs/ivy.log" filePattern="logs/ivy-%d{MM-dd-yyyy}.log.gz" ignoreExceptions="false">
@@ -13,57 +12,11 @@
       </PatternLayout>
       <TimeBasedTriggeringPolicy />
     </RollingFile>
-
-    <RollingFile name="ConfigLog" fileName="logs/config.log" filePattern="logs/config-%d{MM-dd-yyyy}.log.gz" ignoreExceptions="false">
-      <PatternLayout>
-        <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable</Pattern>
-      </PatternLayout>
-      <TimeBasedTriggeringPolicy />
-    </RollingFile>
-
-    <RollingFile name="DeprecationLog" fileName="logs/deprecation.log" filePattern="logs/deprecation-%d{MM-dd-yyyy}.log.gz" ignoreExceptions="false">
-      <PatternLayout>
-        <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable</Pattern>
-      </PatternLayout>
-      <TimeBasedTriggeringPolicy />
-    </RollingFile>
-
-    <RollingFile name="PerformanceLog" fileName="logs/performance.log" filePattern="logs/performance-%d{MM-dd-yyyy}.log.gz" ignoreExceptions="false">
-      <PatternLayout>
-        <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable</Pattern>
-      </PatternLayout>
-      <TimeBasedTriggeringPolicy />
-    </RollingFile>
-
-    <RollingFile name="UserSynchLog" fileName="logs/usersynch.log" filePattern="logs/usersynch-%d{MM-dd-yyyy}.log.gz" ignoreExceptions="false">
-      <PatternLayout>
-        <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable</Pattern>
-      </PatternLayout>
-      <TimeBasedTriggeringPolicy />
-    </RollingFile>
   </Appenders>
 
   <Loggers>
-    <!-- Config Monitoring: Writes an audit log that allows to track configuration changes over time. These logs are not passed to the root logger (additivity="false") -->
-    <Logger name="ch.ivyteam.ivy.audit.config" level="info" includeLocation="false" additivity="false">
-      <AppenderRef ref="ConfigLog" />
-    </Logger>
-    <!-- Deprecated API Calls Monitoring: Writes a log tracking calls to deprecated APIs. These logs are not passed to the root logger (additivity="false") -->
-    <Logger name="ch.ivyteam.ivy.deprecation" level="warn" includeLocation="false" additivity="false">
-      <AppenderRef ref="DeprecationLog" />
-    </Logger>
-    <!-- Performance Measurements: Writes the duration for different potential time consuming operations. These logs are not passed to the root logger (additivity="false") -->
-    <Logger name="ch.ivyteam.ivy.performance" level="warn" includeLocation="false" additivity="false">
-      <AppenderRef ref="PerformanceLog" />
-    </Logger>
-    <!-- Enables a detailed log about user synchronization with external security systems. Containing messages about users which are analyzed, imported, updated, deleted, etc. -->
-    <Logger name="ch.ivyteam.ivy.security.user.synch" level="info" includeLocation="false" additivity="false">
-      <AppenderRef ref="UserSynchLog" />
-    </Logger>
-    <!-- prevent "ClientAbortException: java.io.IOException: Broken pipe" from filling the log -->
-    <Logger name="org.apache.myfaces.application.ResourceHandlerImpl" level="off" />
-
-    <Root level="info" includeLocation="false">
+    <Logger name="com.acme.valve.ProcessingValve" level="info" />
+    <Root level="warn" includeLocation="false">
       <AppenderRef ref="IvyLog" />
       <AppenderRef ref="ConsoleLog" />
     </Root>
