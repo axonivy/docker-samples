@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
-  <Appenders>
-
-    <Console name="ConsoleLog" target="SYSTEM_OUT">
-      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable" />      
-    </Console>
-
-    <RollingFile name="IvyLog" fileName="logs/ivy.log" filePattern="logs/ivy-%d{MM-dd-yyyy}.log.gz" ignoreExceptions="false">
-      <PatternLayout>
-        <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable</Pattern>
-      </PatternLayout>
-      <TimeBasedTriggeringPolicy />
-    </RollingFile>
-  </Appenders>
-
+<Configuration>
   <Loggers>
     <Logger name="com.acme.valve.ProcessingValve" level="info" />
-    <Root level="warn" includeLocation="false">
-      <AppenderRef ref="IvyLog" />
-      <AppenderRef ref="ConsoleLog" />
-    </Root>
   </Loggers>
 </Configuration>
