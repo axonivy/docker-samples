@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration>
   <Appenders>
-
-    <Console name="ConsoleLog" target="SYSTEM_OUT">
-      <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5p][%c{1.}][%t]%n%msg%n%throwable" />     
+    <Console name="ConsoleLog">
+      <ThresholdFilter level="info" />
     </Console>
   </Appenders>
-
   <Loggers>
     <Logger name="ch.ivyteam.ivy.configuration" level="debug" />
-
-    <Root level="warn" includeLocation="false">
-      <AppenderRef ref="ConsoleLog" />
-    </Root>
   </Loggers>
 </Configuration>
