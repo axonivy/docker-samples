@@ -132,11 +132,11 @@ def assertIvyIsNotRunningInDemoMode() {
 }
 
 def assertSaml() {
-  sleep 20
+  sleep 60
   def response = sh (script: 'curl -k -L https://localhost', returnStdout: true)
   if (!response.contains('Log in to ivy-demo')) {
     throw new Exception("not redirected to keycloak login page " + response)    
-  }  
+  }
 }
 
 def isIvyRunningInDemoMode() {
