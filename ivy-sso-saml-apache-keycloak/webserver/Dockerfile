@@ -18,9 +18,6 @@ RUN apt-get install -y libapache2-mod-php7.2
 #install mod-auth-mellon for SAML
 RUN apt-get install -y libapache2-mod-auth-mellon
 
-# install mod-auth-openidc for OAuth/OpenID Connect
-RUN apt-get install -y libapache2-mod-auth-openidc
-
 #enable apache modules
 RUN a2enmod proxy_http \
     && a2enmod ssl \
