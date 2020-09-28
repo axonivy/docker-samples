@@ -15,9 +15,6 @@ RUN ln -sf /dev/stdout /var/log/apache2/access.log \
 #install module for PHP (just used for debugging)
 RUN apt-get install -y libapache2-mod-php7.2
 
-#install mod-auth-mellon for SAML
-RUN apt-get install -y libapache2-mod-auth-mellon
-
 # install mod-auth-openidc for OAuth/OpenID Connect
 RUN apt-get install -y libapache2-mod-auth-openidc
 
