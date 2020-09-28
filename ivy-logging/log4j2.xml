@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <Console name="ConsoleLog">
+      <ThresholdFilter level="info" />
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="ch.ivyteam.ivy.configuration" level="debug" />
+  </Loggers>
+</Configuration>

@@ -34,7 +34,7 @@ pipeline {
             'ivy-elasticsearch': { assertElasticsearch() },  
             'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
             'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-9/ivy.yaml'") },
+            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine") },
             'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
             'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
             'ivy-openldap': { assertOpenLdap() },
@@ -132,11 +132,11 @@ def assertIvyIsNotRunningInDemoMode() {
 }
 
 def assertSaml() {
-  sleep 20
+  sleep 120
   def response = sh (script: 'curl -k -L https://localhost', returnStdout: true)
   if (!response.contains('Log in to ivy-demo')) {
     throw new Exception("not redirected to keycloak login page " + response)    
-  }  
+  }
 }
 
 def isIvyRunningInDemoMode() {
