@@ -1,11 +1,11 @@
 [Begin Licence]
 #Licence for AxonIvy Axon.ivy Engine (Standard Edition)
-#Mon Oct 21 13:28:39 UTC 2019
+#Thu Oct 22 12:58:40 UTC 2020
 licence.keyversion=axonivy/8000
-licence.number=XLSSE-16DE-E816-046N
+licence.number=XLSSE-1755-063D-06AD
 licence.type=Standard Edition
-licence.valid.from=2019-10-21
-licence.valid.until=2020-10-21
+licence.valid.from=2020-10-22
+licence.valid.until=2021-10-22
 licencee.individual=
 licencee.organisation=AXON IVY AG
 product.name=Axon.ivy Engine
@@ -16,5 +16,5 @@ server.sessions.limit=2
 server.users.limit=4
 [End Licence]
 [Begin Signature]
-MC0CFQCDVncGBJteTGnY5y4wFmwLWpsBGQIUSSdFJkUzD05pxxhulHzLatifdWA=
+MCwCFCbI+Stni5A73jM0uxU8qxNR/UTyAhRsQU2Ebk4A5X2XURcfF7v4itmXyQ==
 [End Signature]
