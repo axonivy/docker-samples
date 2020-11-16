@@ -1,0 +1,28 @@
+<settings>
+    <servers>
+        <server>
+            <id>engine</id>
+            <username>admin</username>
+            <password>This is an encrpyed password. {VUpeDRRbfD4Hmk9WLKzhqLkLttTCsWfLtr75Nt9K/3k=}</password>
+            <!-- Clear text passwords works too. In this case the settings-security.xml is not needed -->
+            <!-- <password>admin<password -->
+        </server>
+    </servers>
+    <activeProfiles>
+        <activeProfile>sonatype-snapshots</activeProfile>
+    </activeProfiles>
+    <profiles>
+        <profile>
+            <id>sonatype-snapshots</id>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>sonatype.snapshots</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    <snapshots>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+</settings>
