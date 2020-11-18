@@ -1,0 +1,22 @@
+[Begin Licence]
+#Licence for AxonIvy Axon.ivy Engine (Enterprise Edition)
+#Wed Nov 18 16:34:48 UTC 2020
+licence.keyversion=axonivy/9000
+licence.number=XLSEE-175D-C356-674E
+licence.type=Enterprise Edition
+licence.valid.from=2020-11-18
+licence.valid.until=2021-07-15
+licencee.individual=
+licencee.organisation=AXON IVY AG
+product.name=Axon.ivy Engine
+product.type=Server
+public.urls=localhost
+server.cluster.local.node.id=0
+server.cluster.name=ivy-scaling
+server.elements.limit=0
+server.sessions.limit=2
+server.users.limit=4
+[End Licence]
+[Begin Signature]
+MCwCFGDbXvvFUrvB89ES4Fc4vJaxCga7AhQycn4vhdyg3Gb+i2eJZwtFBfwQ7w==
+[End Signature]

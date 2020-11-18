@@ -66,6 +66,7 @@ def examples() {
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
     'ivy-custom-errorpage': { assertCustomErrorPage() },
+    'ivy-scaling': { assertIvyIsNotRunningInDemoModeOnPort(80) }
   ]
 }
 
@@ -129,10 +130,14 @@ def assertIvyIsRunningInDemoMode() {
 }
 
 def assertIvyIsNotRunningInDemoMode() {
-  if (isIvyRunningInDemoMode()) {      
+  assertIvyIsNotRunningInDemoModeOnPort(8080)  
+}
+
+def assertIvyIsNotRunningInDemoModeOnPort(port) {
+  if (isIvyRunningInDemoModeOnPort(port)) {      
     throw new Exception("ivy is running in demo mode")
   }
-  if (isIvyRunningInMaintenanceMode()) {
+  if (isIvyRunningInMaintenanceModeOnPort(port)) {
     throw new Exception("ivy is running in maintenance mode");
   }
 }
@@ -146,12 +151,20 @@ def assertSaml() {
 }
 
 def isIvyRunningInDemoMode() {
-  def response = sh (script: "wget -qO- http://localhost:8080/info/index.jsp", returnStdout: true)
+  isIvyRunningInDemoModeOnPort(8080)
+}
+
+def isIvyRunningInDemoModeOnPort(port) {
+  def response = sh (script: "wget -qO- http://localhost:$port/info/index.jsp", returnStdout: true)
   return response.contains('Demo Mode')
 }
 
 def isIvyRunningInMaintenanceMode() {
-  def response = sh (script: "wget -qO- http://localhost:8080/info/index.jsp", returnStdout: true)
+  isIvyRunningInMaintenanceModeOnPort(8080)
+}
+
+def isIvyRunningInMaintenanceModeOnPort(port) {
+  def response = sh (script: "wget -qO- http://localhost:$port/info/index.jsp", returnStdout: true)
   return response.contains('Maintenance Mode')
 }
 

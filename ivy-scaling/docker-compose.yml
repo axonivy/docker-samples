@@ -1,0 +1,33 @@
+version: '3.3'
+services:  
+  loadbalancer:
+    image: "dockercloud/haproxy"
+    links:
+     - ivy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - ivy
+
+  ivy:
+    image: "axonivy/axonivy-engine:dev"
+    volumes:
+     - "./../demo-enterprise-licence.lic:/etc/axonivy-engine/enterprise-licence.lic"
+     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
+     - applications:/var/lib/axonivy-engine/applications
+    deploy:
+      replicas: 1
+    depends_on:
+     - db
+    environment:
+     - COOKIE=JSESSIONID prefix
+     
+  db:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+volumes:
+  applications:      
