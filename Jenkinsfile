@@ -13,68 +13,21 @@ pipeline {
   }
 
   stages {
-    stage('pull-engine') {
-      steps {
-        pullEngineImage()             
-      }
-    }
-
     stage('test') {
       steps {
         script {
-          def examples = [
-            'ivy': { assertIvyIsRunningInDemoMode() },
-            'ivy-systemdb-postgres': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-deploy-app': { assertAppIsDeployed("myApp") },
-            'ivy-elasticsearch': { assertElasticsearch() },  
-            'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
-            'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-8/ivy.yaml'") },
-            'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
-            'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
-            'ivy-openldap': { assertOpenLdap() },
-            'ivy-patching': { assertPatching() },
-            'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
-            'ivy-valve': { assertValve() },
-            'ivy-custom-errorpage': { assertCustomErrorPage() },
-          ]
-
-          examples.each { entry ->
-            def example = entry.key;
-            def assertion = entry.value;
-
-            echo "==========================================================="
-            echo "START TESTING EXAMPLE $example"
-            try {
-              dockerComposeUp(example)
-              waitUntilIvyIsRunning(example)
-              assertion.call()
-              assertNoErrorOrWarnInIvyLog(example)
-            } catch (ex) {
-              currentBuild.result = 'UNSTABLE'
-              echo ex.getMessage()
-              def log = "warn-${example}.log"
-              sh "echo SAMPLE ${example} FAILED >> ${log}"              
-              sh "echo =========================================================== >> ${log}"
-              
-              sh "echo \"Error Message: ${ex.getMessage()}\" >> ${log}"   
-              sh "echo =========================================================== >> ${log}"
-              
-              sh "echo DOCKER-COMPOSE BUILD LOG: >> ${log}"  
-              sh "cat docker-compose-build.log >> ${log}"
-              sh "echo =========================================================== >> ${log}"
-
-              sh "echo DOCKER-COMPOSE UP LOG: >> ${log}"
-              sh "docker-compose -f ${example}/docker-compose.yml logs >> ${log}"
-            } finally {
-              sh 'rm docker-compose-build.log'
-              echo getIvyConsoleLog(example)
-              dockerComposeDown(example)
-              echo "==========================================================="
+          try {
+            withCredentials([usernamePassword(credentialsId: 'docker.io', usernameVariable: 'hubUser', passwordVariable: 'hubPassword')]) {
+              sh "docker login -u ${hubUser} -p ${hubPassword}"
             }
+            pullEngineImage()
+            examples().each { entry ->
+              def example = entry.key
+              def assertion = entry.value
+              runTest(example, assertion)            
+            }
+          } finally {
+            sh 'docker logout'
           }
         }
       }
@@ -88,9 +41,62 @@ pipeline {
   }
 }
 
-
 def pullEngineImage() {
   sh 'docker pull axonivy/axonivy-engine:nightly-8'
+}
+
+def examples() {
+  return [
+    'ivy': { assertIvyIsRunningInDemoMode() },
+    'ivy-systemdb-postgres': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-deploy-app': { assertAppIsDeployed("myApp") },
+    'ivy-elasticsearch': { assertElasticsearch() },  
+    'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
+    'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine-8/ivy.yaml'") },
+    'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
+    'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
+    'ivy-openldap': { assertOpenLdap() },
+    'ivy-patching': { assertPatching() },
+    'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-valve': { assertValve() },
+    'ivy-custom-errorpage': { assertCustomErrorPage() },
+  ]
+}
+
+def runTest(def example, def assertion) {
+  echo "==========================================================="
+  echo "START TESTING EXAMPLE $example"
+  try {
+    dockerComposeUp(example)
+    waitUntilIvyIsRunning(example)
+    assertion.call()
+    assertNoErrorOrWarnInIvyLog(example)
+  } catch (ex) {
+    currentBuild.result = 'UNSTABLE'
+    echo ex.getMessage()
+    def log = "warn-${example}.log"
+    sh "echo SAMPLE ${example} FAILED >> ${log}"              
+    sh "echo =========================================================== >> ${log}"
+              
+    sh "echo \"Error Message: ${ex.getMessage()}\" >> ${log}"   
+    sh "echo =========================================================== >> ${log}"
+             
+    sh "echo DOCKER-COMPOSE BUILD LOG: >> ${log}"  
+    sh "cat docker-compose-build.log >> ${log}"
+    sh "echo =========================================================== >> ${log}"
+
+    sh "echo DOCKER-COMPOSE UP LOG: >> ${log}"
+    sh "docker-compose -f ${example}/docker-compose.yml logs >> ${log}"
+  } finally {
+    sh 'rm docker-compose-build.log'
+    echo getIvyConsoleLog(example)
+    dockerComposeDown(example)
+    echo "==========================================================="
+  }
 }
 
 def dockerComposeUp(example) {
