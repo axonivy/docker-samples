@@ -6,7 +6,7 @@ services:
      - "8080:8080"
     volumes:
      - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-     - "./app-ldap.yaml:/etc/axonivy-engine/app-ldap.yaml"
+     - "./app.yaml:/etc/axonivy-engine/ldap/app.yaml"
     depends_on:
      - openldap
   openldapadmin:
@@ -23,4 +23,3 @@ services:
     command: "--copy-service"
     volumes:
     - "./users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/users.ldif"
-  
