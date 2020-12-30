@@ -15,20 +15,13 @@ pipeline {
   stages {
     stage('test') {
       steps {
-        script {
-          try {
-            withCredentials([usernamePassword(credentialsId: 'docker.io', usernameVariable: 'hubUser', passwordVariable: 'hubPassword')]) {
-              sh "docker login -u ${hubUser} -p ${hubPassword}"
-            }
+        script {          
             pullEngineImage()
             examples().each { entry ->
               def example = entry.key
               def assertion = entry.value
               runTest(example, assertion)
-            }
-          } finally {
-            sh 'docker logout'
-          }
+            }          
         }
       }
     }
