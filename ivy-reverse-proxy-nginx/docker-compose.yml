@@ -1,16 +1,20 @@
-version: '3.3'
+version: '3.7'
+
 services:
+
   ivy:
-    image: "axonivy/axonivy-engine:dev"
-    volumes:
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-  frontend:
-    image: "nginx:stable-alpine"
+    image: axonivy/axonivy-engine:dev
     ports:
-     - "80:80"
-     - "443:443"
+      - 8080:8080  # limit the access to this port by e.g. firewall rules
     volumes:
-     - "./ivy.conf:/etc/nginx/conf.d/default.conf"
-     - "./ivy-reverse.conf:/etc/nginx/ivy-reverse.conf"
-     - "./frame.html:/var/www/html/frame.html"
-     - "./ssl:/etc/nginx/ssl"
+      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./proxy.conf:/etc/nginx/conf.d/default.conf
+      - ./frame.html:/var/www/html/frame.html
+      - ./certs:/etc/nginx/certs

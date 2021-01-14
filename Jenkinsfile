@@ -52,8 +52,8 @@ def examples() {
     'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
     'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine") },
-    'ivy-reverse-proxy-nginx': { assertFrontendServerNginx() },
-    'ivy-reverse-proxy-apache': { assertFrontendServerApache() },
+    'ivy-reverse-proxy-nginx': { assertFrontendServer() },
+    'ivy-reverse-proxy-apache': { assertFrontendServer() },
     'ivy-openldap': { assertOpenLdap() },
     'ivy-patching': { assertPatching() },
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
@@ -217,17 +217,10 @@ def assertValve() {
   }  
 }
 
-def assertFrontendServerNginx() {
-  def response = sh (script: "wget -qO- http://localhost/", returnStdout: true)
-  if (!followDefaultPageRedirect("http://localhost", response).contains('Welcome')) {
+def assertFrontendServer() {
+  def response = sh (script: "wget --no-check-certificate -qO- https://localhost/", returnStdout: true)
+  if (!followDefaultPageRedirect("https://localhost", response).contains('Welcome')) {
     throw new Exception("frontend server does not redirect to portal login page");
-  }
-}
-
-def assertFrontendServerApache() {
-  def response = sh (script: "wget -qO- http://localhost/info/index.jsp", returnStdout: true)
-  if (!response.contains('Demo')) {
-    throw new Exception("frontend server does not route to ivy");
   }
 }
 
@@ -280,5 +273,5 @@ def assertCustomErrorPage() {
 def followDefaultPageRedirect(base, redirectPage) {
   def url = redirectPage.split('<meta http-equiv=\"refresh\" content=\"0; URL=')[1]
   url = base + url.split('\" />')[0]
-  return sh (script: "wget -qO- $url", returnStdout: true)
+  return sh (script: "wget --no-check-certificate -qO- $url", returnStdout: true)
 }
