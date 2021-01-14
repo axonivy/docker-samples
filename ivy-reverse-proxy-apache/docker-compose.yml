@@ -1,11 +1,23 @@
-version: '3.3'
+version: '3.7'
+
 services:
+
   ivy:
-    image: "axonivy/axonivy-engine:dev"
-    volumes:
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-  frontend:
-    build: apache
+    image: axonivy/axonivy-engine:dev
     ports:
-     - "80:80"
-    
+      - 8080:8080 # limit the access to this port by e.g. firewall rules
+    volumes:
+      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+
+  apache:
+    image: bitnami/apache:2.4
+    user: root # to bind port 80 and 443
+    ports:
+      - 80:80
+      - 443:443
+    environment: 
+      - APACHE_HTTP_PORT_NUMBER=80
+      - APACHE_HTTPS_PORT_NUMBER=443
+    volumes:
+      - ./vhost.conf:/vhosts/vhost.conf
+      - ./certs:/certs
