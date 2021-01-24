@@ -1,15 +1,14 @@
-version: '3.3'
+version: '3.7'
 services:
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    image: axonivy/axonivy-engine:dev
     ports:
-     - "8080:8080"
+     - 8080:8080
     volumes:
-     - "../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic"
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-    depends_on:
-     - db
-  db:
-    image: "mariadb"
+     - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
+     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+  mariadb:
+    image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: 1234
+

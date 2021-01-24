@@ -1,11 +1,7 @@
 SystemDb:
-  Driver: com.mysql.jdbc.Driver
-  Url: jdbc:mysql://db:3306/AxonIvySystemDatabase
-  UserName: root
+  Url: jdbc:postgresql://postgres:5432/AxonIvySystemDatabase
+  UserName: admin
   Autoconvert: false
-  DriverProperties:
-    useSSL: false
-    allowPublicKeyRetrieval: true
 Administrators:
   admin:
     Email: admin@localhost.com

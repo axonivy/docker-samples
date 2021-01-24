@@ -1,9 +1,9 @@
 SystemDb:
-  Driver: org.mariadb.jdbc.Driver
-  Url: jdbc:mariadb://db:3306/AxonIvySystemDatabase
+  Url: jdbc:mariadb://mariadb:3306/AxonIvySystemDatabase
   UserName: root
   Password: 1234
   Autoconvert: false
 Administrators:
   admin:
     Password: admin
+
