@@ -1,24 +1,19 @@
-version: '3.3'
+version: '3.7'
 services:
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    image: axonivy/axonivy-engine:dev
     ports:
-     - "8080:8080"
+     - 8080:8080
     volumes:
-     - "../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic"
+     - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
     environment:
-      IVY_SYSTEMDB_DRIVER: com.mysql.jdbc.Driver
-      IVY_SYSTEMDB_URL: jdbc:mysql://db:3306/AxonIvySystemDatabase
-      IVY_SYSTEMDB_USERNAME: root
+      IVY_SYSTEMDB_URL: jdbc:postgresql://postgres:5432/AxonIvySystemDatabase
+      IVY_SYSTEMDB_USERNAME: admin
       IVY_SYSTEMDB_PASSWORD: 1234
-      IVY_SYSTEMDB_AUTOCONVERT: "false"
-      IVY_SYSTEMDB_DRIVERPROPERTIES_useSSL: "false"
-      IVY_SYSTEMDB_DRIVERPROPERTIES_allowPublicKeyRetrieval: "true"
-
       IVY_ADMINISTRATORS_ADMIN_PASSWORD: admin
-    depends_on:
-     - db
-  db:
-    image: "mysql"
+
+  postgres:
+    image: postgres
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234

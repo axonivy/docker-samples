@@ -1,27 +1,24 @@
-version: '3.3'
+version: '3.7'
 services:
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    image: axonivy/axonivy-engine:dev
     ports:
-     - "8080:8080"
+     - 8080:8080
     volumes:
-     - "../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic"
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-    depends_on:
-     - db
+     - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
+     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
     secrets:
      - ivy.SystemDb.Password
      - ivy.Administrators.admin.Password
-  db:
-    image: "mysql"
+
+  postgres:
+    image: postgres
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/ivy.SystemDb.Password
-      MYSQL_ROOT_PASSWORD: "" # explicit set this to empty sometimes container 
-                              # complains about 'Both MYSQL_ROOT_PASSWORD and MYSQL_ROOT_PASSWORD_FILE are set (but are exclusive)'
-    secrets:
-      - ivy.SystemDb.Password
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+
 secrets:
   ivy.SystemDb.Password:
-    file: ./secrets/mysql_password.txt
+    file: ./secrets/postgres_password.txt
   ivy.Administrators.admin.Password:
     file: ./secrets/ivy_password.txt

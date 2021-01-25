@@ -1,6 +1,5 @@
 SystemDb:
-  Driver: org.postgresql.Driver
-  Url: jdbc:postgresql://db:5432/AxonIvySystemDatabase
+  Url: jdbc:postgresql://postgres:5432/AxonIvySystemDatabase
   UserName: admin
   Password: 1234
   Autoconvert: false
