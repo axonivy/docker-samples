@@ -26,7 +26,7 @@ After running Docker compose, visit http://localhost
 | - default-site-html | Containing some HTML pages to guide you through this sample and small PHP script for dumping the data we get after authentication |
 | ivy-config | Folder containing configuration for Axon.ivy |
 | - context.xml | Here we define the SSL valve which will use the username from HTTP header to initialize the Axon.ivy session. |
-| - ivy.yaml | Configuration of Axon.ivy context and web server frontend URL. |
+| - ivy.yaml | Configuration of Axon.ivy context and base url. |
 
 ## Currently not provided / not solved
 
