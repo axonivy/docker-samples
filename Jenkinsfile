@@ -52,8 +52,8 @@ def examples() {
     'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
     'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine") },
-    'ivy-reverse-proxy-nginx': { assertFrontendServer() },
-    'ivy-reverse-proxy-apache': { assertFrontendServer() },
+    'ivy-reverse-proxy-nginx': { assertReverseProxy() },
+    'ivy-reverse-proxy-apache': { assertReverseProxy() },
     'ivy-openldap': { assertOpenLdap() },
     'ivy-patching': { assertPatching() },
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
@@ -217,10 +217,10 @@ def assertValve() {
   }  
 }
 
-def assertFrontendServer() {
+def assertReverseProxy() {
   def response = sh (script: "wget --no-check-certificate -qO- https://localhost/", returnStdout: true)
   if (!followDefaultPageRedirect("https://localhost", response).contains('Welcome')) {
-    throw new Exception("frontend server does not redirect to portal login page");
+    throw new Exception("reverse proxy server does not redirect to portal login page");
   }
 }
 

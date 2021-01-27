@@ -1,6 +1,3 @@
 # Axon.ivy engine must be able to generate absolute URLs, for example in mails.
-# For this, the frontend URL must be configured.
-Frontend:
-  HostName: localhost
-  Port: 80
-  Protocol: http
+# For this, the base URL must be configured.
+BaseUrl: http://localhost
