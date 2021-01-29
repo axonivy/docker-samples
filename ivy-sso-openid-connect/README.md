@@ -4,7 +4,7 @@ This demo shows how to integrate the Axon.ivy Engine in a SSO enviornment which
 is using Open ID Connect. Apache httpd is used as reverse proxy and authentication point
 whereas Keycloak is acting as Open ID Connect Provider.
 
-This demo follows all recommendeations according setting up Apache httpd as
+This demo follows all recommendations according setting up Apache httpd as
 reverse proxy for Axon.ivy Engine. See ivy-reverse-proxy-apache demo.
 
 ## Getting started
@@ -26,12 +26,13 @@ Challenge: Try to logout yourself ;)
 
 ## mod_auth_openidc
 
-We use Apache httpd with the module **mod_auth_openidc** (https://github.com/zmartzone/mod_auth_openidc) to integrate it with Keycloak.
+We use Apache httpd with the module **mod_auth_openidc**
+(https://github.com/zmartzone/mod_auth_openidc) to integrate it with Keycloak.
 
 ## Idendity Provider
 
-The administrator interface for Keycloak is here: https://localhost:8443/
-You can login with admin/admin.
+The administrator interface for Keycloak is here: https://localhost:8443/ You
+can login with admin/admin.
 
 ## Open Issues
 

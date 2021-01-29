@@ -45,8 +45,8 @@ def examples() {
     'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
     'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
     'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-sso-saml': { assertSaml() },
-    'ivy-sso-openidc': { assertSaml() },
+    'ivy-sso-saml': { assertSSO() },
+    'ivy-sso-openid-connect': { assertSSO() },
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
     'ivy-elasticsearch': { assertElasticsearch() },  
     'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
@@ -135,7 +135,7 @@ def assertIvyIsNotRunningInDemoModeOnPort(port) {
   }
 }
 
-def assertSaml() {
+def assertSSO() {
   sleep 120
   def response = sh (script: 'curl -k -L https://localhost', returnStdout: true)
   if (!response.contains('Sign in to ivy-demo')) {
