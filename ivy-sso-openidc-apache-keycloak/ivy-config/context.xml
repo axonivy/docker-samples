@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Context antiResourceLocking="false" privileged="true" >
-	<!-- trust user name in header and login to current session -->
-	<Valve className="ch.ivyteam.ivy.webserver.security.SingleSignOnValve" userNameHeader="SSO-USER-ID"/>	
-</Context>

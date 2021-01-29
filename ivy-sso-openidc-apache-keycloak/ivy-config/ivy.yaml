@@ -1,6 +1,0 @@
-# Axon.ivy engine must be able to generate absolute URLs, for example in mails.
-# For this, the base URL must be configured.
-BaseUrl: https://localhost
-
-# Use context "ivy" for the application server.
-WebServer.IvyContextName: "ivy"
