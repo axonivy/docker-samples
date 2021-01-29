@@ -1,10 +1,10 @@
 # Axon.ivy Engine integration SSO with SAML
 
 This demo shows how to integrate the Axon.ivy Engine in a SSO enviornment which
-is using SAML. Apache httpd is used as reverse proxy and authentication point
+is using SAML. Apache http is used as reverse proxy and authentication point
 whereas Keycloak is acting as SAML 2.0 ID Provider.
 
-This demo follows all recommendeations according setting up Apache httpd as
+This demo follows all recommendations according setting up Apache httpd as
 reverse proxy for Axon.ivy Engine. See ivy-reverse-proxy-apache demo.
 
 ## Getting started
@@ -26,7 +26,8 @@ Challenge: Try to logout yourself ;)
 
 ## mod_auth_mellon
 
-We use Apache httpd with the module **mod_auth_mellon** (https://github.com/latchset/mod_auth_mellon) to integrate it with Keycloak.
+We use Apache http with the module **mod_auth_mellon**
+(https://github.com/latchset/mod_auth_mellon) to integrate it with Keycloak.
 
 ## Idendity Provider
 
