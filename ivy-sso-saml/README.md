@@ -1,11 +1,11 @@
-# Axon.ivy Engine integration SSO with SAML
+# Axon Ivy Engine integration SSO with SAML
 
-This demo shows how to integrate the Axon.ivy Engine in a SSO enviornment which
+This demo shows how to integrate the Axon Ivy Engine in a SSO enviornment which
 is using SAML. Apache httpd is used as reverse proxy and authentication point
 whereas Keycloak is acting as SAML 2.0 ID Provider.
 
 This demo follows all recommendations according setting up Apache httpd as
-reverse proxy for Axon.ivy Engine. See ivy-reverse-proxy-apache demo.
+reverse proxy for Axon Ivy Engine. See ivy-reverse-proxy-apache demo.
 
 ## Getting started
 
@@ -36,4 +36,4 @@ You can login with admin/admin.
 
 ## Open Issues
 
-- Users between the idendity provider and Axon.ivy Engine are not synchronized
+- Users between the idendity provider and Axon Ivy Engine are not synchronized

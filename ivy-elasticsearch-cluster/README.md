@@ -1,5 +1,5 @@
 # ivy-elasticsearch-cluster
-This example shows how Axon.ivy can be connected to an Elasticsearch cluster.
+This example shows how Axon Ivy can be connected to an Elasticsearch cluster.
 
 ## Why?
 An Elasticsearch cluster is used if a single Elasticsearch instance cannot handle the load.
