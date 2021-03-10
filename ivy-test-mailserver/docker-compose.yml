@@ -6,7 +6,7 @@ services:
      - "8080:8080"
     volumes:
      - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-     - "./app.yaml:/etc/axonivy-engine/myApp/app.yaml"
+     - "./app.yaml:/etc/axonivy-engine/applications/myApp/app.yaml"
     network_mode: host
 
   mail:
