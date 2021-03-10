@@ -1,9 +1,9 @@
 version: '3.3'
 services:
+
   ivy:
     image: "axonivy/axonivy-engine:dev"
     ports:
      - "8080:8080"
     volumes:
-     - "./ch.ivyteam.ivy.globalvars.GlobalVariableManager.class:/usr/lib/axonivy-engine/patches/ch.ivyteam.ivy.globalvars.GlobalVariableManager.class"
      - "./lucene-index-manager-patch_73.jar:/usr/lib/axonivy-engine/patches/lucene-index-manager-patch_73.jar"
