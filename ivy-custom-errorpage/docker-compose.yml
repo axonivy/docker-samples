@@ -4,6 +4,6 @@ services:
     image: "axonivy/axonivy-engine:nightly-8"
     volumes:
      - "./web.xml:/etc/axonivy-engine/web.xml"
-     - "./error-404.xhtml:/usr/lib/axonivy-engine-8/webapps/ivy/error-404.xhtml"
+     - "./error-404.xhtml:/usr/lib/axonivy-engine/webapps/ivy/error-404.xhtml"
     ports:
      - "8080:8080"
