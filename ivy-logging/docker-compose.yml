@@ -6,4 +6,3 @@ services:
      - "./log4jconfig.xml:/etc/axonivy-engine/log4jconfig.xml"
     ports:
      - "8080:8080"
-
