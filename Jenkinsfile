@@ -51,7 +51,7 @@ def examples() {
     'ivy-elasticsearch': { assertElasticsearch() },  
     'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/etc/axonivy-engine") },
+    'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/usr/lib/axonivy-engine/configuration") },
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
     'ivy-reverse-proxy-apache': { assertReverseProxy() },
     'ivy-openldap': { assertOpenLdap() },
