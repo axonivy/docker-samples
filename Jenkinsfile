@@ -174,7 +174,7 @@ def assertOpenLdap() {
 def assertAppIsDeployed(appName) {
   waitUntilAppIsReady(appName)
   def response = sh (script: "wget -qO- http://localhost:8080/$appName/", returnStdout: true)
-  if (!followDefaultPageRedirect("http://localhost:8080", response).contains("Application: $appName")) {
+  if (!response.contains("Application: $appName")) {
     throw new Exception("app $appName is not deployed");
   }
 }
