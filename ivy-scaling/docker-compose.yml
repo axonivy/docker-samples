@@ -21,6 +21,7 @@ services:
       replicas: 1
     depends_on:
      - db
+     - elasticsearch
     environment:
      - COOKIE=JSESSIONID prefix
      
@@ -29,5 +30,14 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
+
+  elasticsearch:
+    image: "elasticsearch:7.3.0"
+    ports:
+     - "9200:9200"
+    environment:
+      # development mode
+      - "discovery.type=single-node"
+
 volumes:
   applications:      
