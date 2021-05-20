@@ -9,6 +9,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
+      # Specifies that haproxy is the load balancer of the ivy cluster 
+      # Also ensures that ivy cluster is started before HAProxy
       - ivy
 
   ivy:
@@ -23,6 +25,8 @@ services:
      - db
      - elasticsearch
     environment:
+     # Specifies sticky sessions for the load balancer, using a server cookie value prefix
+     # for the client cookie with name JSESSIONID.
      - COOKIE=JSESSIONID prefix
      
   db:
@@ -37,6 +41,7 @@ services:
      - "9200:9200"
     environment:
       # development mode
+      # Specify elasticsearch to run as single node and not as part of a cluster
       - "discovery.type=single-node"
 
 volumes:
