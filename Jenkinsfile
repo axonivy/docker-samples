@@ -59,7 +59,8 @@ def examples() {
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
     'ivy-custom-errorpage': { assertCustomErrorPage() },
-    'ivy-scaling': { assertIvyIsNotRunningInDemoModeOnPort(80) }
+    'ivy-scaling-haproxy': { assertIvyIsNotRunningInDemoModeOnPort(80) },
+    'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
   ]
 }
 
