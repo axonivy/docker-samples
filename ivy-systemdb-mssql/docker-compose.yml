@@ -8,7 +8,7 @@ services:
      - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
   mssql:
-    image: microsoft/mssql-server-linux
+    image: mcr.microsoft.com/mssql/server
     environment:
       ACCEPT_EULA: "Yes"
       SA_PASSWORD: secure1234PASSWORD!
