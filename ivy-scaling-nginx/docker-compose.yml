@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  loadbalancer:
+    image: nginx:stable-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      # Ensures that ivy cluster is started before nginx
+      - ivy
+
+  ivy:
+    image: axonivy/axonivy-engine:dev
+    volumes:
+     - "./../demo-enterprise-licence.lic:/etc/axonivy-engine/enterprise-licence.lic"
+     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
+     - applications:/var/lib/axonivy-engine/applications
+    deploy:
+      replicas: 2
+    depends_on:
+     - db
+     - elasticsearch
+    environment:
+     - VIRTUAL_HOST=localhost
+     
+  db:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+
+  elasticsearch:
+    image: "elasticsearch:7.3.0"
+    ports:
+     - "9200:9200"
+    environment:
+      # development mode
+      # Specify elasticsearch to run as single node and not as part of a cluster
+      - "discovery.type=single-node"
+
+volumes:
+  applications:
