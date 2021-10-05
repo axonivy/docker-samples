@@ -1,0 +1,6 @@
+#
+# OpenTelemetry tracing Java agent configuration
+# The Java agent will install/instrumentation itself into Axon Ivy Engine and report tracings to Jaeger 
+#
+-javaagent:/usr/lib/axonivy-engine/system/lib/agent/opentelemetry-javaagent-all.jar
+-Dotel.javaagent.configuration-file=/etc/axonivy-engine/opentelemetry.properties
