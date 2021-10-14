@@ -11,11 +11,9 @@ services:
       - ivy
 
   ivy:
-    image: axonivy/axonivy-engine:dev
-    volumes:
-     - "./../demo-enterprise-licence.lic:/etc/axonivy-engine/enterprise-licence.lic"
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-     - applications:/var/lib/axonivy-engine/applications
+    build: 
+      context: ../
+      dockerfile: ivy-scaling-nginx/Dockerfile
     deploy:
       replicas: 2
     depends_on:
@@ -38,6 +36,3 @@ services:
       # development mode
       # Specify elasticsearch to run as single node and not as part of a cluster
       - "discovery.type=single-node"
-
-volumes:
-  applications:
