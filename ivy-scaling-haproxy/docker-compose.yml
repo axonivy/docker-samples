@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 services:  
   loadbalancer:
     image: "dockercloud/haproxy"
@@ -9,18 +9,18 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
-      # Specifies that haproxy is the load balancer of the ivy cluster 
+      # Specifies that haproxy is the load balancer of the ivy cluster
       # Also ensures that ivy cluster is started before HAProxy
       - ivy
-
+     
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    build: 
+      context: ..
+      dockerfile: ivy-scaling-haproxy/Dockerfile
     volumes:
-     - "./../demo-enterprise-licence.lic:/etc/axonivy-engine/enterprise-licence.lic"
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-     - applications:/var/lib/axonivy-engine/applications
+      - ivy-files:/var/lib/axonivy-engine/files
     deploy:
-      replicas: 1
+      replicas: 2
     depends_on:
      - db
      - elasticsearch
@@ -28,7 +28,7 @@ services:
      # Specifies sticky sessions for the load balancer, using a server cookie value prefix
      # for the client cookie with name JSESSIONID.
      - COOKIE=JSESSIONID prefix
-     
+
   db:
     image: "postgres:latest"
     environment:
@@ -45,4 +45,4 @@ services:
       - "discovery.type=single-node"
 
 volumes:
-  applications:      
+  ivy-files: 
