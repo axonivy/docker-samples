@@ -11,11 +11,11 @@ services:
       - ivy
 
   ivy:
-    image: axonivy/axonivy-engine:dev
+    build: 
+      context: ..
+      dockerfile: ivy-scaling-nginx/Dockerfile
     volumes:
-     - "./../demo-enterprise-licence.lic:/etc/axonivy-engine/enterprise-licence.lic"
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-     - applications:/var/lib/axonivy-engine/applications
+      - ivy-files:/var/lib/axonivy-engine/files
     deploy:
       replicas: 2
     depends_on:
@@ -40,4 +40,4 @@ services:
       - "discovery.type=single-node"
 
 volumes:
-  applications:
+  ivy-files: 
