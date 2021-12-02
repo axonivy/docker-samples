@@ -35,7 +35,7 @@ environments. For advanced requirements we recommend using NGINX in a Kubernetes
 
 ## Limitations
 
-NGNIX in the free version can not properly scale up and scale down at runtime. For production you need
+NGINX in the free version can not properly scale up and scale down at runtime. For production you need
 to use the PRO version.
- 
+
 
