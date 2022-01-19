@@ -5,5 +5,5 @@ EMailNotification:
   OnNewTasks: true
   Language: de
 
-GlobalVariables:
+Variables:
   ENABLE_USER_DESCRIPTION: true

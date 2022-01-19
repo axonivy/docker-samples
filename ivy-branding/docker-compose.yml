@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+  ivy:
+    build: .
+    volumes:
+     - "./branding:/etc/axonivy-engine/applications/demo-portal/branding/"
+    ports:
+     - "8080:8080"

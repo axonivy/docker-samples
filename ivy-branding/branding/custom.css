@@ -1,0 +1,24 @@
+:root {
+  --primary-color-h: 365;
+  --primary-color-s: 96%;
+  --primary-color-l: 45%;
+  --primary-dark-color: #e20512;
+
+  --topbar-bg-color: #e20512;
+  --topbar-text-color: black;
+  --sidebar-bg-color: #e20512;
+  --sidebar-app-text-color: white;
+
+  --menuitem-text-color: white;
+  --menuitem-active-bg-color: #c60001;
+  --menuitem-active-text-color: white;
+  --menuitem-hover-bg-color: hsla(0, 0%, 0%, 0.2);
+  --menuitem-hover-text-color: hsl(0, 0%, 100%);
+
+  --submenu-bg-color: #e5e5e5;
+  --sub-menuitem-text-color: #535353;
+  --sub-menuitem-active-bg-color: #cecece;
+  --sub-menuitem-active-text-color: #535353;
+  --sub-menuitem-hover-bg-color: #cecece;
+  --sub-menuitem-hover-text-color: #535353;
+}
