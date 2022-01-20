@@ -48,6 +48,7 @@ def examples() {
     'ivy-sso-saml': { assertSSO() },
     'ivy-sso-openid-connect': { assertSSO() },
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
+    'ivy-branding': { assertBranding() },
     'ivy-elasticsearch': { assertElasticsearch() },  
     'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
@@ -177,6 +178,14 @@ def assertAppIsDeployed(appName) {
   def response = sh (script: "wget -qO- http://localhost:8080/$appName/", returnStdout: true)
   if (response.contains("404")) {
     throw new Exception("app $appName is not deployed");
+  }
+}
+
+def assertBranding() {
+  waitUntilAppIsReady('demo-portal')
+  def customCss = sh (script: "wget -qO- http://localhost:8080/demo-portal/faces/javax.faces.resource/custom.css?ln=xpertivy-branding", returnStdout: true)
+  if (!customCss.contains("--sidebar-bg-color: #e20512;")) {
+    throw new Exception("branding not active, default custom.css is served");
   }
 }
 
