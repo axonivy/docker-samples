@@ -6,4 +6,4 @@ services:
     ports:
      - "8080:8080"
     volumes:
-     - "./lucene-index-manager-patch_73.jar:/usr/lib/axonivy-engine/patches/lucene-index-manager-patch_73.jar"
+     - "./service-manager-patch.jar:/usr/lib/axonivy-engine/patches/service-manager-patch.jar"
