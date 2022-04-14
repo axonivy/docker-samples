@@ -1,8 +1,8 @@
 # ivy-openldap
 
-Setup of an Axon Ivy Engine with an external security system (OpenLdap).
+Setup of an Axon Ivy Engine with OpenLdap as security system.
 
-The application with the name `ldap` is configured to use the external security system called `OpenLdap`. 
+The application `ldap` will be deployed to the `default` security system.
 
 Open the __AdminUI__, navigate to the application `ldap` and synchronize the users that are defined in the OpenLdap server.
 
