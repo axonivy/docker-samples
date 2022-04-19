@@ -3,23 +3,24 @@ services:
   ivy:
     build: .
     ports:
-     - "8080:8080"
+     - 8080:8080
     volumes:
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
-     - "./app.yaml:/etc/axonivy-engine/applications/ldap/app.yaml"
+     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
     depends_on:
      - openldap
+
   openldapadmin:
-    image: "osixia/phpldapadmin"
+    image: osixia/phpldapadmin
     ports:
-      - "8090:80"
+      - 8090:80
     environment:
       PHPLDAPADMIN_LDAP_HOSTS: openldap
       PHPLDAPADMIN_HTTPS: "false"
     depends_on:
     - openldap
+
   openldap:
-    image: "osixia/openldap"
-    command: "--copy-service"
+    image: osixia/openldap
+    command: --copy-service
     volumes:
-    - "./users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/users.ldif"
+    - ./users.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/users.ldif

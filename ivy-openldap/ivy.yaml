@@ -1,6 +1,6 @@
 SecuritySystems:
-  # Security System 'OpenLdap'
-  OpenLdap:
+  # configuring the default security system
+  default:
     # We do not officially support OpenLdap. Instead we use the Novell eDirectory provider which fits best
     Provider: "Novell eDirectory"
     
