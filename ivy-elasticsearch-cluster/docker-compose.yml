@@ -31,7 +31,7 @@ services:
   # see here for more information
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/discovery-settings.html
   elasticsearch1:
-    image: "elasticsearch:7.3.0"    
+    image: "elasticsearch:7.17.3"    
     ports:
      - "9201:9200"
     environment:
@@ -40,7 +40,7 @@ services:
       - cluster.initial_master_nodes=elasticsearch1
       - "discovery.seed_hosts=elasticsearch2,elasticsearch3"
   elasticsearch2:
-    image: "elasticsearch:7.3.0"
+    image: "elasticsearch:7.17.3"
     ports:
      - "9202:9200"
     environment:
@@ -49,7 +49,7 @@ services:
       - cluster.initial_master_nodes=elasticsearch1
       - "discovery.seed_hosts=elasticsearch1,elasticsearch3"
   elasticsearch3:
-    image: "elasticsearch:7.3.0"
+    image: "elasticsearch:7.17.3"
     ports:
      - "9203:9200"
     environment:
