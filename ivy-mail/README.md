@@ -4,7 +4,7 @@ There are different reasons why an Axon Ivy Engine sends mail:
 
 - New-Task and Daily-Task Summary Mails to your users
 - License Violation Mails to the admin users
-- Mail Acitivties in your business processes
+- Mail Activities in your business processes
 
 You need to configure an Mail Server so that the Axon Ivy Engine
 can send mails (ivy.yaml).
