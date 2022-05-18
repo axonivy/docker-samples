@@ -1,0 +1,15 @@
+EMail:
+  Server:
+    Host: mail
+    Port: 25
+    MailAddress: info@axonivy.com
+#User: user
+#Password: password
+
+SecuritySystems:
+  default:
+    EMailNotification:
+      DailySummaryOn: monday, tuesday, wednesday, thursday, friday
+      OnNewTasks: true
+      Language: en
+      StandardProcess: com.axonivy.demo.custom.mail:custom-mail-demo

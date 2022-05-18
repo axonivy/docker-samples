@@ -1,4 +1,0 @@
-EMailNotification:
-  Language: en
-  OnNewTasks: true
-  DailySummaryOn: always
