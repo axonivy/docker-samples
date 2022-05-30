@@ -13,15 +13,36 @@ pipeline {
   }
 
   stages {
-    stage('test') {
+    stage('pull-image') {
+      steps {
+        script {
+          pullEngineImage()
+        }
+      }
+    }
+    
+    stage('test-compose') {
       steps {
         script {          
-            pullEngineImage()
-            examples().each { entry ->
-              def example = entry.key
-              def assertion = entry.value
-              runTest(example, assertion)
-            }          
+          def compose = load 'compose.groovy'
+          examples().each { entry ->
+            def example = entry.key
+            def assertion = entry.value
+            compose.newCompose(example).runTest(assertion);
+          }          
+        }
+      }
+    }
+
+    stage('test-kubernetes') {
+      steps {
+        script {          
+          def kubernetes = load 'kubernetes.groovy'
+          examples().each { entry ->
+            def example = entry.key
+            def assertion = entry.value
+            kubernetes.newKubernetes(example).runTest(assertion)
+          }          
         }
       }
     }
@@ -40,79 +61,29 @@ def pullEngineImage() {
 
 def examples() {
   return [
-    'ivy': { assertIvyIsRunningInDemoMode() },
-    'ivy-systemdb-postgres': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-sso-saml': { assertSSO() },
-    'ivy-sso-openid-connect': { assertSSO() },
-    'ivy-deploy-app': { assertAppIsDeployed("myApp") },
-    'ivy-branding': { assertBranding() },
-    'ivy-elasticsearch': { assertElasticsearch() },  
-    'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
-    'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/usr/lib/axonivy-engine/configuration") },
-    'ivy-reverse-proxy-nginx': { assertReverseProxy() },
-    'ivy-reverse-proxy-apache': { assertReverseProxy() },
-    'ivy-openldap': { assertOpenLdap() },
-    'ivy-patching': { assertPatching() },
-    'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-valve': { assertValve() },
-    'ivy-custom-errorpage': { assertCustomErrorPage() },
-    'ivy-scaling-haproxy': { assertIvyIsNotRunningInDemoModeOnPort(80) },
-    'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
+    'ivy': { log -> assertIvyIsRunningInDemoMode() },
+    'ivy-systemdb-postgres': { log -> assertIvyIsNotRunningInDemoMode() },
+    'ivy-systemdb-mysql': { log -> assertIvyIsNotRunningInDemoMode() },
+    'ivy-systemdb-mariadb': { log -> assertIvyIsNotRunningInDemoMode() },
+    'ivy-systemdb-mssql': { log -> assertIvyIsNotRunningInDemoMode() },
+    'ivy-sso-saml': { log -> assertSSO() },
+    'ivy-sso-openid-connect': { log -> assertSSO() },
+    'ivy-deploy-app': { log -> assertAppIsDeployed("myApp") },
+    'ivy-branding': { log -> assertBranding() },
+    'ivy-elasticsearch': { log -> assertElasticsearch() },  
+    'ivy-elasticsearch-cluster': { log -> assertElasticsearchCluster() },
+    'ivy-environment-variables': { log -> assertIvyIsNotRunningInDemoMode() },
+    'ivy-logging': { log -> assertIvyConsoleLog(log, "Loaded configurations of '/usr/lib/axonivy-engine/configuration") },
+    'ivy-reverse-proxy-nginx': { log -> assertReverseProxy() },
+    'ivy-reverse-proxy-apache': { log -> assertReverseProxy() },
+    'ivy-openldap': { log -> assertOpenLdap() },
+    'ivy-patching': { log -> assertPatching(log) },
+    'ivy-secrets': { log -> assertIvyIsNotRunningInDemoMode() },
+    'ivy-valve': { log -> assertValve() },
+    'ivy-custom-errorpage': { log -> assertCustomErrorPage() },
+    'ivy-scaling-haproxy': { log -> assertIvyIsNotRunningInDemoModeOnPort(80) },
+    'ivy-scaling-nginx': { log -> assertIvyIsNotRunningInDemoModeOnPort(80) }
   ]
-}
-
-def runTest(def example, def assertion) {
-  echo "==========================================================="
-  echo "START TESTING EXAMPLE $example"
-  try {
-    dockerComposeUp(example)
-    waitUntilIvyIsRunning(example)
-    assertion.call()
-    assertNoErrorOrWarnInIvyLog(example)
-  } catch (ex) {
-    currentBuild.result = 'UNSTABLE'
-    echo ex.getMessage()
-    def log = "warn-${example}.log"
-    sh "echo SAMPLE ${example} FAILED >> ${log}"              
-    sh "echo =========================================================== >> ${log}"
-                
-    sh "echo \"Error Message: ${ex.getMessage()}\" >> ${log}"   
-    sh "echo =========================================================== >> ${log}"
-                
-    sh "echo DOCKER-COMPOSE BUILD LOG: >> ${log}"  
-    sh "cat docker-compose-build.log >> ${log}"
-    sh "echo =========================================================== >> ${log}"
-
-    sh "echo DOCKER-COMPOSE UP LOG: >> ${log}"
-    sh "docker-compose -f ${example}/docker-compose.yml logs >> ${log}"
-  } finally {
-    sh 'rm docker-compose-build.log'
-    echo getIvyConsoleLog(example)
-    dockerComposeDown(example)
-    echo "==========================================================="
-  }
-}
-
-def dockerComposeUp(example) {
-  sh "docker-compose -f $example/docker-compose.yml build >> docker-compose-build.log"
-  sh "docker-compose -f $example/docker-compose.yml up -d"
-}
-
-def dockerComposeDown(example) {
-  sh "docker-compose -f $example/docker-compose.yml down"
-}
-
-def waitUntilIvyIsRunning(def example) {
-  timeout(2) {
-    waitUntil {
-      def exitCode = sh script: "docker-compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
-      return exitCode == 0;
-    }
-  }
 }
 
 def assertIvyIsRunningInDemoMode() {
@@ -195,28 +166,15 @@ def waitUntilAppIsReady(def appName) {
   sleep 10
 }
 
-def assertIvyConsoleLog(example, message) {
-  def log = getIvyConsoleLog(example)
+def assertIvyConsoleLog(log, message) {
   if (!log.contains(message)) {
     throw new Exception("console log of ivy does not contain $message");
   }
 }
 
-def assertNoErrorOrWarnInIvyLog(example) {
-  def log = getIvyConsoleLog(example)
-  if (log.contains("WARN") || log.contains("ERROR")) {
-    throw new Exception("console log of ivy contains WARN/ERROR messages");
-  }
-}
-
-def getIvyConsoleLog(example) {
-  return sh (script: "docker-compose -f $example/docker-compose.yml logs ivy", returnStdout: true)
-}
-
-def assertPatching() {
-  def sample = "ivy-patching"
-  assertIvyConsoleLog(sample, "Install patches for classes: ch.ivyteam.ivy.service.internal.ServiceManager")
-  assertIvyConsoleLog(sample, "starting patched service manager")
+def assertPatching(log) {
+  assertIvyConsoleLog(log, "Install patches for classes: ch.ivyteam.ivy.service.internal.ServiceManager")
+  assertIvyConsoleLog(log, "starting patched service manager")
 }
 
 def assertValve() {

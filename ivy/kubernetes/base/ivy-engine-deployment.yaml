@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ivy-engine
+  labels:
+    app: ivy-engine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ivy-engine
+  template:
+    metadata:
+      labels: 
+        app: ivy-engine
+    spec:
+      containers:
+      - name: ivy-engine
+        image: axonivy/axonivy-engine:dev
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "2"
+            memory: "2G"
+         

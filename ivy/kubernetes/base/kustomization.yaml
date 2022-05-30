@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ivy-engine-service.yaml
+  - ivy-engine-deployment.yaml
+# Uncomment the following line if you have installed a NGNIX ingress and want to access Axon Ivy Engine over the ingress    
+#  - ivy-engine-ingress.yaml
+  
