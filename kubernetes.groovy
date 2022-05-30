@@ -9,18 +9,19 @@ class Kubernetes {
   }
   
   def runTest(def assertion) {
+    if (! hasKubernetes()) {
+      return
+    }
     try {
-      if (! hasKubernetes()) {
-	    return
-	  }
       pipeline.echo "==========================================================="
       pipeline.echo "START TESTING KUBERNETES EXAMPLE $example"
-//	    kustomize()
-//      kubernetesApply()
-//      waitUntilIvyIsRunning()
-//      def consoleLog = getIvyConsoleLog()
-//      assertion.call(consoleLog)
-//      assertNoErrorOrWarnInIvyLog(consoleLog)
+      kustomize()
+      kubernetesApply()
+      kubernetesForwardPort()
+      waitUntilIvyIsRunning()
+      def consoleLog = getIvyConsoleLog()
+      assertion.call(consoleLog)
+      assertNoErrorOrWarnInIvyLog(consoleLog)
     } catch (ex) {
       pipeline.echo ex.getMessage()
       pipeline.currentBuild.result = 'UNSTABLE'
@@ -32,23 +33,23 @@ class Kubernetes {
       pipeline.sh "echo \"Error Message: ${ex.getMessage()}\" >> ${log}"   
       pipeline.sh "echo =========================================================== >> ${log}"
           
-//      pipeline.sh "echo KUBERNETES IVY-ENGINE POD LOG: >> ${log}"
-//      pipeline.sh "kubectl logs -l app=ivy-engine --tail=-1 >> ${log}"
+      pipeline.sh "echo KUBERNETES IVY-ENGINE POD LOG: >> ${log}"
+      pipeline.sh "kubectl logs -l app=ivy-engine --tail=-1 >> ${log}"
       throw ex
     } finally {
-//      pipeline.echo getIvyConsoleLog()
-//      kubernetesDelete()
+      pipeline.echo getIvyConsoleLog()
+      kubernetesDelete()
       pipeline.echo "==========================================================="
     }
   }
   
   def hasKubernetes() {
-    def exitCode = pipeline.sh script: "test -f $example/kubernetes/kustomization.yaml", returnStatus: true
+    def exitCode = pipeline.sh script: "test -f $example/kubernetes/base/kustomization.yaml", returnStatus: true
     return exitCode == 0;
   }
 
   def kustomize() {
-    pipeline.sh "kubectl kustomize --load-restrictor=\"LoadRestrictionsNone\" $example > $example/kubernetes/kubernetes.yaml"
+    pipeline.sh "kubectl kustomize --load-restrictor=\"LoadRestrictionsNone\" $example/kubernetes/base > $example/kubernetes/kubernetes.yaml"
   }
 
   def kubernetesApply() {
@@ -58,12 +59,37 @@ class Kubernetes {
   def kubernetesDelete() {
     pipeline.sh "kubectl delete -f $example/kubernetes/kubernetes.yaml"
   }
+  
+  def kubernetesForwardPort() {
+    waitUntilPodIsRunning()
+    waitUntilPortIsBound()
+
+    pipeline.sh "kubectl port-forward deployment/ivy-engine 8080:8080 &"
+  }
+
+  def waitUntilPodIsRunning() {
+    pipeline.timeout(2) {
+      pipeline.waitUntil {
+        def stdOut = pipeline.sh script: "kubectl get pods -l app=ivy-engine", returnStdout: true
+        return stdOut.contains("Running")
+      }
+    }
+  }
+  
+  def waitUntilPortIsBound() {
+    pipeline.timeout(2) {
+      pipeline.waitUntil {
+        def log = getIvyConsoleLog()
+        return log.contains("Web Server")
+      }
+    }         
+  }
 
   def waitUntilIvyIsRunning() {
     pipeline.timeout(2) {
       pipeline.waitUntil {
-        def exitCode = pipeline.sh script: "kubectl exec deployment/ivy-engine -- wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
-        return exitCode == 0;
+        def exitCode = pipeline.sh script: "wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
+        return exitCode == 0
       }
     }
   }

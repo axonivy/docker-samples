@@ -21,6 +21,23 @@ pipeline {
       }
     }
     
+    stage('test-kubernetes') {
+      steps {
+        script {
+          withCredentials([file(credentialsId: 'test-kube01', variable: 'config')]) {
+            docker.image('alpine/k8s:1.21.12').inside('-v $config:/.kube/config') {
+              def kubernetes = load 'kubernetes.groovy'
+              examples().each { entry ->
+                def example = entry.key
+                def assertion = entry.value
+                kubernetes.newKubernetes(example).runTest(assertion)
+              }
+            }
+          }
+        }
+      }
+    }
+
     stage('test-compose') {
       steps {
         script {          
@@ -29,19 +46,6 @@ pipeline {
             def example = entry.key
             def assertion = entry.value
             compose.newCompose(example).runTest(assertion);
-          }          
-        }
-      }
-    }
-
-    stage('test-kubernetes') {
-      steps {
-        script {          
-          def kubernetes = load 'kubernetes.groovy'
-          examples().each { entry ->
-            def example = entry.key
-            def assertion = entry.value
-            kubernetes.newKubernetes(example).runTest(assertion)
           }          
         }
       }
