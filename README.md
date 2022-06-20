@@ -21,3 +21,7 @@ Afterwards the Axon Ivy Engine is available under http://localhost:8080/ivy
 ## Licence
 
 All these samples are shipped with a limited demo licence. You are able to run the portal application.
+
+## Kubernetes Samples
+
+Also have a look at our [kubernetes samples](https://github.com/axonivy/kubernetes-samples)
