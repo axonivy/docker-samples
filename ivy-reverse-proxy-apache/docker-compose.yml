@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   ivy:
-    image: axonivy/axonivy-engine:dev
+    image: axonivy/axonivy-engine:nightly-10.0
     ports:
       - 8080:8080 # limit the access to this port by e.g. firewall rules
     volumes:

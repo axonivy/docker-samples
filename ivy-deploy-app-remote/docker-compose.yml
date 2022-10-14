@@ -18,6 +18,6 @@ services:
       "-Divy.deploy.engine.app=demos -Divy.deploy.server.id=engine"
       ]
   ivy:
-    image: axonivy/axonivy-engine:dev
+    image: axonivy/axonivy-engine:nightly-10.0
     ports:
      - "8080:8080"

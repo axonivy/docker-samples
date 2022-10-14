@@ -1,1 +1,1 @@
-FROM axonivy/axonivy-engine:dev
+FROM axonivy/axonivy-engine:nightly-10.0
