@@ -35,7 +35,7 @@ pipeline {
 }
 
 def pullEngineImage() {
-  sh 'docker pull axonivy/axonivy-engine:nightly-8'
+  sh 'docker pull axonivy/axonivy-engine:nightly-8.0'
 }
 
 def examples() {
