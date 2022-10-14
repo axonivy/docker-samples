@@ -13,7 +13,7 @@ services:
   # The Axon Ivy Engine is instrumented using the OpenTelementry Java agent 
   # to collect tracings and send them to Jaeger
   ivy:
-    image: axonivy/axonivy-engine:dev
+    image: axonivy/axonivy-engine:nightly-10.0
     ports:
      - 8080:8080
     volumes:
