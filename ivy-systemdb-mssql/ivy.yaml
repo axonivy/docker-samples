@@ -3,6 +3,8 @@ SystemDb:
   UserName: sa
   Password: secure1234PASSWORD!
   Autoconvert: false
+  DriverProperties:
+    encrypt: false
 Administrators:
   admin:
     Password: admin
