@@ -13,14 +13,13 @@ services:
   # The Axon Ivy Engine is instrumented using the OpenTelementry Java agent 
   # to collect tracings and send them to Jaeger
   ivy:
-    image: axonivy/axonivy-engine:dev
+    build: ./ivy
     ports:
      - 8080:8080
     volumes:
      - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
      - ./ivy/ivy.yaml:/etc/axonivy-engine/ivy.yaml
      - ./ivy/jvm.options:/etc/axonivy-engine/jvm.options
-     - ./agent/:/usr/lib/axonivy-engine/system/lib/agent/
      - ./deploy/:/usr/lib/axonivy-engine/deploy/
      - ./ivy/opentelemetry.properties:/etc/axonivy-engine/opentelemetry.properties
 
@@ -35,17 +34,16 @@ services:
   # The backend is a Tomcat web server that provides REST and SOAP services that are called by Axon Ivy Engine
   # Tomcat is instrumented the same as the Axon Ivy Engine using the OpenTelemetry Java agent 
   backend:
-    image: tomcat:9-jdk8
+    build: ./backend
     ports:
      - 9080:8080    
     volumes:
-     - ./agent/:/usr/lib/tomcat/lib/agent/
      - ./backend/opentelemetry.properties:/etc/tomcat/opentelemetry.properties
      - ./backend/country-service.war:/usr/local/tomcat/webapps/country-service.war
      - ./backend/test-rest-service.war:/usr/local/tomcat/webapps/test-rest-service.war
     environment:
       # Enable the OpenTelemetry Java agent and configure the configuration file 
-      JAVA_OPTS: "-javaagent:/usr/lib/tomcat/lib/agent/opentelemetry-javaagent-1.19.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
+      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent-1.19.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
 
   # Jaeger Tracing tool. Will collect the tracings from the reverse proxy, ivy and backend 
   # and provides a UI to browse the tracings 

@@ -7,7 +7,6 @@
 
 # Axon Ivy tracing extension 
 # Enables Slow Requests and Traffic Graph in Engine Cockpit with opentelemetry java agent
-# 11.1.0.202211170057 must be adjusted to correct version of your engine
 
-#-Dotel.javaagent.extensions=/usr/lib/axonivy-engine/system/plugins/ch.ivyteam.ivy.trace_11.1.0.202211170057.jar
+-Dotel.javaagent.extensions=/usr/lib/axonivy-engine/system/lib/agent/ch.ivyteam.ivy.trace.jar
 
