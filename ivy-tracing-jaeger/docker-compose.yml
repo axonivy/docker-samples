@@ -45,7 +45,7 @@ services:
      - ./backend/test-rest-service.war:/usr/local/tomcat/webapps/test-rest-service.war
     environment:
       # Enable the OpenTelemetry Java agent and configure the configuration file 
-      JAVA_OPTS: "-javaagent:/usr/lib/tomcat/lib/agent/opentelemetry-javaagent-all.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
+      JAVA_OPTS: "-javaagent:/usr/lib/tomcat/lib/agent/opentelemetry-javaagent-1.19.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
 
   # Jaeger Tracing tool. Will collect the tracings from the reverse proxy, ivy and backend 
   # and provides a UI to browse the tracings 
