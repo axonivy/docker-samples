@@ -220,7 +220,7 @@ def assertPatching() {
 }
 
 def assertValve() {
-  def log =  sh (script: "docker exec ivy-valve_ivy_1 cat logs/ivy.log", returnStdout: true)
+  def log =  sh (script: "docker exec ivy-valve cat logs/ivy.log", returnStdout: true)
   if (!log.contains("Header -->")) {
     throw new Exception("ivy.log of ivy does not contains Header -->");
   }  
@@ -235,7 +235,7 @@ def assertReverseProxy() {
 
 def assertElasticsearch() {
   // 1. Deploy Test Project
-  sh "docker cp test.iar ivy-elasticsearch_ivy_1:/usr/lib/axonivy-engine/deploy/test.zip"  
+  sh "docker cp test.iar ivy-elasticsearch:/usr/lib/axonivy-engine/deploy/test.zip"  
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
@@ -248,7 +248,7 @@ def assertElasticsearch() {
 
 def assertElasticsearchCluster() {
   // 1. Deploy Test Project
-  sh "docker cp test.iar ivy-elasticsearch-cluster_ivy_1:/usr/lib/axonivy-engine/deploy/test.zip"  
+  sh "docker cp test.iar ivy-elasticsearch-cluster:/usr/lib/axonivy-engine/deploy/test.zip"  
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
