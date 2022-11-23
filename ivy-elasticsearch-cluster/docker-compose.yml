@@ -3,6 +3,7 @@ services:
 
   ivy:
     image: "axonivy/axonivy-engine:nightly-10.0"
+    container_name: ivy-elasticsearch-cluster
     ports:
      - "8080:8080"
     volumes:
