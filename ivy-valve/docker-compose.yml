@@ -2,6 +2,7 @@ version: '3.3'
 services:
   ivy:
     build: .
+    container_name: ivy-valve
     ports:
      - "8080:8080"
     volumes:
