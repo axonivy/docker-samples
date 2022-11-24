@@ -1,11 +1,12 @@
 version: '3.7'
-services:  
+services:
+
   loadbalancer:
-    image: "dockercloud/haproxy"
+    image: haproxy
     links:
      - ivy
     ports:
-      - "80:80"
+      - 80:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
@@ -30,16 +31,16 @@ services:
      - COOKIE=JSESSIONID prefix
 
   db:
-    image: "postgres:latest"
+    image: postgres:latest
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
 
   elasticsearch:
-    image: "elasticsearch:7.17.7"
+    image: elasticsearch:7.17.7
     hostname: elasticsearch
     ports:
-     - "9200:9200"
+     - 9200:9200
     environment:
       # elasticsearch must run as single node and not as part of a cluster
       ES_JAVA_OPTS: '-Xmx256m -Xms256m'
