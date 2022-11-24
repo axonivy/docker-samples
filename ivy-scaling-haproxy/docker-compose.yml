@@ -1,10 +1,13 @@
 version: '3.7'
 services:
 
+  # read more here: https://hub.docker.com/r/dockercloud/haproxy
   loadbalancer:
     image: dockercloud/haproxy
     links:
       - ivy
+    environment:
+      - ADDITIONAL_SERVICES=project_dir:ivy
     ports:
       - 80:80
     volumes:
@@ -13,7 +16,7 @@ services:
       # Specifies that haproxy is the load balancer of the ivy cluster
       # Also ensures that ivy cluster is started before HAProxy
       - ivy
-     
+
   ivy:
     build: 
       context: ..
