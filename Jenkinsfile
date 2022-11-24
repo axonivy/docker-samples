@@ -60,8 +60,10 @@ def examples() {
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
     'ivy-custom-errorpage': { assertCustomErrorPage() },
-    'ivy-scaling-haproxy': { assertIvyIsNotRunningInDemoModeOnPort(80) },
     'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
+
+    // only works with docker-compose v1
+    //'ivy-scaling-haproxy': { assertIvyIsNotRunningInDemoModeOnPort(80) },
   ]
 }
 
