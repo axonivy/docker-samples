@@ -1,5 +1,7 @@
 # ivy-scaling
 
+**Attention: This example only works with docker-compose V1!**
+
 This example shows how to scale Axon Ivy Engine.
 
 ![Scaling](scaling.png)

@@ -30,19 +30,20 @@ services:
      - COOKIE=JSESSIONID prefix
 
   db:
-    image: "postgres:latest"
+    image: postgres:latest
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
 
   elasticsearch:
-    image: "elasticsearch:7.17.3"
+    image: elasticsearch:7.17.7
+    hostname: elasticsearch
     ports:
-     - "9200:9200"
+     - 9200:9200
     environment:
-      # development mode
-      # Specify elasticsearch to run as single node and not as part of a cluster
-      - "discovery.type=single-node"
+      # elasticsearch must run as single node and not as part of a cluster
+      ES_JAVA_OPTS: '-Xmx256m -Xms256m'
+      discovery.type: single-node
 
 volumes:
   ivy-files: 
