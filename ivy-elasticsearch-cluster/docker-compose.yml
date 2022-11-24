@@ -25,7 +25,7 @@ services:
   # elasticsearch nodes  
   # https://www.elastic.co/guide/en/elasticsearch/reference/7.17/docker.html
   elasticsearch1:
-    image: "elasticsearch:7.17.3"    
+    image: "elasticsearch:7.17.7"    
     ports:
      - "9201:9200"
     environment:
@@ -33,10 +33,10 @@ services:
       - node.name=elasticsearch1
       - cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3
       - discovery.seed_hosts=elasticsearch2,elasticsearch3
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
 
   elasticsearch2:
-    image: "elasticsearch:7.17.3"
+    image: "elasticsearch:7.17.7"
     ports:    
      - "9202:9200"
     environment:
@@ -44,10 +44,10 @@ services:
       - node.name=elasticsearch2
       - cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3
       - discovery.seed_hosts=elasticsearch1,elasticsearch3
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
 
   elasticsearch3:
-    image: "elasticsearch:7.17.3"
+    image: "elasticsearch:7.17.7"
     ports:
      - "9203:9200"
     environment:
@@ -55,4 +55,4 @@ services:
       - node.name=elasticsearch3
       - cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3
       - discovery.seed_hosts=elasticsearch1,elasticsearch2
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
