@@ -2,15 +2,13 @@ version: '3.7'
 services:
 
   loadbalancer:
-    image: haproxy
+    image: dockercloud/haproxy
     links:
-     - ivy
+      - ivy
     ports:
       - 80:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-
     depends_on:
       # Specifies that haproxy is the load balancer of the ivy cluster
       # Also ensures that ivy cluster is started before HAProxy
