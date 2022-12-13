@@ -71,6 +71,7 @@ def runTest(def example, def assertion) {
   echo "==========================================================="
   echo "START TESTING EXAMPLE $example"
   try {
+    dockerComposeDown(example) // remove previous created containers
     dockerComposeUp(example)
     waitUntilIvyIsRunning(example)
     assertion.call()
@@ -109,7 +110,7 @@ def dockerComposeDown(example) {
 }
 
 def waitUntilIvyIsRunning(def example) {
-  timeout(2) {
+  timeout(3) {
     waitUntil {
       def exitCode = sh script: "docker-compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ -O /dev/null", returnStatus: true
       return exitCode == 0;
