@@ -260,7 +260,7 @@ def assertElasticsearchCluster() {
   // 3. Query Elastic Search
   checkBusinessDataIndex(9201);
   checkBusinessDataIndex(9202);
-  checkBusinessDataIndex(9203);  
+  checkBusinessDataIndex(9203);
 }
 
 def checkBusinessDataIndex(port) {
@@ -268,7 +268,7 @@ def checkBusinessDataIndex(port) {
     waitUntil {
       def url = "http://localhost:$port/_cat/indices"
       def response = sh (script: "curl $url", returnStdout: true)
-      def elasticSearchIndex = "ivy.businessdata-default-test.testbusinessdata";  
+      def elasticSearchIndex = "ivy-default-businessdata-test.testbusinessdata";  
       echo "elastic search response: $response"
       return response.contains(elasticSearchIndex);
     }
