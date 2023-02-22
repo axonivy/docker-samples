@@ -49,8 +49,7 @@ def examples() {
     'ivy-sso-openid-connect': { assertSSO() },
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
     'ivy-branding': { assertBranding() },
-    'ivy-elasticsearch': { assertElasticsearch() },  
-    'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
+    'ivy-elasticsearch': { assertElasticsearch() },      
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
     'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/usr/lib/axonivy-engine/configuration") },
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
@@ -62,6 +61,9 @@ def examples() {
     'ivy-custom-errorpage': { assertCustomErrorPage() },
     'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
 
+    // needs too much power for our build nodes
+    //'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
+    
     // only works with docker-compose v1
     //'ivy-scaling-haproxy': { assertIvyIsNotRunningInDemoModeOnPort(80) },
   ]
