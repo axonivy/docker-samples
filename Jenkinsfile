@@ -228,6 +228,7 @@ def assertPatching() {
 }
 
 def assertValve() {
+  sh (script: "wget -qO- http://localhost:8080", returnStdout: true)
   def log =  sh (script: "docker exec ivy-valve cat logs/ivy.log", returnStdout: true)
   if (!log.contains("Header -->")) {
     throw new Exception("ivy.log of ivy does not contains Header -->");
