@@ -10,7 +10,7 @@ services:
      - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
 
   elasticsearch:
-    image: "elasticsearch:7.17.7"
+    image: "elasticsearch:7.17.9"
     ports:
      - "9200:9200"
     environment:
