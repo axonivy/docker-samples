@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   # A nginx reverse proxy that is configured to collect tracings and 
   # send them to the Jaeger tracing tool

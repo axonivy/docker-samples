@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   ivy:
     image: axonivy/axonivy-engine:dev
@@ -7,10 +6,10 @@ services:
     volumes:
      - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
-
-  mysql:
-    image: mysql
-    ports:
-     - 3306:3306
+  mssql:
+    image: mcr.microsoft.com/mssql/server
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
+      ACCEPT_EULA: "Yes"
+      SA_PASSWORD: secure1234PASSWORD!
+      MSSQL_PID: "Express"
+

@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   ivy:
     image: axonivy/axonivy-engine:dev
@@ -7,10 +6,8 @@ services:
     volumes:
      - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
-  mssql:
-    image: mcr.microsoft.com/mssql/server
+  mariadb:
+    image: mariadb
     environment:
-      ACCEPT_EULA: "Yes"
-      SA_PASSWORD: secure1234PASSWORD!
-      MSSQL_PID: "Express"
+      MYSQL_ROOT_PASSWORD: 1234
 
