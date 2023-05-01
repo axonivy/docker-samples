@@ -95,7 +95,7 @@ def runTest(def example, def assertion) {
     sh "echo =========================================================== >> ${log}"
 
     sh "echo DOCKER-COMPOSE UP LOG: >> ${log}"
-    sh "docker-compose -f ${example}/compose.yaml logs >> ${log}"
+    sh "docker compose -f ${example}/compose.yaml logs >> ${log}"
   } finally {
     sh 'rm docker-compose-build.log'
     echo getIvyConsoleLog(example)
@@ -105,12 +105,12 @@ def runTest(def example, def assertion) {
 }
 
 def dockerComposeUp(example) {
-  sh "docker-compose -f $example/compose.yaml build >> docker-compose-build.log"
-  sh "docker-compose -f $example/compose.yaml up -d"
+  sh "docker compose -f $example/compose.yaml build >> docker-compose-build.log"
+  sh "docker compose -f $example/compose.yaml up -d"
 }
 
 def dockerComposeDown(example) {
-  sh "docker-compose -f $example/compose.yaml down"
+  sh "docker compose -f $example/compose.yaml down"
 }
 
 def waitUntilIvyIsRunning(def example) {
@@ -220,7 +220,7 @@ def assertNoErrorOrWarnInIvyLog(example) {
 }
 
 def getIvyConsoleLog(example) {
-  return sh (script: "docker-compose -f $example/compose.yaml logs ivy", returnStdout: true)
+  return sh (script: "docker compose -f $example/compose.yaml logs ivy", returnStdout: true)
 }
 
 def assertPatching() {
