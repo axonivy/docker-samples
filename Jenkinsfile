@@ -214,6 +214,11 @@ def assertIvyConsoleLog(example, message) {
 
 def assertNoErrorOrWarnInIvyLog(example) {
   def log = getIvyConsoleLog(example)
+
+  // remove false-positive warnings for mariadb
+  log = log.replace("WARN] (main) Error: 1049-42000:", "")
+  log = log.replace("WARN] (System Database Creator Thread) Error: 1049-42000:", "")
+
   if (log.contains("WARN") || log.contains("ERROR")) {
     throw new Exception("console log of ivy contains WARN/ERROR messages");
   }
