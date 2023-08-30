@@ -1,0 +1,17 @@
+services:
+  ivy:
+    image: axonivy/axonivy-engine:dev
+    ports:
+     - 8080:8080
+    volumes:
+     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+
+  s3:
+    image: quay.io/minio/minio
+    ports:
+     - 9000:9000
+     - 9001:9001
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: 123456789
+    command: server /data --console-address ":9001"
