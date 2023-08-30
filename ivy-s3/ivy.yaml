@@ -1,0 +1,8 @@
+SecuritySystems:
+  default:
+    BlobStorage:
+      Name: s3
+      Config:
+        Url: http://127.0.0.1:9000
+        AccessKey: minio
+        SecretKey: 123456789
