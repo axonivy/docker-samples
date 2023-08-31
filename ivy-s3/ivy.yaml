@@ -1,8 +1,9 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/0.0.3/ivy.json
 SecuritySystems:
   default:
     BlobStorage:
       Name: s3
       Config:
-        Url: http://127.0.0.1:9000
+        Url: http://s3:9000
         AccessKey: minio
         SecretKey: 123456789
