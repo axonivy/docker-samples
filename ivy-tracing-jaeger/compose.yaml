@@ -48,7 +48,7 @@ services:
   # and provides a UI to browse the tracings 
   # Go to http://localhost:16686 to start browsing the tracings
   jaeger:
-    image: jaegertracing/all-in-one:1.26
+    image: jaegertracing/all-in-one:1.51
     ports:
      - 5775:5775/udp 
      # Port used by the reverse proxy to send tracings
