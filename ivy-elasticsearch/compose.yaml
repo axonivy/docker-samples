@@ -8,7 +8,7 @@ services:
      - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
 
   elasticsearch:
-    image: "elasticsearch:7.17.14"
+    image: "elasticsearch:8.11.0"
     ports:
      - "9200:9200"
     environment:
