@@ -30,7 +30,7 @@ services:
       POSTGRES_PASSWORD: 1234
 
   elasticsearch:
-    image: "elasticsearch:7.17.15"
+    image: "elasticsearch:7.17.16"
     ports:
      - "9200:9200"
     environment:
