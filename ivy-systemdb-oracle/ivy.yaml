@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/11.3.1/ivy.json
+SystemDb:
+  Url: jdbc:oracle:thin:@//oracle:1521/xe
+  UserName: system
+  Password: secure1234PASSWORD!
+  Creation:
+    Enabled: true
+Administrators:
+  admin:
+    Password: admin

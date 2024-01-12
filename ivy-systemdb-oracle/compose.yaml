@@ -1,0 +1,19 @@
+services:
+  ivy:
+    image: axonivy/axonivy-engine:dev
+    ports:
+     - 8080:8080
+    volumes:
+     - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
+     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+    depends_on:
+      oracle:
+        condition: service_healthy
+  oracle:
+    image: container-registry.oracle.com/database/express
+    ports:
+     - 1521:1521
+    volumes:
+     - ./startup:/opt/oracle/scripts/startup
+    environment:
+      ORACLE_PWD: secure1234PASSWORD!
