@@ -6,6 +6,9 @@ services:
     volumes:
      - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+    depends_on:
+      oracle:
+        condition: service_healthy
   oracle:
     image: container-registry.oracle.com/database/express
     ports:
