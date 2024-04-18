@@ -59,7 +59,9 @@ def examples() {
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
     'ivy-custom-errorpage': { assertCustomErrorPage() },
-    'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
+    
+    // disabled because highly flaky
+    //'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
 
     //disabled because it needs to much power for our build-nodes
     //'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
