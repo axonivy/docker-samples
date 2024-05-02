@@ -19,7 +19,7 @@ services:
   # elasticsearch nodes  
   # https://www.elastic.co/guide/en/elasticsearch/reference/7.17/docker.html
   elasticsearch1:
-    image: "elasticsearch:7.17.20"    
+    image: "elasticsearch:7.17.21"    
     ports:
      - "9201:9200"
     environment:
@@ -30,7 +30,7 @@ services:
       - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
 
   elasticsearch2:
-    image: "elasticsearch:7.17.20"
+    image: "elasticsearch:7.17.21"
     ports:    
      - "9202:9200"
     environment:
@@ -41,7 +41,7 @@ services:
       - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
 
   elasticsearch3:
-    image: "elasticsearch:7.17.20"
+    image: "elasticsearch:7.17.21"
     ports:
      - "9203:9200"
     environment:
