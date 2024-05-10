@@ -234,7 +234,9 @@ def getIvyConsoleLog(example) {
 
 def assertPatching() {
   def sample = "ivy-patching"
-  assertIvyConsoleLog(sample, "Install patches for classes: ch.ivyteam.ivy.service.internal.ServiceManager")
+  assertIvyConsoleLog(sample, "Install patches for classes:")
+  assertIvyConsoleLog(sample, "patches/service-manager-patch.jar ->")
+  assertIvyConsoleLog(sample, "ch.ivyteam.ivy.service.internal.ServiceManager")
   assertIvyConsoleLog(sample, "starting patched service manager")
 }
 
