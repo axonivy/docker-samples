@@ -1710,7 +1710,7 @@
   "attributes" : {
     "clientSessionIdleTimeout" : "0",
     "clientSessionMaxLifespan" : "0",
-    "frontendUrl": "http://localhost:8080"
+    "frontendUrl": "https://localhost:8443"
   },
   "keycloakVersion" : "10.0.1",
   "userManagedAccessAllowed" : false
