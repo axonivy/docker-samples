@@ -18,12 +18,12 @@ services:
       - ./apache/certs:/certs
 
   keycloak:
-    image: jboss/keycloak
+    image: quay.io/keycloak/keycloak:latest
     environment:
-     - KEYCLOAK_USER=admin
-     - KEYCLOAK_PASSWORD=admin
-     - KEYCLOAK_IMPORT=/shared/realm-ivydemo-import.json
+     - KEYCLOAK_ADMIN=admin
+     - KEYCLOAK_ADMIN_PASSWORD=admin
     volumes:
-     - ./keycloak:/shared
+     - ./keycloak:/opt/keycloak/data/import
     ports:
-     - 8443:8443
+     - 8080:8080
+    command: start-dev --import-realm
