@@ -15,18 +15,15 @@ services:
       - APACHE_HTTPS_PORT_NUMBER=443
     volumes:
       - ./apache/vhost.conf:/vhosts/vhost.conf
-      - ./certs:/certs
+      - ./apache/certs:/certs
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     environment:
      - KEYCLOAK_ADMIN=admin
      - KEYCLOAK_ADMIN_PASSWORD=admin
-     - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/conf/certs/server.crt
-     - KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/conf/certs/server.key
     volumes:
      - ./keycloak:/opt/keycloak/data/import
-     - ./certs:/opt/keycloak/conf/certs
     ports:
-     - 8443:8443
+     - 8080:8080
     command: start-dev --import-realm
