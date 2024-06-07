@@ -10,5 +10,6 @@
       "enableNonRootDocker": "true",
       "moby": "true"
     }
-  }
+  },
+  "postStartCommand": "docker --version"
 }
