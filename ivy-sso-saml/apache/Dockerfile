@@ -1,4 +1,4 @@
-FROM bitnami/apache:2.4.52
+FROM bitnami/apache:2.4.62
 
 # change to root user to allow package installations
 USER 0
