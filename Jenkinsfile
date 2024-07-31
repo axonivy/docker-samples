@@ -83,7 +83,7 @@ def runTest(def example, def assertion) {
     sh "echo =========================================================== >> ${log}"
 
     sh "echo DOCKER-COMPOSE UP LOG: >> ${log}"
-    sh "docker-compose -f ${example}/docker-compose.yml logs >> ${log}"
+    sh "docker compose -f ${example}/docker-compose.yml logs >> ${log}"
   } finally {
     sh 'rm docker-compose-build.log'
     echo getIvyConsoleLog(example)
@@ -93,18 +93,18 @@ def runTest(def example, def assertion) {
 }
 
 def dockerComposeUp(example) {
-  sh "docker-compose -f $example/docker-compose.yml build >> docker-compose-build.log"
-  sh "docker-compose -f $example/docker-compose.yml up -d"
+  sh "docker compose -f $example/docker-compose.yml build >> docker-compose-build.log"
+  sh "docker compose -f $example/docker-compose.yml up -d"
 }
 
 def dockerComposeDown(example) {
-  sh "docker-compose -f $example/docker-compose.yml down"
+  sh "docker compose -f $example/docker-compose.yml down"
 }
 
 def waitUntilIvyIsRunning(def example) {
   timeout(2) {
     waitUntil {
-      def exitCode = sh script: "docker-compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ivy -O /dev/null", returnStatus: true
+      def exitCode = sh script: "docker compose -f $example/docker-compose.yml exec -T ivy wget -t 1 -q http://localhost:8080/ivy -O /dev/null", returnStatus: true
       return exitCode == 0;
     }
   }
@@ -166,7 +166,7 @@ def assertNoErrorOrWarnInIvyLog(example) {
 }
 
 def getIvyConsoleLog(example) {
-  return sh (script: "docker-compose -f $example/docker-compose.yml logs ivy", returnStdout: true)
+  return sh (script: "docker compose -f $example/docker-compose.yml logs ivy", returnStdout: true)
 }
 
 def assertPatching() {
