@@ -2,7 +2,7 @@ services:
   ivy:
     image: axonivy/axonivy-engine:dev
     ports:
-      - 8080:8080
+     - 8080:8080
     volumes:
      - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
@@ -11,7 +11,7 @@ services:
     # if you want to use this as a development database and 
     # access it with a 3rd party database client like DBeaver, uncomment the following 2 lines.
     # ports:
-    #   - 3306:3306
+    #  - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: 1234
 
