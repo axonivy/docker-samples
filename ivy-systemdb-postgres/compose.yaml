@@ -9,6 +9,10 @@ services:
 
   postgres:
     image: postgres
+    # if you want to use this as a development database and 
+    # access it with a 3rd party database client like DBeaver, uncomment the following 2 lines.
+    # ports:
+    # - 5432:5432
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
