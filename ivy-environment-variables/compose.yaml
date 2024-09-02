@@ -4,7 +4,7 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
+     - ../demo-licence.lic:/usr/lib/axonivy-engine/configuration/demo-licence.lic
     environment:
       IVY_SYSTEMDB_URL: jdbc:postgresql://postgres:5432/AxonIvySystemDatabase
       IVY_SYSTEMDB_USERNAME: admin

@@ -2,10 +2,10 @@ services:
   ivy:
     build: .
     ports:
-     - "8080:8080"
+     - 8080:8080
      - "8000:8000"
     volumes:
-     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+     - ./ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
 
   mail:
     image: rnwood/smtp4dev

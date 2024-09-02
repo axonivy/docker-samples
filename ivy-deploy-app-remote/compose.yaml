@@ -2,9 +2,9 @@ services:
   maven:
     build: .
     volumes:
-     - "./wait-for-engine-running.sh:/root/wait-for-engine-running.sh"
-     - "./settings.xml:/root/.m2/settings.xml"
-     - "./settings-security.xml:/root/.settings-security.xml"
+     - ./wait-for-engine-running.sh:/root/wait-for-engine-running.sh
+     - ./settings.xml:/root/.m2/settings.xml
+     - ./settings-security.xml:/root/.settings-security.xml
     depends_on: 
      - ivy
     command: [
@@ -19,4 +19,4 @@ services:
   ivy:
     image: axonivy/axonivy-engine:dev
     ports:
-     - "8080:8080"
+     - 8080:8080

@@ -4,9 +4,9 @@ services:
     container_name: ivy
     # Deny public access to the Ivy.Engine while SSO is enabling.
     # ports:
-    #  - "8080:8080"
+    #  - 8080:8080
     volumes:
-      - ./ivy/ivy.yaml:/etc/axonivy-engine/ivy.yaml
+      - ./ivy/ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
 
   nginx:
     build:

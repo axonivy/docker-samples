@@ -2,6 +2,6 @@ services:
   ivy:
     build: .
     volumes:
-     - "./app.yaml:/etc/axonivy-engine/applications/myApp/app.yaml"     
+     - ./app.yaml:/usr/lib/axonivy-engine/configuration/applications/myApp/app.yaml
     ports:
-     - "8080:8080"
+     - 8080:8080

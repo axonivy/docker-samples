@@ -14,7 +14,7 @@ services:
       context: ..
       dockerfile: ivy-scaling-nginx/Dockerfile
     volumes:
-      - ivy-files:/var/lib/axonivy-engine/files
+      - ivy-files:/usr/lib/axonivy-engine/files
     deploy:
       replicas: 2
     depends_on:
@@ -24,15 +24,15 @@ services:
      - VIRTUAL_HOST=localhost
      
   db:
-    image: "postgres:latest"
+    image: postgres:latest
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
 
   elasticsearch:
-    image: "elasticsearch:7.17.23"
+    image: elasticsearch:7.17.23
     ports:
-     - "9200:9200"
+     - 9200:9200
     environment:
       # elasticsearch must run as single node and not as part of a cluster
       ES_JAVA_OPTS: '-Xmx256m -Xms256m'
