@@ -16,11 +16,11 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
-     - ./ivy/ivy.yaml:/etc/axonivy-engine/ivy.yaml
-     - ./ivy/jvm.options:/etc/axonivy-engine/jvm.options
+     - ../demo-licence.lic:/usr/lib/axonivy-engine/configuration/demo-licence.lic
+     - ./ivy/ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
+     - ./ivy/jvm.options:/usr/lib/axonivy-engine/configuration/jvm.options
      - ./deploy/:/usr/lib/axonivy-engine/deploy/
-     - ./ivy/opentelemetry.properties:/etc/axonivy-engine/opentelemetry.properties
+     - ./ivy/opentelemetry.properties:/usr/lib/axonivy-engine/configuration/opentelemetry.properties
 
   systemDatabase:
     image: postgres

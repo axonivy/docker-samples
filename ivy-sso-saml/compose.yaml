@@ -2,7 +2,7 @@ services:
   ivy:
     image: axonivy/axonivy-engine:dev
     volumes:
-     - ./ivy/ivy.yaml:/etc/axonivy-engine/ivy.yaml
+     - ./ivy/ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
 
   apache:
     build: apache

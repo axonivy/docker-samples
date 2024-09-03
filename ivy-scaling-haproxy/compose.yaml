@@ -17,7 +17,7 @@ services:
       context: ..
       dockerfile: ivy-scaling-haproxy/Dockerfile
     volumes:
-      - ivy-files:/var/lib/axonivy-engine/files
+      - ivy-files:/usr/lib/axonivy-engine/files
     deploy:
       replicas: 2
     depends_on:

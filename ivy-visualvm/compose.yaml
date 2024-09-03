@@ -1,8 +1,8 @@
 services:
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    image: axonivy/axonivy-engine:dev
     ports:
-     - "8080:8080"
-     - "9003:9003"
+     - 8080:8080
+     - 9003:9003
     volumes:
-     - "./jvm.options:/usr/lib/axonivy-engine/configuration/jvm.options"
+     - ./jvm.options:/usr/lib/axonivy-engine/configuration/jvm.options

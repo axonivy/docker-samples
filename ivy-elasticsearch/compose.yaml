@@ -1,16 +1,16 @@
 services:
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    image: axonivy/axonivy-engine:dev
     container_name: ivy-elasticsearch
     ports:
-     - "8080:8080"
+     - 8080:8080
     volumes:
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
+     - ./ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
 
   elasticsearch:
-    image: "elasticsearch:7.17.23"
+    image: elasticsearch:7.17.23
     ports:
-     - "9200:9200"
+     - 9200:9200
     environment:
       # elasticsearch must run as single node and not as part of a cluster
       ES_JAVA_OPTS: '-Xmx256m -Xms256m'
