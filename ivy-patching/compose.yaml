@@ -4,4 +4,4 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - "./service-manager-patch.jar:/usr/lib/axonivy-engine/patches/service-manager-patch.jar"
+     - ./service-manager-patch.jar:/ivy/patches/service-manager-patch.jar

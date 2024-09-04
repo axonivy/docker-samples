@@ -2,6 +2,6 @@ services:
   ivy:
     build: .
     volumes:
-     - ./branding:/usr/lib/axonivy-engine/configuration/applications/demo-portal/branding/
+     - ./branding:/ivy/configuration/applications/demo-portal/branding/
     ports:
      - 8080:8080

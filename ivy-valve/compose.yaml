@@ -5,5 +5,5 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ./context.xml:/usr/lib/axonivy-engine/configuration/context.xml
-     - ./log4j2.xml:/usr/lib/axonivy-engine/configuration/log4j2.xml
+     - ./context.xml:/ivy/configuration/context.xml
+     - ./log4j2.xml:/ivy/configuration/log4j2.xml

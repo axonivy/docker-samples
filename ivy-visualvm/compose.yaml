@@ -5,4 +5,4 @@ services:
      - 8080:8080
      - 9003:9003
     volumes:
-     - ./jvm.options:/usr/lib/axonivy-engine/configuration/jvm.options
+     - ./jvm.options:/ivy/configuration/jvm.options

@@ -6,7 +6,7 @@ services:
     # ports:
     #  - 8080:8080
     volumes:
-      - ./ivy/ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
+      - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
 
   nginx:
     build:

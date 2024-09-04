@@ -3,11 +3,11 @@ services:
     build: .
     ports:
      - 8080:8080
-     - "8000:8000"
+     - 8000:8000
     volumes:
-     - ./ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml
 
   mail:
     image: rnwood/smtp4dev
     ports:
-      - "3000:80"
+      - 3000:80

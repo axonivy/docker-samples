@@ -2,8 +2,8 @@ services:
   ivy:
     image: axonivy/axonivy-engine:dev
     volumes:
-     - "./web.xml:/usr/lib/axonivy-engine/configuration/web.xml"
-     - "./error-404.xhtml:/usr/lib/axonivy-engine/webapps/ivy/error-404.xhtml"
+     - "./web.xml:/ivy/configuration/web.xml"
+     - "./error-404.xhtml:/ivy/webapps/ivy/error-404.xhtml"
     ports:
      - 8080:8080
 

@@ -14,7 +14,7 @@ services:
       context: ..
       dockerfile: ivy-scaling-nginx/Dockerfile
     volumes:
-      - ivy-files:/usr/lib/axonivy-engine/files
+      - ivy-files:/ivy/files
     deploy:
       replicas: 2
     depends_on:

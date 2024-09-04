@@ -4,8 +4,8 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ../demo-licence.lic:/usr/lib/axonivy-engine/configuration/demo-licence.lic
-     - ./ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
+     - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml
     secrets:
      - ivy.SystemDb.Password
      - ivy.Administrators.admin.Password
