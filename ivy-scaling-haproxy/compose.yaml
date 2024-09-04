@@ -1,10 +1,10 @@
 services:
   loadbalancer:
-    image: "dockercloud/haproxy"
+    image: dockercloud/haproxy
     links:
      - ivy
     ports:
-      - "80:80"
+      - 80:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
