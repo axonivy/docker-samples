@@ -51,7 +51,7 @@ def examples() {
     'ivy-branding': { assertBranding() },
     'ivy-elasticsearch': { assertElasticsearch() },      
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/usr/lib/axonivy-engine/configuration") },
+    'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/ivy/configuration") },
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
     'ivy-reverse-proxy-apache': { assertReverseProxy() },
     'ivy-openldap': { assertOpenLdap() },
@@ -257,7 +257,7 @@ def assertReverseProxy() {
 
 def assertElasticsearch() {
   // 1. Deploy Test Project
-  sh "docker cp test.iar ivy-elasticsearch:/usr/lib/axonivy-engine/deploy/test.zip"  
+  sh "docker cp test.iar ivy-elasticsearch:/ivy/deploy/test.zip"  
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
@@ -270,7 +270,7 @@ def assertElasticsearch() {
 
 def assertElasticsearchCluster() {
   // 1. Deploy Test Project
-  sh "docker cp test.iar ivy-elasticsearch-cluster:/usr/lib/axonivy-engine/deploy/test.zip"  
+  sh "docker cp test.iar ivy-elasticsearch-cluster:/ivy/deploy/test.zip"  
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data

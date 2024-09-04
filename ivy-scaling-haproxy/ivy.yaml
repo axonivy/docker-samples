@@ -10,4 +10,4 @@ Administrators:
 Elasticsearch:
   ExternalServer:
     Url: http://elasticsearch:9200
-Data.FilesDirectory: "/usr/lib/axonivy-engine/files"
+Data.FilesDirectory: "/ivy/files"

@@ -4,7 +4,7 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ./ivy.yaml:/usr/lib/axonivy-engine/configuration/ivy.yaml
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml
     depends_on:
      - openldap
 
