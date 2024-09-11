@@ -1,20 +1,20 @@
 services:
   loadbalancer:
-    build: 
-      context: ..
-      dockerfile: ivy-scaling-apache/apache/Dockerfile
+    image: bitnami/apache:2.4
+    user: root
     ports:
       - 80:80
-    depends_on:
-      # Ensures that ivy cluster is started before apache
-      - ivy
+    environment: 
+      - APACHE_HTTP_PORT_NUMBER=80
+    volumes:
+      - ./vhost.conf:/vhosts/vhost.conf
 
   ivy:
     build: 
       context: ..
-      dockerfile: ivy-scaling-apache/ivy/Dockerfile
+      dockerfile: ivy-scaling-apache/Dockerfile
     volumes:
-      - ivy-files:/var/lib/axonivy-engine/files
+      - ivy-files:/ivy/files
     deploy:
       replicas: 2
     depends_on:
@@ -24,15 +24,15 @@ services:
      - VIRTUAL_HOST=localhost
      
   db:
-    image: "postgres:latest"
+    image: postgres:latest
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
 
   elasticsearch:
-    image: "elasticsearch:7.17.21"
+    image: elasticsearch:7.17.24
     ports:
-     - "9200:9200"
+     - 9200:9200
     environment:
       # elasticsearch must run as single node and not as part of a cluster
       ES_JAVA_OPTS: '-Xmx256m -Xms256m'
