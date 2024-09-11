@@ -4,7 +4,7 @@ services:
     ports:
       - 8080:8080  # limit the access to this port by e.g. firewall rules
     volumes:
-      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+      - ./ivy.yaml:/ivy/configuration/ivy.yaml
 
   nginx:
     image: nginx:stable-alpine

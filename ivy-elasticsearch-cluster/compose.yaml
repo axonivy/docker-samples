@@ -1,27 +1,27 @@
 services:
   ivy:
-    image: "axonivy/axonivy-engine:dev"
+    image: axonivy/axonivy-engine:dev
     container_name: ivy-elasticsearch-cluster
     ports:
-     - "8080:8080"
+     - 8080:8080
     volumes:
-     - "./ivy.yaml:/etc/axonivy-engine/ivy.yaml"
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml
 
 
   # ivy only communicates with the proxy
   proxy:
-     image: "nginx:latest"
+     image: nginx:latest
      ports:
-      - "9200:9200"
+      - 9200:9200
      volumes:
-      - "./nginx.conf:/etc/nginx/nginx.conf"
+      - ./nginx.conf:/etc/nginx/nginx.conf
   
   # elasticsearch nodes  
   # https://www.elastic.co/guide/en/elasticsearch/reference/7.17/docker.html
   elasticsearch1:
-    image: "elasticsearch:7.17.22"    
+    image: elasticsearch:7.17.24    
     ports:
-     - "9201:9200"
+     - 9201:9200
     environment:
       - cluster.name=elasticsearch-cluster
       - node.name=elasticsearch1
@@ -30,9 +30,9 @@ services:
       - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
 
   elasticsearch2:
-    image: "elasticsearch:7.17.22"
+    image: elasticsearch:7.17.24
     ports:    
-     - "9202:9200"
+     - 9202:9200
     environment:
       - cluster.name=elasticsearch-cluster
       - node.name=elasticsearch2
@@ -41,9 +41,9 @@ services:
       - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
 
   elasticsearch3:
-    image: "elasticsearch:7.17.22"
+    image: elasticsearch:7.17.24
     ports:
-     - "9203:9200"
+     - 9203:9200
     environment:
       - cluster.name=elasticsearch-cluster
       - node.name=elasticsearch3

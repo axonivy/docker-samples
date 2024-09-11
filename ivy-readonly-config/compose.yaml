@@ -4,6 +4,6 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml:ro
-     - ./ivy.cache.properties:/etc/axonivy-engine/ivy.cache.properties:ro
-     - ./app-config:/etc/axonivy-engine/applications/demo-portal:ro
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml:ro
+     - ./ivy.cache.properties:/ivy/configuration/ivy.cache.properties:ro
+     - ./app-config:/ivy/configuration/applications/demo-portal:ro

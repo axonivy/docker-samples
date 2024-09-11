@@ -1,0 +1,33 @@
+services:
+  ivy:
+    image: axonivy/axonivy-engine:dev
+    ports:
+     - 8080:8080
+    volumes:
+     # mount persistent file areas so that deployed applications,
+     # changed configuration and runtime data don't get lost if the
+     # container gets destroyed
+     - ivy-apps:/ivy/applications
+     - ivy-config:/ivy/configuration
+     - ivy-data:/ivy/data
+     
+     # license
+     - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+    volumes:
+     - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  ivy-apps:
+    name: ivy-apps
+  ivy-config:
+    name: ivy-config
+  ivy-data:
+    name: ivy-data
+  postgres-data:
+    name: postgres-data

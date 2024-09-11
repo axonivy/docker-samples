@@ -4,11 +4,15 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
-     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+     - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml
 
   postgres:
     image: postgres
+    # if you want to use this as a development database and 
+    # access it with a 3rd party database client like DBeaver, uncomment the following 2 lines.
+    # ports:
+    # - 5432:5432
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234

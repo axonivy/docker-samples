@@ -4,7 +4,7 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml
 
   s3:
     image: quay.io/minio/minio

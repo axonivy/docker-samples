@@ -4,10 +4,14 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ../demo-licence.lic:/etc/axonivy-engine/demo-licence.lic
-     - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
+     - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml
   mariadb:
     image: mariadb
+    # if you want to use this as a development database and 
+    # access it with a 3rd party database client like DBeaver, uncomment the following 2 lines.
+    # ports:
+    #  - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: 1234
 

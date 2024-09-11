@@ -1,0 +1,21 @@
+services:
+  ivy:
+    image: axonivy/axonivy-engine:dev
+    container_name: ivy
+    # Deny public access to the Ivy.Engine while SSO is enabling.
+    # ports:
+    #  - 8080:8080
+    volumes:
+      - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
+
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./nginx/logs:/usr/local/openresty/nginx/logs
