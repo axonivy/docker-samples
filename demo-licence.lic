@@ -1,11 +1,11 @@
 [Begin Licence]
 #Licence for AxonIvy Axon Ivy Engine (Standard Edition)
-#Fri Jun 07 09:34:12 CEST 2024
-licence.keyversion=axonivy/11000
-licence.number=XLSSE-18FF-19E9-41FN
+#Mon Sep 16 14:19:36 CEST 2024
+licence.keyversion=axonivy/12000
+licence.number=XLSSE-191F-AC62-9E3U
 licence.type=Standard Edition
-licence.valid.from=2024-06-07
-licence.valid.until=2025-11-03
+licence.valid.from=2024-09-16
+licence.valid.until=2027-11-03
 licencee.individual=www.axonivy.com
 licencee.organisation=Axon Ivy AG
 product.name=Axon Ivy Engine
@@ -16,5 +16,5 @@ server.sessions.limit=2
 server.users.limit=4
 [End Licence]
 [Begin Signature]
-MCwCFFave1eO4fn/lVXjYi8FocBIhevrAhRNQf/KtVETTnRStotaKVJ6R3LYfQ==
+MCwCFDoAbJBiOkfiuHb0edkDwyjs3+7IAhQJtwJV1S02YsfnNhQmY6LAtTEj7A==
 [End Signature]
