@@ -10,4 +10,3 @@ Administrators:
 SearchEngine:
   ExternalServer:
     Url: http://opensearch:9200
-Data.FilesDirectory: "/ivy/files"
