@@ -7,7 +7,7 @@ SystemDb:
 Administrators:
   admin:
     Password: admin
-Elasticsearch:
+SearchEngine:
   ExternalServer:
-    Url: http://elasticsearch:9200
+    Url: http://opensearch:9200
 Data.FilesDirectory: "/ivy/files"

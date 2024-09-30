@@ -49,7 +49,7 @@ def examples() {
     'ivy-sso-openid-connect': { assertSSO() },
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
     'ivy-branding': { assertBranding() },
-    'ivy-elasticsearch': { assertElasticsearch() },      
+    'ivy-opensearch': { assertOpenSearch() },      
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
     'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/ivy/configuration") },
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
@@ -255,13 +255,13 @@ def assertReverseProxy() {
   }
 }
 
-def assertElasticsearch() {
+def assertOpenSearch() {
   // 1. Deploy Test Project
-  sh "docker cp test.iar ivy-elasticsearch:/ivy/deploy/test.zip"  
+  sh "docker cp test.iar ivy-opensearch:/ivy/deploy/test.zip"  
   sleep(5) // wait until is deployed
 
   // 2. Execute Process which create business data
-  sleep(10) // FIXME: sometimes es cluster is still not available. we have to fix that in the engine startup, wait on elasticsearch.
+  sleep(10) // FIXME: sometimes es cluster is still not available. we have to fix that in the engine startup, wait on OpenSearch.
   sh "curl 'http://localhost:8080/test/pro/test/1665799EBA281E4C/start.ivp'"
 
   // 3. Query Elastic Search
@@ -287,9 +287,9 @@ def checkBusinessDataIndex(port) {
     waitUntil {
       def url = "http://localhost:$port/_cat/indices"
       def response = sh (script: "curl $url", returnStdout: true)
-      def elasticSearchIndex = "ivy-default-businessdata-test.testbusinessdata";  
-      echo "elastic search response: $response"
-      return response.contains(elasticSearchIndex);
+      def index = "ivy-default-businessdata-test.testbusinessdata";  
+      echo "osearch engine response: $response"
+      return response.contains(index);
     }
   }
 }
