@@ -22,7 +22,7 @@ services:
       replicas: 2
     depends_on:
      - db
-     - elasticsearch
+     - opensearch
     environment:
      # Specifies sticky sessions for the load balancer, using a server cookie value prefix
      # for the client cookie with name JSESSIONID.
@@ -34,15 +34,15 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
 
-  elasticsearch:
-    image: elasticsearch:7.17.24
-    hostname: elasticsearch
+  opensearch:
+    image: opensearchproject/opensearch:2.17.0
     ports:
      - 9200:9200
     environment:
-      # elasticsearch must run as single node and not as part of a cluster
-      ES_JAVA_OPTS: '-Xmx256m -Xms256m'
+      ES_JAVA_OPTS: '-Xmx512m -Xms512m'
       discovery.type: single-node
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: opensearchPassword2024?
+      plugins.security.disabled: true
 
 volumes:
   ivy-files: 

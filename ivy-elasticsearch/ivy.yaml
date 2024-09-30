@@ -1,4 +1,0 @@
-Elasticsearch:
-  ExternalServer:
-    Url: http://elasticsearch:9200
-
