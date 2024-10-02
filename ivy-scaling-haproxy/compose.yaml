@@ -35,7 +35,7 @@ services:
       POSTGRES_PASSWORD: 1234
 
   opensearch:
-    image: opensearchproject/opensearch:2.17.0
+    image: opensearchproject/opensearch:2.17.1
     ports:
      - 9200:9200
     environment:
