@@ -163,7 +163,7 @@ def isIvyRunningInDemoMode() {
 def isIvyRunningInDemoModeOnPort(port) {
   sh "wget -O- http://localhost:$port"
   def response = sh (script: "wget -qO- http://localhost:$port", returnStdout: true)
-  return response.contains('demoMode')
+  return response.contains('demo-portal')
 }
 
 def isIvyRunningInMaintenanceMode() {
