@@ -1,3 +1,3 @@
 FROM axonivy/axonivy-engine:nightly-10.0
 
-RUN wget -O /usr/lib/axonivy-engine/deploy/ldap.zip -q -N https://market.axonivy.com/demos-app/10.0/lib/ivy-demos-app.zip
+RUN wget -O /usr/lib/axonivy-engine/deploy/ldap.zip -q -N https://dev.axonivy.com/maven/com.axonivy.demo/ivy-demos-app/10.0/zip
