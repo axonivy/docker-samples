@@ -1,3 +1,3 @@
 FROM axonivy/axonivy-engine:nightly-8.0
 
-RUN wget -O dropins/processing-valve.jar -q -N https://market.axonivy.com/processing-valve-demo/8.0-dev/lib/processing-valve.jar
+RUN wget -O dropins/processing-valve.jar -q -N https://dev.axonivy.com/maven/com.axonivy.demo.extensions/processing-valve/8.0/jar
