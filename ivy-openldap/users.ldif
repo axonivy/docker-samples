@@ -12,6 +12,7 @@ version: 1
 # Entry 1: cn=rwei,dc=example,dc=org
 dn: cn=rwei,dc=example,dc=org
 cn: rwei
+uid: 000
 displayname: Reto Weiss
 mail: reto.weiss@axonivy.com
 objectclass: inetOrgPerson
@@ -21,6 +22,7 @@ userpassword: {MD5}WLXzg2n6GO1/PWVNZgg2RA==
 
 # Entry 2: cn=als,dc=example,dc=org
 dn: cn=als,dc=example,dc=org
+uid: 111
 cn: als
 displayname: Alex Suter
 mail: alex.suter@axonivy.com

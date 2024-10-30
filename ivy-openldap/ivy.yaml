@@ -14,5 +14,6 @@ SecuritySystems:
 
     # OpenLdap specific configurations
     UserAttribute:
+      Id: uid
       Name: cn
       FullName: displayName
