@@ -1,3 +1,5 @@
-SSO:
-  Enabled: true
-  UserHeader: X-Forwarded-User
+SecuritySystems:
+  default:
+    SSO:
+      Enabled: true
+      UserHeader: X-Forwarded-User

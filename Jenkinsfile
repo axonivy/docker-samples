@@ -94,11 +94,11 @@ def runTest(def example, def assertion) {
     sh "echo \"Error Message: ${ex.getMessage()}\" >> ${log}"   
     sh "echo =========================================================== >> ${log}"
                 
-    sh "echo DOCKER-COMPOSE BUILD LOG: >> ${log}"  
+    sh "echo DOCKER COMPOSE BUILD LOG: >> ${log}"  
     sh "cat docker-compose-build.log >> ${log}"
     sh "echo =========================================================== >> ${log}"
 
-    sh "echo DOCKER-COMPOSE UP LOG: >> ${log}"
+    sh "echo DOCKER COMPOSE UP LOG: >> ${log}"
     sh "docker compose -f ${example}/compose.yaml logs >> ${log}"
   } finally {
     sh 'rm docker-compose-build.log'

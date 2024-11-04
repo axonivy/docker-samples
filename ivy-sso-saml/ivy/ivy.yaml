@@ -1,6 +1,9 @@
 # enable Single Sign-on
-SSO:
-  Enabled: true
+SecuritySystems:
+  default:
+    SSO:
+      Enabled: true
+      UserHeader: X-Forwarded-User
 
 # to generate absolute urls
 BaseUrl: https://localhost

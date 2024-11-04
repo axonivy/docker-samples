@@ -5,7 +5,7 @@ performance bottle necks in your system.
 
 ![Overview](overview.png)
 
-After starting this example with `docker-compose up` you can go to http://localhost to start some processes. Navigate to http://localhost:16686 to see 
+After starting this example with `docker compose up` you can go to http://localhost to start some processes. Navigate to http://localhost:16686 to see 
 and analyze the recorded traces.
 
 ![Tracing](tracing.png)
