@@ -30,4 +30,4 @@ Run `docker compose up` to build the nginx image and start up all services.
 Go to the engine cockpit and add a new user in your testing security system, be noticed that the user's `name` should match the [ID Token](https://learn.microsoft.com/en-us/entra/identity-platform/id-token-claims-reference) claim configured in the nginx.conf which is forwarded in the header, in this sample it's `id_token.email`, so you need to use the user's email from the Azure system.
 
 Now open your testing app, you will be redirected to Azure AD for authentication.
-Upon successful login, you will be redirected to the Axon Ivy Engine with the user email passed in the X-Forwarded-User header.
+Upon successful login, you will be redirected to the Axon Ivy Engine with the user email passed in the :code:`X-Forwarded-User` header.

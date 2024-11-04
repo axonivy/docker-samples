@@ -1,6 +1,8 @@
 # enable Single Sign-on
-SSO:
-  Enabled: true
+SecuritySystems:
+  default:
+    SSO:
+      Enabled: true
 
 # to generate absolute urls
 BaseUrl: https://localhost

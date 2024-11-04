@@ -34,7 +34,7 @@ A fallback for TLS v1.2 is allowed for Browsers that are not yet ready for TLS v
 For demonstration purpose the HTTPS endpoint is protected by a self-signed certificate.
 See `ssl_protocols TLSv1.2 TLSv1.3;` in `proxy.conf`.
 Be aware that a recent distribution is required containing at least OpenSSL 1.1.1
-in order to serve TLS v1.3. Thats why `nginx:stable-alpine` is used in `docker-compose.yaml`.
+in order to serve TLS v1.3. Thats why `nginx:stable-alpine` is used in `compose.yaml`.
 
 ## HTTP2
 Over HTTPS the fast revised HTTP/2 protocol is supported.

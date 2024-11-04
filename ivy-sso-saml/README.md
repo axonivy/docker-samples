@@ -9,7 +9,7 @@ reverse proxy for Axon Ivy Engine. See ivy-reverse-proxy-apache demo.
 
 ## Getting started
 
-Run `docker-compose up` and visit https://localhost. You will need to **accept
+Run `docker compose up` and visit https://localhost. You will need to **accept
 the risk** in your browser because we need to use self-signed certificats for
 this demo.
 
