@@ -5,9 +5,11 @@ services:
     image: opentracing/nginx-opentracing
     ports:
      - 80:80
+     - 443:443
     volumes:    
      - ./reverseProxy/ngnix.conf:/etc/nginx/nginx.conf
      - ./reverseProxy/jaeger-config.json:/etc/jaeger-config.json
+     - ./reverseProxy/certs:/etc/nginx/certs
  
   # The Axon Ivy Engine is instrumented using the OpenTelementry Java agent 
   # to collect tracings and send them to Jaeger
@@ -42,7 +44,7 @@ services:
      - ./backend/test-rest-service.war:/usr/local/tomcat/webapps/test-rest-service.war
     environment:
       # Enable the OpenTelemetry Java agent and configure the configuration file 
-      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent-1.19.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
+      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent-2.9.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
 
   # Jaeger Tracing tool. Will collect the tracings from the reverse proxy, ivy and backend 
   # and provides a UI to browse the tracings 
