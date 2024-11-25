@@ -5,7 +5,7 @@ performance bottle necks in your system.
 
 ![Overview](overview.png)
 
-After starting this example with `docker compose up` you can go to http://localhost to start some processes. Navigate to http://localhost:3000 to see 
+After starting this example with `docker compose up` you can go to http://localhost to start some processes by using user `ivy` with password `ivy`. Navigate to http://localhost:3000 to see 
 and analyze the monitoring dashboard in Grafana.
 
 ![Monitoring](monitoring.png)
