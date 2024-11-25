@@ -60,7 +60,8 @@ def examples() {
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
     'ivy-custom-errorpage': { assertCustomErrorPage() },
-    'ivy-tracing-jaeger': { assertIvyIsNotRunningInDemoMode() }
+    'ivy-tracing-jaeger': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-monitoring-prometheus': { assertIvyIsNotRunningInDemoMode() }
     
     // disabled because highly flaky
     //'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
