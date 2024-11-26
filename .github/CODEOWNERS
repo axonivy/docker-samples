@@ -1,0 +1,8 @@
+* @alexsuter
+
+/ivy-scaling-apache @weissreto
+/ivy-scaling-haproxy @weissreto
+/ivy-scaling-nginx @weissreto
+/ivy-tracing-jaeger @weissreto
+/ivy-monitoring-prometheus @weissreto
+
