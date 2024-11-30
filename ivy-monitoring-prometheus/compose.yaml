@@ -1,0 +1,92 @@
+services:
+  # A nginx reverse proxy
+  reverseProxy:
+    image: opentracing/nginx-opentracing
+    ports:
+     - 80:80
+     - 443:443
+    volumes:    
+     - ./reverseProxy/ngnix.conf:/etc/nginx/nginx.conf
+     - ./reverseProxy/jaeger-config.json:/etc/jaeger-config.json
+     - ./reverseProxy/certs:/etc/nginx/certs
+ 
+  # The Axon Ivy Engine is instrumented using the OpenTelementry Java agent 
+  # to collect metrics via JMX and send them to Prometheus
+  ivy:
+    build: ./ivy
+    ports:
+     - 8080:8080
+    volumes:
+     - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
+     - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
+     - ./ivy/jvm.options:/ivy/configuration/jvm.options
+     - ./deploy/:/ivy/deploy/
+     - ./ivy/opentelemetry.properties:/ivy/configuration/opentelemetry.properties
+     - ./ivy/ivy-jmx-metrics.yaml:/ivy/configuration/ivy-jmx-metrics.yaml
+
+  systemDatabase:
+    image: postgres
+    ports:
+     - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+      
+  # The backend is a Tomcat web server that provides REST and SOAP services that are called by Axon Ivy Engine
+  # Tomcat is instrumented the same as the Axon Ivy Engine using the OpenTelemetry Java agent 
+  backend:
+    build: ./backend
+    ports:
+     - 9080:8080    
+    volumes:
+     - ./backend/opentelemetry.properties:/etc/tomcat/opentelemetry.properties
+     - ./backend/country-service.war:/usr/local/tomcat/webapps/country-service.war
+     - ./backend/test-rest-service.war:/usr/local/tomcat/webapps/test-rest-service.war
+    environment:
+      # Enable the OpenTelemetry Java agent and configure the configuration file 
+      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent-2.9.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
+
+  # Prometheus scrapes and stores time series data. 
+  # The Axon.ivy Engine and the Backend will send metrics data to Prometheus which stores them in its time series database.
+  # Go to http://localhost:9090 to browse and analyze the metrics data
+  prometheus:
+    image: quay.io/prometheus/prometheus:v3.0.0
+    container_name: prometheus
+    command:
+      - --web.console.templates=/etc/prometheus/consoles
+      - --web.console.libraries=/etc/prometheus/console_libraries
+      - --storage.tsdb.retention.time=1h
+      - --config.file=/etc/prometheus/prometheus-config.yaml
+      - --storage.tsdb.path=/prometheus
+      - --web.enable-lifecycle
+      - --web.route-prefix=/
+      - --web.enable-otlp-receiver
+      - --enable-feature=exemplar-storage
+      - --enable-feature=otlp-write-receiver
+    volumes:
+      - ./prometheus/prometheus-config.yaml:/etc/prometheus/prometheus-config.yaml
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+    ports:
+      - "9090:9090"
+
+  # Grafana dashboard server. Will read the metrics from Prometheus and displays them in nice charts on dashboards
+  # Go to http://localhost:3000 to start browsing the dashboards
+  grafana:
+    image: grafana/grafana:11.3.0
+    container_name: grafana
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    environment:
+      - "GF_INSTALL_PLUGINS=grafana-opensearch-datasource"
+    volumes:
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    ports:
+      - "3000:3000"
+ 
+      
