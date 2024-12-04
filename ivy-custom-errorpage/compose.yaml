@@ -1,6 +1,6 @@
 services:
   ivy:
-    image: axonivy/axonivy-engine:dev
+    image: axonivy/axonivy-engine:nightly-12.0
     volumes:
      - "./web.xml:/ivy/configuration/web.xml"
      - "./error-404.xhtml:/ivy/webapps/ivy/error-404.xhtml"
