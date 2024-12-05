@@ -1,6 +1,6 @@
 services:
   ivy:
-    build: .
+    image: axonivy/axonivy-engine:nightly-12.0
     ports:
      - 8080:8080
     volumes:

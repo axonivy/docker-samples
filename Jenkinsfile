@@ -55,6 +55,7 @@ def examples() {
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
     'ivy-reverse-proxy-apache': { assertReverseProxy() },
     'ivy-openldap': { assertOpenLdap() },
+    'ivy-keycloak': { assertIvyIsRunningInDemoMode() },
     'ivy-patching': { assertPatching() },
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
@@ -177,7 +178,7 @@ def isIvyRunningInMaintenanceModeOnPort(port) {
 }
 
 def assertOpenLdap() {
-  waitUntilAppIsReady('ldap')
+  waitUntilAppIsReady('demo-portal')
   // using basic auth mechanism to login (process servlet has basic auth filter)
   // even if no login is required for process start, the request will fail, if authentication is wrong
   timeout(2) {
