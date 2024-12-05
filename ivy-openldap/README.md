@@ -1,11 +1,11 @@
-# ivy-openldap
+# Axon Ivy with OpenLdap as Identity Provider
 
-Setup of an Axon Ivy Engine with OpenLdap as security system.
+Setup of an Axon Ivy Engine with OpenLdap as identity provider.
+OpenLdap will be configured as identity provider of the `default`
+security system.
 
-The application `ldap` will be deployed to the `default` security system.
-
-Open the __Engine Cockpit__, navigate to the application `ldap` and synchronize
-the users that are defined in the OpenLdap server.
+Browse the __Engine Cockpit__, navigate to the `default` security system
+and synchronize the users.
 
 You can browse the LDAP tree with the phpldapadmin tool: http://localhost:8090/
 
