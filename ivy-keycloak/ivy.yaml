@@ -5,7 +5,7 @@ SecuritySystems:
       Name: keycloak
       Config:
         Url: http://localhost:8090
-        AdminUrl: http://keycloak:8080
+        BackendUrl: http://keycloak:8080
         Realm: ivytestrealm
         ClientId: ivy-test-client
         ClientSecret: tqCErJA84EJKdbD8Y3Bz8mZBMW86Hmpw
