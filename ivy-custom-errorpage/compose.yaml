@@ -2,7 +2,7 @@ services:
   ivy:
     image: axonivy/axonivy-engine:nightly-12.0
     volumes:
-     - "./web.xml:/ivy/configuration/web.xml"
+     - "./web.xml:/ivy/webapps/ivy/WEB-INF/web.xml"
      - "./error-404.xhtml:/ivy/webapps/ivy/error-404.xhtml"
     ports:
      - 8080:8080
