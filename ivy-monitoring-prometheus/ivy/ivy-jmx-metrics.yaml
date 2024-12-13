@@ -1,0 +1,37 @@
+rules:
+  - bean: "ivy Engine:type=Database Persistency Service"
+    mapping:
+      errors:
+        metric: ivy.system.database.error.count
+        type: updowncounter
+        unit: "1"
+      transactions:
+        metric: ivy.system.database.transaction.count
+        type: updowncounter
+        unit: "1"      
+  - bean: "ivy Engine:type=External Web Service,application=*,name=*"
+    metricAttribute:
+      ivy_application: param(application)
+      ivy_name: param(name)
+    mapping:
+      errors:
+        metric: ivy.web.service.soap.error.count
+        type: updowncounter
+        unit: "1"
+      calls:
+        metric: ivy.web.service.soap.call.count
+        type: updowncounter
+        unit: "1"
+  - bean: "ivy Engine:type=External REST Web Service,application=*,name=*"
+    metricAttribute:
+      ivy_application: param(application)
+      ivy_name: param(name)
+    mapping:
+      errors:
+        metric: ivy.web.service.rest.error.count
+        type: updowncounter
+        unit: "1"
+      calls:
+        metric: ivy.web.service.rest.call.count
+        type: updowncounter
+        unit: "1"
