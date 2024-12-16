@@ -24,8 +24,6 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Simple RESTful service. The REST interface is defined by the JAX-RS annotations on the methods and it's path.<br/>
- * 
- * @since 6.1.1
  */
 @Singleton
 @Path("persons")
