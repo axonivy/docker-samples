@@ -1,2 +1,3 @@
 ivy-mysql-elasticsearch/ivy/deploy/Portal/*iar*
 ivy-deploy-app/applications
+**/target/**
