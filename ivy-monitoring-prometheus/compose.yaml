@@ -73,7 +73,7 @@ services:
   # Grafana dashboard server. Will read the metrics from Prometheus and displays them in nice charts on dashboards
   # Go to http://localhost:3000 to start browsing the dashboards
   grafana:
-    image: grafana/grafana:11.3.0
+    image: grafana/grafana:11.4.0
     container_name: grafana
     deploy:
       resources:
