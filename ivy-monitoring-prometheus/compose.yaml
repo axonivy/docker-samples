@@ -40,8 +40,6 @@ services:
      - 9080:8080    
     volumes:
      - ./backend/opentelemetry.properties:/etc/tomcat/opentelemetry.properties
-     - ./backend/country-service.war:/usr/local/tomcat/webapps/country-service.war
-     - ./backend/test-rest-service.war:/usr/local/tomcat/webapps/test-rest-service.war
     environment:
       # Enable the OpenTelemetry Java agent and configure the configuration file 
       JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent-2.9.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
@@ -75,7 +73,7 @@ services:
   # Grafana dashboard server. Will read the metrics from Prometheus and displays them in nice charts on dashboards
   # Go to http://localhost:3000 to start browsing the dashboards
   grafana:
-    image: grafana/grafana:11.3.0
+    image: grafana/grafana:11.4.0
     container_name: grafana
     deploy:
       resources:
