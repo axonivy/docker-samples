@@ -55,7 +55,7 @@ def examples() {
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
     'ivy-reverse-proxy-apache': { assertReverseProxy() },
     'ivy-openldap': { assertOpenLdap() },
-   // 'ivy-keycloak': { assertIvyIsRunningInDemoMode() },
+    'ivy-keycloak': { assertIvyIsRunningInDemoMode() },
     'ivy-patching': { assertPatching() },
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
