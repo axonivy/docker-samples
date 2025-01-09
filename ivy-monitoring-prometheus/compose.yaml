@@ -20,7 +20,6 @@ services:
      - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
      - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
      - ./ivy/jvm.options:/ivy/configuration/jvm.options
-     - ./deploy/:/ivy/deploy/
      - ./ivy/opentelemetry.properties:/ivy/configuration/opentelemetry.properties
      - ./ivy/ivy-jmx-metrics.yaml:/ivy/configuration/ivy-jmx-metrics.yaml
 
