@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'docker-compose'
+    label 'single-executor'
   }
 
   options {
