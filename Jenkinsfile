@@ -9,7 +9,7 @@ pipeline {
   }
 
   triggers {
-    cron 'H H/4 * * *'
+    cron '@midnight'
   }
 
   stages {
