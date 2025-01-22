@@ -45,8 +45,11 @@ def examples() {
     'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
     'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
     'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-sso-saml': { assertSSO() },
-    'ivy-sso-openid-connect': { assertSSO() },
+
+    // no longer works, maintained by timo
+    //'ivy-sso-saml': { assertSSO() },
+    //'ivy-sso-openid-connect': { assertSSO() },
+
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
     'ivy-branding': { assertBranding() },
     'ivy-elasticsearch': { assertElasticsearch() },      
