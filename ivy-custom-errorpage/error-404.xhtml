@@ -6,14 +6,14 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <f:attribute name="primefaces.THEME" value="serenity-ivy" />
+        <f:attribute name="primefaces.THEME" value="freya-ivy-light" />
         <f:facet name="first">
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces Serenity - Not Found</title>
+        <title>PrimeFaces Freya - Not Found</title>
     </h:head>
 
     <h:body styleClass="exception-body notfound">
@@ -23,13 +23,9 @@
             </div>
             
             <div class="exception-detail">
-                
-                <div class="exception-icon">
-                    <i class="material-icons">&#xE5CD;</i>
-                </div>
                 <h1>PAGE NOT FOUND</h1>
                 <p>Please contact the system administrator</p>
-                <p:button icon="ui-icon-arrow-forward" href="/ivy/sys/info.xhtml" value="Back to info" />
+                <p:button icon="si si-house-1" href="/" value="Back to info" />
             </div>
         </div>
 
@@ -38,14 +34,18 @@
             .exception-body.notfound .exception-panel .exception-icon {
                 background-color: #007095;
             }
+            .exception-detail {
+                text-align: center;
+            }
             .exception-code {
+                text-align: center;
                 color:lightgray;
                 font-weight: lighter;
                 font-size: 18em;
             }
         </style>
         
-        <h:outputStylesheet name="css/layout-ivy.css" library="serenity-layout" />
+        <h:outputStylesheet name="css/layout-ivy-light.css" library="freya-layout" />
     </h:body>
 
 </html>
