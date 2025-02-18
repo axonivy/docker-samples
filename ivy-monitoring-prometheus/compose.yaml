@@ -47,7 +47,7 @@ services:
   # The Axon.ivy Engine and the Backend will send metrics data to Prometheus which stores them in its time series database.
   # Go to http://localhost:9090 to browse and analyze the metrics data
   prometheus:
-    image: quay.io/prometheus/prometheus:v3.1.0
+    image: quay.io/prometheus/prometheus:v3.2.0
     container_name: prometheus
     command:
       - --web.console.templates=/etc/prometheus/consoles
