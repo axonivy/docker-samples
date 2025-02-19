@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/0.0.3/ivy.json
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/12.0.0/ivy.json
 SecuritySystems:
   default:
     DocumentStorage:
@@ -7,3 +7,17 @@ SecuritySystems:
         Url: http://s3:9000
         AccessKey: minio
         SecretKey: 123456789
+
+    IdentityProvider:
+      Name: keycloak
+      Config:
+        Url: http://localhost:8090
+        BackendUrl: http://keycloak:8080
+        Realm: ivytestrealm
+        ClientId: ivy-test-client
+        ClientSecret: tqCErJA84EJKdbD8Y3Bz8mZBMW86Hmpw
+        Roles:
+          AXONIVY_PORTAL_ADMIN: 197004f8-18ff-4e8e-a783-2e120e44a1fa
+        UserAttribute.Properties:
+          division: department
+
