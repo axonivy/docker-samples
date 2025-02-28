@@ -12,7 +12,7 @@ services:
      - elasticsearch
 
   elasticsearch:
-    image: "elasticsearch:7.17.27"
+    image: "elasticsearch:7.17.28"
     ports:
      - "9200:9200"
     environment:
