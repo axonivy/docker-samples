@@ -1,0 +1,3 @@
+# Axon Ivy Engine must be able to generate absolute URLs, for example in mails.
+# For this, the base URL must be configured.
+BaseUrl: http://localhost
