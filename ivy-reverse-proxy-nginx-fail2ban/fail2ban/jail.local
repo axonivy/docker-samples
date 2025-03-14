@@ -1,0 +1,74 @@
+# 
+# Fail2Ban scans the NGNIX access.log and error.log files. 
+# If any configured filter matches the configured times (maxretry) within a configured time (findtime)
+# then the IP of the client is banned using some iptables magic.
+# The server is then no longer answering any requests from the client for the configured time (bantime)
+#
+
+[DEFAULT]
+# Prevents banning LAN subnets
+#ignoreip = 10.0.0.0/8
+#           192.168.0.0/16
+#           172.16.0.0/12
+
+# Action that is executed if any filter matches. ip-tables-allports means that the client's IP address
+# is banned on network level using iptables magic
+banaction = iptables-allports
+
+# "bantime" is the number of seconds that a client is banned.
+bantime  = 600
+
+# A host is banned if a filter matches "maxretry" times during the last "findtime"
+# seconds.
+findtime  = 600
+
+# "maxretry" is the number of filter matches before a host get banned.
+maxretry = 5
+
+[ssh]
+enabled = false
+
+# 
+# All Axon Ivy login pages will return an HTTP status code 401 if login fails
+# This configuration bans clients who try to brute force user names and passwords
+# It bans the client if he tries to guess the username and password more than 5 times in 10 minutes.
+# 
+[nginx-unauthorized]
+enabled  = true
+port     = http,https
+filter   = nginx-unauthorized
+logpath  = /config/log/nginx/access.log
+
+#
+# Bans clients whose requests result in access-denied messages
+#
+[nginx-deny]
+enabled  = true
+port     = http,https
+filter   = nginx-deny
+logpath  = /config/log/nginx/error.log
+
+[nginx-http-auth]
+enabled  = true
+filter   = nginx-http-auth
+port     = http,https
+logpath  = /config/log/nginx/error.log
+
+#
+# Bans clients who were rate limited by NGINX
+#
+[nginx-limit-req]
+enabled  = true
+port     = http,https
+filter   = nginx-limit-req
+logpath  = /config/log/nginx/error.log
+
+#
+# Bans bots that are bad
+#
+[nginx-botsearch]
+enabled  = true
+port     = http,https
+filter   = nginx-botsearch
+logpath  = /config/log/nginx/access.log
+
