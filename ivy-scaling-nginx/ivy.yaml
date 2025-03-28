@@ -6,7 +6,19 @@ SystemDb:
 Administrators:
   admin:
     Password: admin
+  dev:
+    Password: dev
 SearchEngine:
   ExternalServer:
     Url: http://opensearch:9200
 
+SecuritySystems:
+  system1:
+    IdentityProvider:
+      Name: ivy
+  system2:
+    IdentityProvider:
+      Name: ivy
+  system2BeDeleted:
+    IdentityProvider:
+      Name: ivy
