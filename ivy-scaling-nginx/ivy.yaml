@@ -19,6 +19,6 @@ SecuritySystems:
   system2:
     IdentityProvider:
       Name: ivy
-  system2BeDeleted:
-    IdentityProvider:
-      Name: ivy
+#  system2BeDeleted:
+#    IdentityProvider:
+#      Name: ivy
