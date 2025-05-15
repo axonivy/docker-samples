@@ -11,7 +11,7 @@
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
     <cxf.version>4.1.1</cxf.version>
-    <spring.version>6.2.6</spring.version>
+    <spring.version>6.2.7</spring.version>
   </properties>
 
   <build>
