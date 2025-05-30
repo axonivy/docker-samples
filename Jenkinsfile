@@ -9,7 +9,7 @@ pipeline {
   }
 
   triggers {
-    cron '@daily'
+    cron '@weekly'
   }
 
   stages {
