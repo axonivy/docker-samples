@@ -1,6 +1,6 @@
 services:
   loadbalancer:
-    image: dockercloud/haproxy
+    image: haproxy:3.2
     links:
      - ivy
     ports:

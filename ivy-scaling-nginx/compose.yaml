@@ -10,11 +10,13 @@ services:
       - ivy
 
   ivy:
-    build: 
-      context: ..
-      dockerfile: ivy-scaling-nginx/Dockerfile
+    image: axonivy/axonivy-engine:dev
     volumes:
       - ivy-data:/ivy/data
+      - ivy-applications:/ivy/applications
+      - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
+      - ./log4j2.xml:/ivy/configuration/log4j2.xml
+      - ./ivy.yaml:/ivy/configuration/ivy.yaml
     deploy:
       replicas: 2
     depends_on:
@@ -41,3 +43,4 @@ services:
 
 volumes:
   ivy-data:
+  ivy-applications:
