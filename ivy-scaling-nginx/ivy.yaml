@@ -6,11 +6,8 @@ SystemDb:
   Autoconvert: false
 Administrators:
   admin:
-    Password: admin2
+    Password: admin
 SearchEngine:
   ExternalServer:
     Url: http://opensearch:9200
-ReverseProxy:
-  HttpHeaders:
-    ForwardedHost: X-Forwarded-Host22
 
