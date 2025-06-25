@@ -1,10 +1,8 @@
-# ivy-scaling
-
-**Attention: This example only works with docker compose V1!**
+# Axon Ivy Cluster with HAProxy as Loadbalancer
 
 This example shows how to scale Axon Ivy Engine.
 
-![Scaling](scaling.png)
+![Scaling](setup.png)
 
 After starting this example you can simply go to http://localhost
 
@@ -13,7 +11,9 @@ After starting this example you can simply go to http://localhost
 By default one node of Axon Ivy Engine is running. You can scale up Axon Ivy
 Engine to five nodes with the following command:
 
-`docker compose up -d --scale ivy=5`
+```bash
+docker compose up -d --scale ivy=3
+```
 
 Have a look at the [Cluster
 view](http://localhost/system/faces/view/engine-cockpit/cluster.xhtml) in the
@@ -25,7 +25,9 @@ Engine Cockpit to see the current running nodes
 
 You can scale down Axon Ivy Engine to two nodes with the following command:
 
-`docker compose up -d --scale ivy=2`
+```bash
+docker compose up -d --scale ivy=2
+```
 
 ## HAProxy
 

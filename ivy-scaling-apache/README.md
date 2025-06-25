@@ -1,9 +1,9 @@
-# ivy-scaling-apache
+# Axon Ivy Cluster with Apache httpd as Loadbalancer
 
 This example shows how to scale Axon Ivy Engine with docker compose and Apache
 HTTP Server.
 
-![Scaling Apache](scaling-apache.png)
+![Scaling Apache](setup.png)
 
 After starting this example you can simply go to http://localhost
 
@@ -12,7 +12,9 @@ After starting this example you can simply go to http://localhost
 By default, two Axon Ivy Engine node are running. You can scale up three Axon
 Ivy Engine nodes with the following command:
 
-`docker compose up -d --scale ivy=3`
+```bash
+docker compose up -d --scale ivy=3
+```
 
 Have a look at the [Cluster
 view](http://localhost/system/faces/view/engine-cockpit/cluster.xhtml) in the
@@ -21,13 +23,15 @@ Engine Cockpit to see the current running nodes
 This example configures the Ivy cluster with sticky sessions (via routing
 cookie).
 
-![Cluster View Apache](cluster-apache.png)
+![Cluster View Apache](cluster.png)
 
 ## Scale Down
 
 You can scale down Axon Ivy Engine to two nodes with the following command:
 
-`docker compose up -d --scale ivy=2`
+```bash
+docker compose up -d --scale ivy=2`
+```
 
 ## Apache HTTP Server
 
