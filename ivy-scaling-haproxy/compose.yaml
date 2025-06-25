@@ -22,13 +22,10 @@ services:
       - ./ivy.yaml:/ivy/configuration/ivy.yaml
     deploy:
       replicas: 2
+      endpoint_mode: dnsrr
     depends_on:
      - db
      - opensearch
-    environment:
-     # Specifies sticky sessions for the load balancer, using a server cookie value prefix
-     # for the client cookie with name JSESSIONID.
-     - COOKIE=JSESSIONID prefix
 
   db:
     image: postgres:latest
