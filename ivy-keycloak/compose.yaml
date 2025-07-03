@@ -7,7 +7,7 @@ services:
      - ./ivy.yaml:/ivy/configuration/ivy.yaml     
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.2
+    image: quay.io/keycloak/keycloak:26.3
     command: start-dev --import-realm
     ports:
      - 8090:8080
