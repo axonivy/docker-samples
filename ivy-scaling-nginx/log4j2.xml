@@ -1,0 +1,12 @@
+<Configuration>
+  <Loggers>
+    <Logger name="org.jgroups" level="debug"/>
+  </Loggers>
+
+  <Appenders>
+    <Console name="ConsoleLog" target="SYSTEM_OUT">
+      <PatternLayout pattern="${pattern}" />
+      <ThresholdFilter level="debug" />
+    </Console>
+  </Appenders>
+</Configuration>
