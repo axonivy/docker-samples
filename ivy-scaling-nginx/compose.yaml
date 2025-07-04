@@ -17,7 +17,6 @@ services:
       - ivy-data:/ivy/data
       - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
       - ./ivy.yaml:/ivy/configuration/ivy.yaml
-      - ./log4j2.xml:/ivy/configuration/log4j2.xml
     deploy:
       replicas: 2
     depends_on:

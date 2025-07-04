@@ -62,9 +62,8 @@ def examples() {
     'ivy-custom-errorpage': { assertCustomErrorPage() },
     'ivy-tracing-jaeger': { assertIvyIsNotRunningInDemoMode() },
     'ivy-monitoring-prometheus': { assertIvyIsNotRunningInDemoMode() },
-    
-    // disabled because highly flaky
-    //'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
+        
+    'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
 
     //disabled because it needs to much power for our build-nodes
     //'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
