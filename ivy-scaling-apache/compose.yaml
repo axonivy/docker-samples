@@ -10,11 +10,13 @@ services:
       - ./vhost.conf:/vhosts/vhost.conf
 
   ivy:
-    build: 
-      context: ..
-      dockerfile: ivy-scaling-apache/Dockerfile
+    image: axonivy/axonivy-engine:dev
     volumes:
+      - ivy-applications:/ivy/applications
+      - ivy-configuration:/ivy/configuration
       - ivy-data:/ivy/data
+      - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
+      - ./ivy.yaml:/ivy/configuration/ivy.yaml
     deploy:
       replicas: 2
     depends_on:
@@ -22,7 +24,6 @@ services:
      - opensearch
     environment:
      - VIRTUAL_HOST=localhost
-     
   db:
     image: postgres:latest
     environment:
@@ -40,4 +41,6 @@ services:
       plugins.security.disabled: true
 
 volumes:
+  ivy-applications:
+  ivy-configuration:
   ivy-data:
