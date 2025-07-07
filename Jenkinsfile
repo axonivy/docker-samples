@@ -61,16 +61,14 @@ def examples() {
     'ivy-valve': { assertValve() },
     'ivy-custom-errorpage': { assertCustomErrorPage() },
     'ivy-tracing-jaeger': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-monitoring-prometheus': { assertIvyIsNotRunningInDemoMode() }
-    
-    // disabled because highly flaky
-    //'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
+    'ivy-monitoring-prometheus': { assertIvyIsNotRunningInDemoMode() },
+
+    'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
+    //'ivy-scaling-apache': { assertIvyIsNotRunningInDemoModeOnPort(80) },
+    //'ivy-scaling-haproxy': { assertIvyIsNotRunningInDemoModeOnPort(80) }
 
     //disabled because it needs to much power for our build-nodes
     //'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
-    
-    // only works with docker-compose v1
-    //'ivy-scaling-haproxy': { assertIvyIsNotRunningInDemoModeOnPort(80) },
   ]
 }
 

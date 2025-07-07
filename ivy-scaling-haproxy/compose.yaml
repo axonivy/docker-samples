@@ -1,32 +1,31 @@
 services:
   loadbalancer:
-    image: dockercloud/haproxy
+    image: haproxy:3.2
     links:
      - ivy
     ports:
       - 80:80
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     depends_on:
       # Specifies that haproxy is the load balancer of the ivy cluster
       # Also ensures that ivy cluster is started before HAProxy
       - ivy
      
   ivy:
-    build: 
-      context: ..
-      dockerfile: ivy-scaling-haproxy/Dockerfile
+    image: axonivy/axonivy-engine:dev
     volumes:
+      - ivy-applications:/ivy/applications
+      - ivy-configuration:/ivy/configuration
       - ivy-data:/ivy/data
+      - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
+      - ./ivy.yaml:/ivy/configuration/ivy.yaml
     deploy:
       replicas: 2
+      endpoint_mode: dnsrr
     depends_on:
      - db
      - opensearch
-    environment:
-     # Specifies sticky sessions for the load balancer, using a server cookie value prefix
-     # for the client cookie with name JSESSIONID.
-     - COOKIE=JSESSIONID prefix
 
   db:
     image: postgres:latest
@@ -45,4 +44,6 @@ services:
       plugins.security.disabled: true
 
 volumes:
+  ivy-applications:
+  ivy-configuration:
   ivy-data:
