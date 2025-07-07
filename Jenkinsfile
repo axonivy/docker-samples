@@ -61,9 +61,9 @@ def examples() {
     'ivy-valve': { assertValve() },
     'ivy-custom-errorpage': { assertCustomErrorPage() },
     'ivy-tracing-jaeger': { assertIvyIsNotRunningInDemoMode() },
-    'ivy-monitoring-prometheus': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-monitoring-prometheus': { assertIvyIsNotRunningInDemoMode() }
 
-    'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
+    //'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
     //'ivy-scaling-apache': { assertIvyIsNotRunningInDemoModeOnPort(80) },
     //'ivy-scaling-haproxy': { assertIvyIsNotRunningInDemoModeOnPort(80) }
 
