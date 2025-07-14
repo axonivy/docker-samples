@@ -14,9 +14,9 @@ services:
       - APACHE_HTTP_PORT_NUMBER=80
       - APACHE_HTTPS_PORT_NUMBER=443
     volumes:
-      - ./apache/vhost.conf:/vhosts/vhost.conf
-      - ./certs:/certs
-      - ./apache/saml:/saml
+      - ./apache/vhost.conf:/usr/local/apache2/vhosts/vhost.conf
+      - ./certs:/usr/local/apache2/certs
+      - ./apache/saml:/usr/local/apache2/saml
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.3

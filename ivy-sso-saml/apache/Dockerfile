@@ -1,4 +1,4 @@
-FROM bitnami/apache:2.4.52
+FROM httpd:2.4
 
 # change to root user to allow package installations
 USER 0
@@ -9,7 +9,7 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 # enable auth mellon module
-RUN echo '\nLoadModule auth_mellon_module /usr/lib/apache2/modules/mod_auth_mellon.so' >> /opt/bitnami/apache/conf/httpd.conf
+RUN echo '\nLoadModule auth_mellon_module /usr/lib/apache2/modules/mod_auth_mellon.so' >> /usr/local/apache2/conf/httpd.conf
 
 # change back user
 USER 1001
