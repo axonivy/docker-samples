@@ -1,4 +1,4 @@
-FROM bitnami/apache:2.4.65-debian-12-r0
+FROM bitnami/apache:2.4.65
 
 # change to root user to allow package installations
 USER 0
