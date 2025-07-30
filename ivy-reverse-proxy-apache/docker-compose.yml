@@ -10,7 +10,7 @@ services:
       - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
 
   apache:
-    image: bitnami/apache:2.4
+    image: bitnami/apache:2.4.64-debian-12-r0
     user: root # to bind port 80 and 443
     ports:
       - 80:80
