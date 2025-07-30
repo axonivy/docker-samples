@@ -18,3 +18,4 @@ services:
     volumes:
       - ./vhost.conf:/vhosts/vhost.conf
       - ./certs:/certs
+      - ./empty.conf:/opt/bitnami/apache/conf/bitnami/bitnami-ssl.conf
