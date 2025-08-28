@@ -304,6 +304,6 @@ def assertCustomErrorPage() {
 
 def followDefaultPageRedirect(base, redirectPage) {
   def url = redirectPage.split('<meta http-equiv=\"refresh\" content=\"0; URL=')[1]
-  url = base + url.split('\" />')[0]
+  url = base + url.split('\">')[0]
   return sh (script: "wget --no-check-certificate -qO- $url", returnStdout: true)
 }
