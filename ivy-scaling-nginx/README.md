@@ -1,8 +1,8 @@
-# ivy-scaling-nginx
+# Axon Ivy Cluster with NGINX as Loadbalancer
 
 This example shows how to scale Axon Ivy Engine with docker compose and NGINX.
 
-![Scaling NGINX](scaling-nginx.png)
+![Scaling NGINX](setup.png)
 
 After starting this example you can simply go to http://localhost
 
@@ -11,7 +11,9 @@ After starting this example you can simply go to http://localhost
 By default, two Axon Ivy Engine node are running. You can scale up three Axon
 Ivy Engine nodes with the following command:
 
-`docker compose up -d --scale ivy=3`
+```bash
+docker compose up -d --scale ivy=3
+```
 
 Have a look at the [Cluster
 view](http://localhost/system/faces/view/engine-cockpit/cluster.xhtml) in the
@@ -19,13 +21,15 @@ Engine Cockpit to see the current running nodes
 
 This example configures the Ivy cluster with sticky sessions (via ip_hash).
 
-![Cluster View NGINX](cluster-nginx.png)
+![Cluster View NGINX](cluster.png)
 
 ## Scale Down
 
 You can scale down Axon Ivy Engine to two nodes with the following command:
 
-`docker compose up -d --scale ivy=2`
+```bash
+docker compose up -d --scale ivy=2
+```
 
 ## NGINX
 

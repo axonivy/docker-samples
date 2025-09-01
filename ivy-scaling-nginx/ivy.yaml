@@ -9,4 +9,3 @@ Administrators:
 SearchEngine:
   ExternalServer:
     Url: http://opensearch:9200
-
