@@ -11,6 +11,6 @@ RUN mvn clean package
 FROM tomcat:11-jdk21
 
 RUN mkdir /usr/local/tomcat/lib/agent && \
-    wget -O /usr/local/tomcat/lib/agent/opentelemetry-javaagent-2.9.0.jar -q -N https://search.maven.org/remotecontent?filepath=io/opentelemetry/javaagent/opentelemetry-javaagent/2.9.0/opentelemetry-javaagent-2.9.0.jar
+    wget -O /usr/local/tomcat/lib/agent/opentelemetry-javaagent.jar -q -N https://repo1.maven.org/maven2/io/opentelemetry/javaagent/opentelemetry-javaagent/2.20.0/opentelemetry-javaagent-2.20.0.jar
 COPY --from=build-rest-service /usr/src/rest-service/target/rest-service.war /usr/local/tomcat/webapps/rest-service.war
 COPY --from=build-soap-service /usr/src/soap-service/target/soap-service.war /usr/local/tomcat/webapps/soap-service.war

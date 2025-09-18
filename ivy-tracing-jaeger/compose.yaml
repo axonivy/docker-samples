@@ -41,7 +41,7 @@ services:
      - ./backend/opentelemetry.properties:/etc/tomcat/opentelemetry.properties
     environment:
       # Enable the OpenTelemetry Java agent and configure the configuration file 
-      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent-2.9.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
+      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
 
   # Jaeger Tracing tool. Will collect the tracings from the reverse proxy, ivy and backend 
   # and provides a UI to browse the tracings 
@@ -62,4 +62,3 @@ services:
      - 9411:9411 
     environment:
       COLLECTOR_ZIPKIN_HOST_PORT: 9411
-      
