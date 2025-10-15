@@ -7,14 +7,11 @@ services:
       - ./ivy.yaml:/ivy/configuration/ivy.yaml
 
   apache:
-    image: bitnami/apache:2.4.64-debian-12-r0
-    user: root # to bind port 80 and 443
+    build: apache
     ports:
       - 80:80
       - 443:443
-    environment: 
-      - APACHE_HTTP_PORT_NUMBER=80
-      - APACHE_HTTPS_PORT_NUMBER=443
     volumes:
-      - ./vhost.conf:/vhosts/vhost.conf
-      - ./certs:/certs
+      - ./apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
+      - ./certs/server.crt:/usr/local/apache2/conf/server.crt
+      - ./certs/server.key:/usr/local/apache2/conf/server.key

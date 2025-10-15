@@ -1,11 +1,6 @@
 FROM httpd:2.4
 
-# install apache module auth openidc
-RUN apt-get update && \ 
-    apt-get install -y libapache2-mod-auth-openidc && \
-	rm -rf /var/lib/apt/lists/*
-
-# enable already installed modules we need
+#enable already installed modules we need
 RUN sed -i \
 		-e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
 		-e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
@@ -15,8 +10,6 @@ RUN sed -i \
 		-e 's/^#\(LoadModule .*mod_rewrite.so\)/\1/' \
 		conf/httpd.conf
 
-# enable auth openidc module
 # create empty vhost config file and include it to main config
-RUN echo '\nLoadModule auth_openidc_module /usr/lib/apache2/modules/mod_auth_openidc.so' >> /usr/local/apache2/conf/httpd.conf && \
-    echo '\nInclude conf/vhost.conf' >> /usr/local/apache2/conf/httpd.conf && \
+RUN echo '\nInclude conf/vhost.conf' >> /usr/local/apache2/conf/httpd.conf && \
 	touch /usr/local/apache2/conf/vhost.conf

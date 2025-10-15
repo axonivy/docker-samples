@@ -1,13 +1,10 @@
 services:
   loadbalancer:
-    image: bitnami/apache:2.4
-    user: root
+    build: apache
     ports:
       - 80:80
-    environment: 
-      - APACHE_HTTP_PORT_NUMBER=80
     volumes:
-      - ./vhost.conf:/vhosts/vhost.conf
+      - ./apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
 
   ivy:
     image: axonivy/axonivy-engine:dev
@@ -24,6 +21,7 @@ services:
      - opensearch
     environment:
      - VIRTUAL_HOST=localhost
+  
   db:
     image: postgres:latest
     environment:
