@@ -7,6 +7,8 @@ HTTP Server.
 
 After starting this example you can simply go to http://localhost
 
+Status of the load balancer can be checked at http://localhost/balancer-manager
+
 ## Scale Up
 
 By default, two Axon Ivy Engine node are running. You can scale up three Axon

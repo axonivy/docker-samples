@@ -6,17 +6,14 @@ services:
 
   apache:
     build: apache
-    user: root # to bind port 80 and 443
     ports:
       - 80:80
       - 443:443
-    environment: 
-      - APACHE_HTTP_PORT_NUMBER=80
-      - APACHE_HTTPS_PORT_NUMBER=443
     volumes:
-      - ./apache/vhost.conf:/vhosts/vhost.conf
-      - ./certs:/certs
-      - ./apache/saml:/saml
+      - ./apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
+      - ./certs/server.crt:/usr/local/apache2/conf/server.crt
+      - ./certs/server.key:/usr/local/apache2/conf/server.key
+      - ./apache/saml:/usr/local/apache2/saml
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.4
