@@ -6,42 +6,37 @@ services:
     volumes:
       - ./apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
 
-  whoami:
-    image: traefik/whoami
+  ivy:
+    image: axonivy/axonivy-engine:dev
+    volumes:
+      - ivy-applications:/ivy/applications
+      - ivy-configuration:/ivy/configuration
+      - ivy-data:/ivy/data
+      - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
+      - ./ivy.yaml:/ivy/configuration/ivy.yaml
     deploy:
-      replicas: 3
-
-#  ivy:
-#    image: axonivy/axonivy-engine:dev
-#    volumes:
-#      - ivy-applications:/ivy/applications
-#      - ivy-configuration:/ivy/configuration
-#      - ivy-data:/ivy/data
-#      - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
-#      - ./ivy.yaml:/ivy/configuration/ivy.yaml
-#    deploy:
-#      replicas: 2
-#    depends_on:
-#     - db
-#     - opensearch
-#    environment:
-#     - VIRTUAL_HOST=localhost
+      replicas: 2
+    depends_on:
+     - db
+     - opensearch
+    environment:
+     - VIRTUAL_HOST=localhost
   
-#  db:
-#    image: postgres:latest
-#    environment:
-#      POSTGRES_USER: admin
-#      POSTGRES_PASSWORD: 1234
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
 
-#  opensearch:
-#    image: opensearchproject/opensearch:2.19.3
-#    ports:
-#     - 9200:9200
-#    environment:
-#      ES_JAVA_OPTS: '-Xmx512m -Xms512m'
-#      discovery.type: single-node
-#      OPENSEARCH_INITIAL_ADMIN_PASSWORD: opensearchPassword2024?
-#      plugins.security.disabled: true
+  opensearch:
+    image: opensearchproject/opensearch:2.19.3
+    ports:
+     - 9200:9200
+    environment:
+      ES_JAVA_OPTS: '-Xmx512m -Xms512m'
+      discovery.type: single-node
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: opensearchPassword2024?
+      plugins.security.disabled: true
 
 volumes:
   ivy-applications:
