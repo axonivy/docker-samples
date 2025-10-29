@@ -6,7 +6,7 @@ services:
     volumes:
       - ./apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
 
-  ivy:
+  ivy-1:
     image: axonivy/axonivy-engine:dev
     volumes:
       - ivy-applications:/ivy/applications
@@ -14,14 +14,26 @@ services:
       - ivy-data:/ivy/data
       - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
       - ./ivy.yaml:/ivy/configuration/ivy.yaml
-    deploy:
-      replicas: 2
     depends_on:
      - db
      - opensearch
     environment:
      - VIRTUAL_HOST=localhost
-  
+ 
+  ivy-2:
+    image: axonivy/axonivy-engine:dev
+    volumes:
+      - ivy-applications:/ivy/applications
+      - ivy-configuration:/ivy/configuration
+      - ivy-data:/ivy/data
+      - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
+      - ./ivy.yaml:/ivy/configuration/ivy.yaml
+    depends_on:
+     - db
+     - opensearch
+    environment:
+     - VIRTUAL_HOST=localhost 
+ 
   db:
     image: postgres:latest
     environment:
@@ -34,9 +46,9 @@ services:
      - 9200:9200
     environment:
       ES_JAVA_OPTS: '-Xmx512m -Xms512m'
-      discovery.type: single-node
-      OPENSEARCH_INITIAL_ADMIN_PASSWORD: opensearchPassword2024?
-      plugins.security.disabled: true
+      discovery.type: 'single-node'
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: 'opensearchPassword2024?'
+      plugins.security.disabled: 'true'
 
 volumes:
   ivy-applications:
