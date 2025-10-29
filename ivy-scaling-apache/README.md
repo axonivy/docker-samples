@@ -9,31 +9,22 @@ After starting this example you can simply go to http://localhost
 
 Status of the load balancer can be checked at http://localhost/balancer-manager
 
-## Scale Up
-
-By default, two Axon Ivy Engine node are running. You can scale up three Axon
-Ivy Engine nodes with the following command:
-
-```bash
-docker compose up -d --scale ivy=3
-```
-
 Have a look at the [Cluster
 view](http://localhost/system/faces/view/engine-cockpit/cluster.xhtml) in the
 Engine Cockpit to see the current running nodes
 
-This example configures the Ivy cluster with sticky sessions (via routing
-cookie).
-
 ![Cluster View Apache](cluster.png)
 
-## Scale Down
+## Sticky routing with cookie
 
-You can scale down Axon Ivy Engine to two nodes with the following command:
+This example configures the Ivy cluster with sticky sessions (via routing
+cookie). 
 
-```bash
-docker compose up -d --scale ivy=2`
-```
+Can check the ROUTEID cookie in your browser to see the current route.
+
+You can also manipulate the cookie to manually switch between routes.
+
+
 
 ## Apache HTTP Server
 
