@@ -30,6 +30,10 @@ Wait until the codespace is ready and the terminal has been loaded. Run the exam
 
 All these samples are shipped with a limited demo licence. You are able to run the portal application.
 
+> [!NOTE]  
+> All credentials in this repository are for demo purposes and must be changed when used in production.
+> Please do not report any of these in the bug bounty program.
+
 ## Kubernetes Samples
 
 Also have a look at our [kubernetes samples](https://github.com/axonivy/kubernetes-samples)
