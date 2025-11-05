@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/0.0.3/ivy.json
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/13.2.9/ivy.json
 SecuritySystems:
   default:
     DocumentStorage:
@@ -6,4 +6,4 @@ SecuritySystems:
       Config:
         Url: http://s3:9000
         AccessKey: minio
-        SecretKey: 123456789
+        SecretKey: "123456789"

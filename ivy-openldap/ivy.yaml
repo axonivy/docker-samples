@@ -1,19 +1,22 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/13.2.9/ivy.json
 SecuritySystems:
   # configuring the default security system
   default:
     # We do not officially support OpenLdap. Instead we use the Novell eDirectory provider which fits best
-    Provider: "Novell eDirectory"
-    
-    Connection:
-      Url: "ldap://openldap:389"
-      UserName: "cn=admin,dc=example,dc=org"
-      Password: admin
-    
-    Binding:
-      DefaultContext: "dc=example,dc=org"
-
-    # OpenLdap specific configurations
-    UserAttribute:
-      Id: uid
-      Name: cn
-      FullName: displayName
+    IdentityProvider:
+      Name: novell-edirectory
+      Config:
+        
+        Connection:
+          Url: "ldap://openldap:389"
+          UserName: "cn=admin,dc=example,dc=org"
+          Password: admin
+        
+        Binding:
+          DefaultContext: "dc=example,dc=org"
+        
+        # OpenLdap specific configurations
+        UserAttribute:
+          Id: uid
+          Name: cn
+          FullName: displayName

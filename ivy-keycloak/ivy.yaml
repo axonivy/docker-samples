@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/12.0.6/ivy.json
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/13.2.9/ivy.json
 SecuritySystems:
   default:
     IdentityProvider:
@@ -11,5 +11,6 @@ SecuritySystems:
         ClientSecret: tqCErJA84EJKdbD8Y3Bz8mZBMW86Hmpw
         Roles:
           AXONIVY_PORTAL_ADMIN: 197004f8-18ff-4e8e-a783-2e120e44a1fa
-        UserAttribute.Properties:
-          division: department
+        UserAttribute:
+          Properties:
+            division: department

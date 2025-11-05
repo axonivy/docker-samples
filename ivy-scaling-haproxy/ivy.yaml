@@ -1,9 +1,8 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/13.2.1/ivy.json
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/13.2.9/ivy.json
 SystemDb:
   Url: jdbc:postgresql://db:5432/AxonIvySystemDatabase
   UserName: admin
-  Password: 1234
-  Autoconvert: false
+  Password: "1234"
 Administrators:
   admin:
     Password: admin

@@ -1,2 +1,3 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/app/13.2.1/app.json
 Variables:
   ENABLE_USER_DESCRIPTION: true
