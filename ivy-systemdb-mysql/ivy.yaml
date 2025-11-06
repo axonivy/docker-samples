@@ -2,8 +2,7 @@
 SystemDb:
   Url: jdbc:mysql://mysql:3306/AxonIvySystemDatabase
   UserName: root
-  Password: 1234
-  Autoconvert: false
+  Password: "1234"
   DriverProperties:
     useSSL: false
     allowPublicKeyRetrieval: true
