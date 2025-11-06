@@ -2,8 +2,7 @@
 SystemDb:
   Url: jdbc:postgresql://postgres:5432/AxonIvySystemDatabase
   UserName: admin
-  Password: 1234
-  Autoconvert: false
+  Password: "1234"
 Administrators:
   admin:
     Password: admin

@@ -2,8 +2,7 @@
 SystemDb:
   Url: jdbc:mariadb://mariadb:3306/AxonIvySystemDatabase
   UserName: root
-  Password: 1234
-  Autoconvert: false
+  Password: "1234"
 Administrators:
   admin:
     Password: admin
