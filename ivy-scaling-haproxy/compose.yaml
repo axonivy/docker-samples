@@ -1,6 +1,6 @@
 services:
   loadbalancer:
-    image: haproxy:3.2
+    image: haproxy:3.3
     links:
      - ivy
     ports:
