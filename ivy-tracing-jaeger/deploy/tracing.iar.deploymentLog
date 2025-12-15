@@ -1,0 +1,100 @@
+09:49:44.578 Info: Start deploying project(s) of file 'tracing.iar' to application 'tracing'.
+
+09:49:44.625 Info: Using default>DeploymentOptions[deployTestUsers=AUTO, roleMemberSynch=ONLY_ADDED_ROLES, targetVersion=AUTO, targetVersionRange=.., targetState=ACTIVE_AND_RELEASED, targetFileFormat=AUTO]
+
+09:49:44.629 Info: Create and activate new application 'tracing'.
+09:49:45.189 Info: Validating project 'telemetry'
+09:49:45.228 Warning: Following validation problems found in project 'telemetry':
+09:49:45.228 Warning: The project version is '93600'. It is compatible with this Axon Ivy Engine but not the latest available version '120,001'
+09:49:45.228 Info: You may convert the project first in the Axon Ivy Designer to the latest version
+09:49:45.317 Info: Deploying 'tracing.iar'
+09:49:45.318 Info: Destination:
+09:49:45.318 Info: - Application: tracing
+09:49:45.318 Info: - Process Model: telemetry
+09:49:45.319 Info: - Process Model Version: 1
+
+09:49:45.337 Info: Synchronize project directory ...
+09:49:45.340 Info: - Cleaning target archive ...
+09:49:45.341 Info: - Copying new project to tracing/telemetry/1.iar ...
+09:49:45.342 Info: Successful synchronized.
+
+09:49:45.462 Info: Convert project in version 93600 to latest 120001
+09:49:45.467 Info: Running conversion 'Update project-build-plugin to latest version'
+09:49:45.474 Info: Updating project-build-plugin to version 12.0.8
+09:49:45.474 Info: Running conversion 'Removes AXIS resources in project'
+09:49:45.477 Info: Classpath entry src_ws (AXIS 1) removed from .classpath.
+09:49:45.478 Info: Folder src_ws (AXIS 1) removed from project.
+09:49:45.479 Info: Classpath container WS_CALL_AXIS2_CONTAINER removed from .classpath.
+09:49:45.480 Info: Classpath entries starting with lib_ws/client/wsClient_* (AXIS 2) removed from .classpath.
+09:49:45.480 Info: Web Service Client libraries (wsClient_*) for AXIS removed from project.
+09:49:45.526 Info: Running conversion 'Move formats from config CMS to formats.yaml'
+09:49:45.529 Info: No formats found. Nothing to move.
+09:49:45.530 Info: Running conversion 'Move Web Service Clients to webservice-clients.yaml'
+09:49:45.544 Warning: no /1_2_1/webservice.wsconfig file found
+09:49:45.544 Info: No Web Service Clients found. Nothing to move.
+09:49:45.544 Info: Deleted file webservice.wsconfig
+09:49:45.544 Info: Running conversion 'Upgrade JPA To 2.2'
+09:49:45.562 Info: persistence.xml is up to date. Nothing to do.
+09:49:45.568 Info: Running conversion 'Convert Config structure'
+09:49:45.570 Info: Move testusers.userconfig to config/users.xml
+09:49:45.570 Info: Move roles.roleconfig to config/roles.xml
+09:49:45.571 Info: Move overrides.overrideconfig to config/overrides.any
+09:49:45.571 Info: Move src/META-INF/persistence.xml to config/persistence.xml
+09:49:45.571 Info: Remove webContent/META-INF/MANIFEST.MF
+09:49:45.571 Info: Remove webContent/WEB-INF/faces-config.xml
+09:49:45.572 Info: Convert config/overrides.any to UTF-8
+09:49:45.572 Info: Running conversion 'Move plain JSP pages from CMS to webContent'
+09:49:45.581 Info: No JSP pages found. Nothing to move.
+09:49:45.581 Info: Running conversion 'Convert CMS structure to new format'
+09:49:45.582 Info: Delete cms.meta file
+09:49:45.587 Info: Converted 8 content objects.
+09:49:45.588 Info: Running conversion 'Convert process files from *.mod to *.p.json'
+09:49:45.830 Info: Converted 2 process files from *.mod to *.p.json
+09:49:45.831 Info: Running conversion 'Convert CXF Webservice mappings'
+09:49:45.865 Info: No mappings found that needs to be converted.
+09:49:45.865 Info: Running conversion 'Add custom field configuration file'
+09:49:45.869 Info: Add custom field configuration file Config/custom-fields.yaml
+09:49:45.869 Info: Running conversion 'Convert to Java 17'
+09:49:45.869 Info: Convert .settings/org.eclipse.jdt.core.prefs to Java 17.
+09:49:45.870 Info: Convert .settings/org.eclipse.wst.common.project.facet.core.xml to Java 17.
+09:49:45.870 Info: .classpath is up to date. Nothing to do.
+09:49:45.870 Info: Running conversion 'remove src_hd from .classpath'
+09:49:45.871 Info: Running conversion 'Add 'drl' to decision table (xls, xlsx, csv) filenames'
+09:49:45.872 Info: Rules folder does not exist. Nothing to convert.
+09:49:45.872 Info: Running conversion 'Add DialogForm builder to project'
+09:49:45.881 Info: Added DialogForm builder with id: ch.ivyteam.ivy.dialog.form.build.ivyDialogFormBuilder
+09:49:45.882 Info: Running conversion 'Merge ActiveEnvironment into main file for variables.yaml, rest-clients.yaml, webservice-clients.yaml and databases.yaml'
+09:49:45.882 Info: Active Environment is default. Nothing to merge.
+09:49:45.882 Info: Running conversion 'Split Variable keys with dots to mappings'
+09:49:45.890 Info: Running conversion 'Remove Java Script Development Tools (JSDT)'
+09:49:45.891 Info: Running conversion 'Remove JS Nature from .project'
+09:49:45.891 Info: Running conversion 'Convert to Java 21'
+09:49:45.892 Info: .settings/org.eclipse.jdt.core.prefs is up to date. Nothing to do.
+09:49:45.892 Info: Convert .settings/org.eclipse.wst.common.project.facet.core.xml to Java 21.
+09:49:45.892 Info: Running conversion 'Convert Data Classes to JSON'
+09:49:45.912 Info: Running conversion 'Remove UserDialog XML interface descriptor'
+09:49:45.913 Info: Running conversion 'Convert processes to format 12.0.0'
+09:49:46.270 Info: Migrating processes/soap.p.json from 9.4.8 to 12.0.0
+09:49:46.279 Info: Migrating processes/rest.p.json from 9.4.8 to 12.0.0
+09:49:46.284 Info: Running conversion 'Convert Forms to format 12.0.6'
+09:49:46.285 Info: Running conversion 'Convert DataClasses to format 12.0.1'
+09:49:46.298 Info: Migrating dataclasses/telemetry/Data.d.json from 12.0.1 to 12.0.1
+09:49:46.299 Info: Migrating dataclasses/telemetry/subData.d.json from 12.0.1 to 12.0.1
+09:49:46.299 Info: Running conversion 'Remove DefautDataClass and set preferred Encoding if missing'
+09:49:46.301 Info: Entry was successfully deleted.
+09:49:46.302 Info: org.eclipse.core.resources.prefs does not exist, create with content.
+09:49:46.305 Info: POM Property added: project.build.sourceEncoding=UTF-8
+09:49:46.341 Info: Deploying library configuration...
+09:49:46.350 Info: - Creating library 'telemetry $1.0.0-SNAPSHOT'.
+09:49:46.350 Info: Successful deployed library configuration.
+
+09:49:46.350 Info: Deploying roles ...
+09:49:46.357 Info: No roles to deploy.
+
+09:49:46.428 Info: Successful deployed 'tracing.iar' to process model version 'telemetry$1' in application 'tracing'.
+
+09:49:46.431 Info: Activate process model version 'telemetry$1'.
+09:49:46.441 Info: Wait until all deployed process model versions reach state 'ACTIVE'
+09:49:46.644 Info: All the deployed process model versions have reached state 'ACTIVE'
+09:49:46.648 Info: Release process model version 'telemetry$1'.
+09:49:46.690 Info: Project(s) of file 'tracing.iar' successful deployed to application 'tracing' in 2111 ms.
