@@ -31,7 +31,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
-      
+
   # The backend is a Tomcat web server that provides REST and SOAP services that are called by Axon Ivy Engine
   # Tomcat is instrumented the same as the Axon Ivy Engine using the OpenTelemetry Java agent 
   backend:
@@ -58,4 +58,3 @@ services:
      - 4318:4318
      - 5778:5778
      - 9411:9411
-      
