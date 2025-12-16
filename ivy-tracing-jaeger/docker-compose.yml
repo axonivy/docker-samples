@@ -5,11 +5,9 @@ services:
     image: opentracing/nginx-opentracing
     ports:
      - 80:80
-     - 443:443
     volumes:    
      - ./reverseProxy/ngnix.conf:/etc/nginx/nginx.conf
      - ./reverseProxy/jaeger-config.json:/etc/jaeger-config.json
-     - ./reverseProxy/certs:/etc/nginx/certs
  
   # The Axon Ivy Engine is instrumented using the OpenTelementry Java agent 
   # to collect tracings and send them to Jaeger
