@@ -6,7 +6,7 @@ services:
     ports:
      - 80:80
      - 443:443
-    volumes:    
+    volumes:
      - ./reverseProxy/ngnix.conf:/etc/nginx/nginx.conf
      - ./reverseProxy/jaeger-config.json:/etc/jaeger-config.json
      - ./reverseProxy/certs:/etc/nginx/certs
@@ -31,7 +31,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
-      
+
   # The backend is a Tomcat web server that provides REST and SOAP services that are called by Axon Ivy Engine
   # Tomcat is instrumented the same as the Axon Ivy Engine using the OpenTelemetry Java agent 
   backend:
@@ -44,25 +44,17 @@ services:
      - ./backend/test-rest-service.war:/usr/local/tomcat/webapps/test-rest-service.war
     environment:
       # Enable the OpenTelemetry Java agent and configure the configuration file 
-      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent-2.9.0.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
+      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
 
   # Jaeger Tracing tool. Will collect the tracings from the reverse proxy, ivy and backend 
   # and provides a UI to browse the tracings 
   # Go to http://localhost:16686 to start browsing the tracings
   jaeger:
-    image: jaegertracing/all-in-one:1.60
+    image: jaegertracing/jaeger:2.13.0
     ports:
-     - 5775:5775/udp 
-     # Port used by the reverse proxy to send tracings
-     - 6831:6831/udp 
-     - 6832:6832/udp 
-     - 5778:5778 
-     # Port of the UI to browse the tracings 
-     - 16686:16686 
-     # Port used by Axon Ivy Engine and Backend to send tracings 
-     - 14268:14268 
-     - 14250:14250 
-     - 9411:9411 
-    environment:
-      COLLECTOR_ZIPKIN_HOST_PORT: 9411
-      
+     # See https://www.jaegertracing.io/docs/latest/architecture/apis/#default-ports
+     - 16686:16686
+     - 4317:4317
+     - 4318:4318
+     - 5778:5778
+     - 9411:9411
