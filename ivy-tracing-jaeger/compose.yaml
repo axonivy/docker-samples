@@ -54,7 +54,5 @@ services:
     ports:
      # See https://www.jaegertracing.io/docs/latest/architecture/apis/#default-ports
      - 16686:16686
-     - 4317:4317
-     - 4318:4318
-     - 5778:5778
-     - 9411:9411
+    #  - 4317:4317  # Enable this port if you want to send traces in the OTLP format from an external location over gRPC.
+    #  - 4318:4318  # Enable this port if you want to send traces in the OTLP format from an external location over http.
