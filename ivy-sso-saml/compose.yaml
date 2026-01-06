@@ -16,7 +16,7 @@ services:
       - ./apache/saml:/usr/local/apache2/saml
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.4
+    image: quay.io/keycloak/keycloak:26.5
     environment:
      - KEYCLOAK_ADMIN=admin
      - KEYCLOAK_ADMIN_PASSWORD=admin
