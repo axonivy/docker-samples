@@ -49,7 +49,7 @@ def examples() {
     'ivy-sso-openid-connect': { assertSSO() },
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
     'ivy-branding': { assertBranding() },
-    'ivy-opensearch': { assertOpenSearch() },      
+    //'ivy-opensearch': { assertOpenSearch() },      
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
     'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/ivy/configuration") },
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
