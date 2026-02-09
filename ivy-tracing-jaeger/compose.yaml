@@ -47,7 +47,7 @@ services:
   # and provides a UI to browse the tracings 
   # Go to http://localhost:16686 to start browsing the tracings
   jaeger:
-    image: jaegertracing/jaeger:2.14.1
+    image: jaegertracing/jaeger:2.15.1
     ports:
      # See https://www.jaegertracing.io/docs/latest/architecture/apis/#default-ports
      - 16686:16686
