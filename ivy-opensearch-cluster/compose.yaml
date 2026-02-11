@@ -18,7 +18,7 @@ services:
   
   # opensearch nodes  
   opensearch1:
-    image: opensearchproject/opensearch:3.4.0  
+    image: opensearchproject/opensearch:3.5.0  
     ports:
      - 9201:9200
     environment:
@@ -31,7 +31,7 @@ services:
       - "plugins.security.disabled=true"
 
   opensearch2:
-    image: opensearchproject/opensearch:3.4.0
+    image: opensearchproject/opensearch:3.5.0
     ports:    
      - 9202:9200
     environment:
@@ -44,7 +44,7 @@ services:
       - "plugins.security.disabled=true"
 
   opensearch3:
-    image: opensearchproject/opensearch:3.4.0
+    image: opensearchproject/opensearch:3.5.0
     ports:
      - 9203:9200
     environment:
