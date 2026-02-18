@@ -1,9 +1,9 @@
-FROM maven:3.9.12-eclipse-temurin-21 AS build-rest-service
+FROM maven:3.9.12-eclipse-temurin-25 AS build-rest-service
 COPY rest-service /usr/src/rest-service
 WORKDIR /usr/src/rest-service
 RUN mvn clean package
 
-FROM maven:3.9.12-eclipse-temurin-21 AS build-soap-service
+FROM maven:3.9.12-eclipse-temurin-25 AS build-soap-service
 COPY soap-service /usr/src/soap-service
 WORKDIR /usr/src/soap-service
 RUN mvn clean package
