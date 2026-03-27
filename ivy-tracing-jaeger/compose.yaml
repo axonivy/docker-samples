@@ -18,7 +18,6 @@ services:
   ivy:
     build: ./ivy
     ports:
-     - 8080:8080
      - 8000:8000  # Enable this port if you want to connect a remote debugger to the Axon Ivy Engine
     volumes:
      - ../demo-licence.lic:/ivy/configuration/demo-licence.lic

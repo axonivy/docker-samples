@@ -1,8 +1,8 @@
--agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=y
+#-agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=y
 
 # Export traces to Jaeger
 -Dotel.traces.exporter=otlp
 # The host and port where to report tracings to the Jaeger tracing tool
--Dotel.exporter.otlp.endpoint=http://localhost:4318
+-Dotel.exporter.otlp.endpoint=http://jaeger:4318
 # Use W3C Trace Context headers (traceparent/tracestate) for propagation.
 -Dotel.propagators=tracecontext
