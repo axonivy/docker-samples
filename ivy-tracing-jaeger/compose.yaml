@@ -3,6 +3,8 @@ services:
   # send them to the Jaeger tracing tool
   reverseProxy:
     image: opentracing/nginx-opentracing
+    environment:
+      JAEGER_PROPAGATION: w3c
     ports:
      - 80:80
      - 443:443
@@ -17,6 +19,7 @@ services:
     build: ./ivy
     ports:
      - 8080:8080
+     - 8000:8000  # Enable this port if you want to connect a remote debugger to the Axon Ivy Engine
     volumes:
      - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
      - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
@@ -51,5 +54,5 @@ services:
     ports:
      # See https://www.jaegertracing.io/docs/latest/architecture/apis/#default-ports
      - 16686:16686
+     - 4318:4318  # Enable this port if you want to send traces in the OTLP format from an external location over http.
     #  - 4317:4317  # Enable this port if you want to send traces in the OTLP format from an external location over gRPC.
-    #  - 4318:4318  # Enable this port if you want to send traces in the OTLP format from an external location over http.
