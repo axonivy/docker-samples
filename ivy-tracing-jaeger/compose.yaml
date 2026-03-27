@@ -2,15 +2,13 @@ services:
   # A nginx reverse proxy that is configured to collect tracings and 
   # send them to the Jaeger tracing tool
   reverseProxy:
-    image: opentracing/nginx-opentracing
-    environment:
-      JAEGER_PROPAGATION: w3c
+    image: ivy-tracing-jaeger-reverseproxy
+    build: ./reverseProxy
     ports:
      - 80:80
      - 443:443
     volumes:    
      - ./reverseProxy/ngnix.conf:/etc/nginx/nginx.conf
-     - ./reverseProxy/jaeger-config.json:/etc/jaeger-config.json
      - ./reverseProxy/certs:/etc/nginx/certs
  
   # The Axon Ivy Engine is instrumented using the OpenTelementry Java agent 
@@ -54,4 +52,3 @@ services:
      # See https://www.jaegertracing.io/docs/latest/architecture/apis/#default-ports
      - 16686:16686
      - 4318:4318  # Enable this port if you want to send traces in the OTLP format from an external location over http.
-    #  - 4317:4317  # Enable this port if you want to send traces in the OTLP format from an external location over gRPC.

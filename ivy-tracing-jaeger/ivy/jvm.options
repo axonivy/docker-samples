@@ -4,5 +4,5 @@
 -Dotel.traces.exporter=otlp
 # The host and port where to report tracings to the Jaeger tracing tool
 -Dotel.exporter.otlp.endpoint=http://jaeger:4318
-# Use W3C Trace Context headers (traceparent/tracestate) for propagation.
+# Accept W3C Trace Context propagation headers.
 -Dotel.propagators=tracecontext

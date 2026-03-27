@@ -20,6 +20,8 @@ The [OpenTelemetry](https://opentelemetry.io/) library collects traces and metri
 The library provides a Java agent that instruments a Java application (e.g., Axon Ivy Engine, Tomcat, etc.) and collects tracing information every 
 where a request can ingress or outgress a Java process.
 
+This sample uses NGINX with `ngx_otel_module` to generate spans and propagate W3C Trace Context headers to upstream services.
+
 ## Trace context propagation
 
 To aggregate the different traces from the different system a unique trace id is generated at the Reverse Proxy. 
