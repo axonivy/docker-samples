@@ -1,12 +1,6 @@
-#
-# OpenTelemetry tracing Java agent configuration
-# The Java agent will install/instrumentation itself into Axon Ivy Engine and report tracings to Jaeger 
-#
--javaagent:/ivy/system/lib/agent/opentelemetry-javaagent.jar
--Dotel.javaagent.configuration-file=/ivy/configuration/opentelemetry.properties
-
-# Axon Ivy tracing extension 
-# Enables Slow Requests and Traffic Graph in Engine Cockpit with opentelemetry java agent
-
--Dotel.javaagent.extensions=/ivy/system/lib/agent/ch.ivyteam.ivy.trace.jar
-
+# Export traces to Jaeger
+-Dotel.traces.exporter=otlp
+# The host and port where to report tracings to the Jaeger tracing tool
+-Dotel.exporter.otlp.endpoint=http://jaeger:4318
+# The trace id will be propagated from the reverse-proxy and to the backend using a Jaeger specific HTTP Header 'uber-trace-id'
+-Dotel.propagators=jaeger
