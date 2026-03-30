@@ -1,8 +1,8 @@
 [Begin Licence]
 #Licence for AxonIvy Axon Ivy Engine (Standard Edition)
-#Mon Dec 30 16:49:24 CET 2024
-licence.keyversion=axonivy/13000
-licence.number=XLSSE-1941-841F-8D7P
+#Mon Mar 30 11:46:26 CEST 2026
+licence.keyversion=axonivy/14000
+licence.number=XLSSE-19D3-E232-F77Z
 licence.type=Standard Edition
 licence.valid.until=2027-11-03
 licencee.individual=www.axonivy.com
@@ -13,5 +13,5 @@ server.sessions.limit=2
 server.users.limit=4
 [End Licence]
 [Begin Signature]
-MCwCFBuiyIBv+GF8HXRfJoiqf5WpJZNrAhQjzeTtYUGthXtTw/JvkMnrVjfiVA==
+MCwCFFEPN9iEDwwJT8lDuxvbmEso6lfAAhRe2+aYdSKaYWsi2KMUWE17cI947A==
 [End Signature]
