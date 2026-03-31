@@ -1,5 +1,6 @@
 {
   "service_name": "Reverse Proxy",
+  "propagation_format": "w3c",
   "diabled": false,
   "reporter": {
     "logSpans": true,

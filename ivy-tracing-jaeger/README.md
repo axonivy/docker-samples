@@ -23,11 +23,5 @@ where a request can ingress or outgress a Java process.
 ## Trace context propagation
 
 To aggregate the different traces from the different system a unique trace id is generated at the Reverse Proxy. 
-This trace id is then propagated with a special Jaeger specific HTTP header (`uber-trace-id`) from the Reverse Proxy to every other 
-involved system (e.g., Axon Ivy Engine, Tomcat, etc.)
-
-## W3C standard trace context propagation
-
-There is also a [W3C standard](https://www.w3.org/TR/trace-context/) that defines standard HTTP header (`traceparent`) and format to 
-propagate a trace context in a vendor neutral way.
-
+This trace id is then propagated from the Reverse Proxy to every other involved system (e.g., Axon Ivy Engine, Tomcat, etc.) 
+using the [W3C Trace Context](https://www.w3.org/TR/trace-context/) HTTP headers (`traceparent` and `tracestate`).
