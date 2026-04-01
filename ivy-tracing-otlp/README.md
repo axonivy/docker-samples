@@ -1,7 +1,7 @@
-# ivy-tracing-native
+# ivy-tracing-otlp
 
-This example shows how you can trace requests in a complex system involving multiple different services including Axon Ivy Engine. This helps to identify
-performance bottle necks in your system.
+This example shows lightweight tracing with the built-in OTLP support of Axon Ivy Engine in a complex system involving multiple services.
+Use this setup if you want tracing without adding a Java agent or extra instrumentation libraries.
 
 ![Overview](overview.png)
 
@@ -14,14 +14,25 @@ and analyze the recorded traces.
 
 The [Jaeger tracing tool](https://www.jaegertracing.io/) collects traces from different systems and provides a UI to search and analyzes traces. 
 
-## OpenTelemetry
+## Native OTLP (lightweight, built-in)
 
-The [OpenTelemetry](https://opentelemetry.io/) library collects traces and metrics in a system and exports them to a tracing tool (e.g., Jaeger). 
-The library provides a Java agent that instruments a Java application (e.g., Axon Ivy Engine, Tomcat, etc.) and collects tracing information every 
-where a request can ingress or outgress a Java process.
+Axon Ivy Engine can export traces natively via OTLP by using environment variables or Java system properties.
+No additional Java agent or third-party instrumentation library is required.
+
+Use this sample when you need:
+- a minimal setup
+- built-in tracing with low operational overhead
+- configuration-only enablement via environment or system property variables
+
+Limitations of native OTLP support:
+- trace-context propagation is HTTP-only and follows [W3C Trace Context](https://www.w3.org/TR/trace-context/)
+- only supported in combination with native Ivy HTTP stacks: Tomcat, CXF (SOAP), and Jersey (REST)
+- narrower instrumentation coverage than the agent-based setup
+
+If you need broader third-party instrumentation, use the agent-based sample in [../ivy-tracing-agent/README.md](../ivy-tracing-agent/README.md).
 
 ## Trace context propagation
 
 To aggregate the different traces from the different system a unique trace id is generated at the Reverse Proxy. 
-This trace id is then propagated from the Reverse Proxy to every other involved system (e.g., Axon Ivy Engine, Tomcat, etc.) 
+This trace id is then propagated from the Reverse Proxy to every other involved system over HTTP 
 using the [W3C Trace Context](https://www.w3.org/TR/trace-context/) HTTP headers (`traceparent` and `tracestate`).

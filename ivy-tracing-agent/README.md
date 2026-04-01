@@ -1,7 +1,7 @@
 # ivy-tracing-agent
 
-This example shows how you can trace requests in a complex system involving multiple different services including Axon Ivy Engine. This helps to identify
-performance bottle necks in your system.
+This example shows end-to-end tracing with the OpenTelemetry Java agent in a complex system involving multiple services, including Axon Ivy Engine.
+Use this setup if you need broad instrumentation coverage across third-party libraries and frameworks.
 
 ![Overview](overview.png)
 
@@ -14,11 +14,19 @@ and analyze the recorded traces.
 
 The [Jaeger tracing tool](https://www.jaegertracing.io/) collects traces from different systems and provides a UI to search and analyzes traces. 
 
-## OpenTelemetry
+## OpenTelemetry Agent (full coverage)
 
-The [OpenTelemetry](https://opentelemetry.io/) library collects traces and metrics in a system and exports them to a tracing tool (e.g., Jaeger). 
-The library provides a Java agent that instruments a Java application (e.g., Axon Ivy Engine, Tomcat, etc.) and collects tracing information every 
-where a request can ingress or outgress a Java process.
+The [OpenTelemetry](https://opentelemetry.io/) Java agent instruments Java applications (for example Axon Ivy Engine, Tomcat, and many third-party
+libraries) and exports telemetry data to a backend such as Jaeger.
+
+Compared to native OTLP support, the agent-based setup is more powerful because it can automatically instrument many additional integrations and protocols.
+
+Use this sample when you need:
+- broad, automatic instrumentation across third-party tools
+- richer tracing coverage beyond native Ivy HTTP stacks
+- one consistent instrumentation approach across heterogeneous Java services
+
+If you prefer a lightweight setup without additional agent libraries, see the OTLP-native sample in [../ivy-tracing-otlp/README.md](../ivy-tracing-otlp/README.md).
 
 ## Trace context propagation
 
