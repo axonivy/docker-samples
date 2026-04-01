@@ -1,4 +1,4 @@
-# ivy-tracing-jaeger
+# ivy-tracing-agent
 
 This example shows how you can trace requests in a complex system involving multiple different services including Axon Ivy Engine. This helps to identify
 performance bottle necks in your system.

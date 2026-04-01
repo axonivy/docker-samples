@@ -11,17 +11,20 @@ services:
      - ./reverseProxy/jaeger-config.json:/etc/jaeger-config.json
      - ./reverseProxy/certs:/etc/nginx/certs
  
-  # The Axon Ivy Engine is instrumented using the OpenTelementry Java agent 
-  # to collect tracings and send them to Jaeger
+  # The Axon Ivy Engine natively exports trace in OTLP format to Jaeger.
+  # W3C tracecontext is used for propagating the trace context between the reverse proxy, ivy and backend.
   ivy:
-    build: ./ivy
+    image: axonivy/axonivy-engine-local:dev
     ports:
      - 8080:8080
     volumes:
      - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
      - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
-     - ./ivy/jvm.options:/ivy/configuration/jvm.options
-     - ./ivy/opentelemetry.properties:/ivy/configuration/opentelemetry.properties
+     - ./ivy/deploy/tracing.iar:/ivy/deploy/tracing.iar
+    environment:
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+      OTEL_PROPAGATORS: tracecontext
 
   systemDatabase:
     image: postgres
