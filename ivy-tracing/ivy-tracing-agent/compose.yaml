@@ -7,9 +7,9 @@ services:
      - 80:80
      - 443:443
     volumes:    
-     - ./reverseProxy/ngnix.conf:/etc/nginx/nginx.conf
-     - ./reverseProxy/jaeger-config.json:/etc/jaeger-config.json
-     - ./reverseProxy/certs:/etc/nginx/certs
+     - ./../reverseProxy/ngnix.conf:/etc/nginx/nginx.conf
+     - ./../reverseProxy/jaeger-config.json:/etc/jaeger-config.json
+     - ./../reverseProxy/certs:/etc/nginx/certs
  
   # The Axon Ivy Engine is instrumented using the OpenTelementry Java agent 
   # to collect tracings and send them to Jaeger
@@ -18,10 +18,11 @@ services:
     ports:
      - 8080:8080
     volumes:
-     - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
+     - ./../../demo-licence.lic:/ivy/configuration/demo-licence.lic
      - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
      - ./ivy/jvm.options:/ivy/configuration/jvm.options
      - ./ivy/opentelemetry.properties:/ivy/configuration/opentelemetry.properties
+     - ./../tracing.iar:/ivy/deploy/tracing.iar
 
   systemDatabase:
     image: postgres
@@ -34,11 +35,11 @@ services:
   # The backend is a Tomcat web server that provides REST and SOAP services that are called by Axon Ivy Engine
   # Tomcat is instrumented the same as the Axon Ivy Engine using the OpenTelemetry Java agent 
   backend:
-    build: ./backend
+    build: ./../backend
     ports:
      - 9080:8080    
     volumes:
-     - ./backend/opentelemetry.properties:/etc/tomcat/opentelemetry.properties
+     - ./../backend/opentelemetry.properties:/etc/tomcat/opentelemetry.properties
     environment:
       # Enable the OpenTelemetry Java agent and configure the configuration file 
       JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
