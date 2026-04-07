@@ -60,7 +60,8 @@ def examples() {
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
     'ivy-custom-errorpage': { assertCustomErrorPage() },
-    'ivy-tracing-jaeger': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-tracing/ivy-tracing-agent': { assertTracing() },
+    'ivy-tracing/ivy-tracing-otlp': { assertTracing() },
     'ivy-monitoring-prometheus': { assertIvyIsNotRunningInDemoMode() }
 
     //'ivy-scaling-nginx': { assertIvyIsNotRunningInDemoModeOnPort(80) }
@@ -71,6 +72,8 @@ def examples() {
     //'ivy-elasticsearch-cluster': { assertElasticsearchCluster() },
   ]
 }
+
+
 
 def runTest(def example, def assertion) {
   echo "==========================================================="
@@ -88,7 +91,8 @@ def runTest(def example, def assertion) {
   } catch (ex) {
     currentBuild.result = 'UNSTABLE'
     echo ex.getMessage()
-    def log = "warn-${example}.log"
+    def normalizedExample = example.replace('/', '-')
+    def log = "warn-${normalizedExample}.log"
     sh "echo SAMPLE ${example} FAILED >> ${log}"              
     sh "echo =========================================================== >> ${log}"
                 
@@ -306,4 +310,16 @@ def followDefaultPageRedirect(base, redirectPage) {
   def url = redirectPage.split('<meta http-equiv=\"refresh\" content=\"0; URL=')[1]
   url = base + url.split('\">')[0]
   return sh (script: "wget --no-check-certificate -qO- $url", returnStdout: true)
+}
+
+def assertTracing() {
+  assertIvyIsNotRunningInDemoMode()
+  def rest = sh (script: "cd ivy-tracing && bash test.sh http://localhost/tracing/1/pro/telemetry/17BE44A2A4E8C54D/rest.ivp", returnStdout: true)
+  if (!rest.contains("Axon Ivy Engine,Backend,Reverse Proxy")) {
+    throw new Exception("REST tracing test failed: " + rest);
+  }
+  def soap = sh (script: "cd ivy-tracing && bash test.sh http://localhost/tracing/1/pro/telemetry/017BE44CD960A46A/soap.ivp", returnStdout: true)
+  if (!soap.contains("Axon Ivy Engine,Backend,Reverse Proxy")) {
+    throw new Exception("SOAP tracing test failed: " + soap);
+  }
 }

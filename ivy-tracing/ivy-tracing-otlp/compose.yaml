@@ -1,0 +1,58 @@
+services:
+  # A nginx reverse proxy that is configured to collect tracings and 
+  # send them to the Jaeger tracing tool
+  reverseProxy:
+    image: opentracing/nginx-opentracing
+    ports:
+     - 80:80
+     - 443:443
+    volumes:    
+     - ./../reverseProxy/ngnix.conf:/etc/nginx/nginx.conf
+     - ./../reverseProxy/jaeger-config.json:/etc/jaeger-config.json
+     - ./../reverseProxy/certs:/etc/nginx/certs
+ 
+  # The Axon Ivy Engine natively exports trace in OTLP format to Jaeger.
+  # W3C tracecontext is used for propagating the trace context between the reverse proxy, ivy and backend.
+  ivy:
+    image: axonivy/axonivy-engine:dev
+    ports:
+     - 8080:8080
+    volumes:
+     - ./../../demo-licence.lic:/ivy/configuration/demo-licence.lic
+     - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
+     - ./../tracing.iar:/ivy/deploy/tracing.iar
+    environment:
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+      OTEL_PROPAGATORS: tracecontext
+
+  systemDatabase:
+    image: postgres
+    ports:
+     - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+      
+  # The backend is a Tomcat web server that provides REST and SOAP services that are called by Axon Ivy Engine
+  # Tomcat is instrumented the same as the Axon Ivy Engine using the OpenTelemetry Java agent 
+  backend:
+    build: ./../backend
+    ports:
+     - 9080:8080    
+    volumes:
+     - ./../backend/opentelemetry.properties:/etc/tomcat/opentelemetry.properties
+    environment:
+      # Enable the OpenTelemetry Java agent and configure the configuration file 
+      JAVA_OPTS: "-javaagent:/usr/local/tomcat/lib/agent/opentelemetry-javaagent.jar -Dotel.javaagent.configuration-file=/etc/tomcat/opentelemetry.properties"
+
+  # Jaeger Tracing tool. Will collect the tracings from the reverse proxy, ivy and backend 
+  # and provides a UI to browse the tracings 
+  # Go to http://localhost:16686 to start browsing the tracings
+  jaeger:
+    image: jaegertracing/jaeger:2.17.0
+    ports:
+     # See https://www.jaegertracing.io/docs/latest/architecture/apis/#default-ports
+     - 16686:16686
+    #  - 4317:4317  # Enable this port if you want to send traces in the OTLP format from an external location over gRPC.
+    #  - 4318:4318  # Enable this port if you want to send traces in the OTLP format from an external location over http.
