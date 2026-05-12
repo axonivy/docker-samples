@@ -9,7 +9,7 @@ services:
      - ./ivy.yaml:/etc/axonivy-engine/ivy.yaml
 
   mysql:
-    image: mysql
+    image: mysql:8.4
     ports:
      - 3306:3306
     environment:
