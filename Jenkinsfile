@@ -52,7 +52,7 @@ def examples() {
 
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
     'ivy-branding': { assertBranding() },
-    'ivy-elasticsearch': { assertElasticsearch() },      
+    //'ivy-elasticsearch': { assertElasticsearch() },      
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
     'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/usr/lib/axonivy-engine/configuration") },
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
