@@ -11,31 +11,4 @@
 		<error-code>404</error-code>
 		<location>/faces/error-404.xhtml</location>
 	</error-page>
-
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
-
-	<filter-mapping>
-		<filter-name>httpSecurityHeaders</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
-	<filter>
-		<filter-name>httpSecurityHeaders</filter-name>
-		<filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
-		<async-supported>true</async-supported>
-		<init-param>
-			<param-name>antiClickJackingOption</param-name>
-			<param-value>SAMEORIGIN</param-value>
-		</init-param>
-		<init-param>
-			<param-name>xssProtectionEnabled</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<init-param>
-			<param-name>blockContentTypeSniffingEnabled</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
 </web-app>
