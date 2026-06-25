@@ -202,7 +202,7 @@ def assertAppIsDeployed(appName) {
 
 def assertBranding() {
   waitUntilAppIsReady('demo-portal')
-  def customCss = sh (script: "wget -qO- http://localhost:8080/demo-portal/faces/javax.faces.resource/custom.css?ln=xpertivy-branding", returnStdout: true)
+  def customCss = sh (script: "wget -qO- http://localhost:8080/demo-portal/faces/jakarta.faces.resource/custom.css?ln=xpertivy-branding", returnStdout: true)
   if (!customCss.contains("--sidebar-bg-color: #e20512;")) {
     throw new Exception("branding not active, default custom.css is served");
   }
