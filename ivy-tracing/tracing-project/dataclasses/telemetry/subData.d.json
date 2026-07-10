@@ -1,0 +1,12 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
+  "simpleName" : "subData",
+  "namespace" : "telemetry",
+  "fields" : [ {
+    "name" : "deep",
+    "type" : "Number"
+  }, {
+    "name" : "count",
+    "type" : "Number"
+  } ]
+}

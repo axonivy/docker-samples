@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/rest-clients-2.json
+RestClients:
+  Persons:
+    Name: Persons
+    Url: http://backend:8080/rest-service/webapi/persons
+    Features:
+      - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
+    LegacyUUID: 312d0d04-728b-40d4-9ef5-6d57afbcfbd3

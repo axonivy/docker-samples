@@ -20,7 +20,7 @@ services:
     volumes:
      - ./../../demo-licence.lic:/ivy/configuration/demo-licence.lic
      - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
-     - ./../tracing.iar:/ivy/deploy/tracing.iar
+     - ./../tracing-project/target/telemetry-1.0.0-SNAPSHOT.iar:/ivy/deploy/tracing.iar
     environment:
       OTEL_TRACES_EXPORTER: otlp
       OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318

@@ -13,21 +13,31 @@ pipeline {
   }
 
   stages {
+    stage('prepare') {
+      steps {
+        script {
+          docker.build('maven', '-f build/Dockerfile.maven .').inside("") {
+            maven cmd: "clean package -f ivy-tracing/tracing-project/pom.xml -ntp -Divy.engine.version.latest.minor=true"
+          }
+        }
+      }
+    }
+
     stage('test') {
       steps {
-        script {          
-            pullEngineImage()
-            examples().each { entry ->
-              def example = entry.key
-              def assertion = entry.value
-              runTest(example, assertion)
-            }          
+        script {
+          pullEngineImage()
+          examples().each { entry ->
+            def example = entry.key
+            def assertion = entry.value
+            runTest(example, assertion)
+          }
         }
       }
     }
 
     stage('archive') {
-      steps {        
+      steps {
         archiveArtifacts allowEmptyArchive: true, artifacts: 'warn*.log'
       }
     }
@@ -49,7 +59,7 @@ def examples() {
     'ivy-sso-openid-connect': { assertSSO() },
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
     'ivy-branding': { assertBranding() },
-    //'ivy-opensearch': { assertOpenSearch() },      
+    //'ivy-opensearch': { assertOpenSearch() },
     'ivy-environment-variables': { assertIvyIsNotRunningInDemoMode() },
     'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/ivy/configuration") },
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },

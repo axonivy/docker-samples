@@ -1,0 +1,46 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/process.json",
+  "id" : "17BE44A2A4E8C54D",
+  "config" : {
+    "data" : "telemetry.Data"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "rest.ivp",
+      "config" : {
+        "signature" : "rest",
+        "request" : {
+          "name" : "Rest"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : 6, "y" : 37 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 },
+        "labelOffset" : { "x" : 0, "y" : 15 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "config" : {
+        "target" : {
+          "clientId" : "Persons"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    } ]
+}

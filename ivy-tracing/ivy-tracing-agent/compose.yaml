@@ -22,7 +22,7 @@ services:
      - ./ivy/ivy.yaml:/ivy/configuration/ivy.yaml
      - ./ivy/jvm.options:/ivy/configuration/jvm.options
      - ./ivy/opentelemetry.properties:/ivy/configuration/opentelemetry.properties
-     - ./../tracing.iar:/ivy/deploy/tracing.iar
+     - ./../tracing-project/target/telemetry-1.0.0-SNAPSHOT.iar:/ivy/deploy/tracing.iar
 
   systemDatabase:
     image: postgres
