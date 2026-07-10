@@ -1,0 +1,20 @@
+<xsd:schema xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:targetNamespace="http://service.soap.test.ivyteam.ch/" xmlns:tns="http://service.soap.test.ivyteam.ch/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://service.soap.test.ivyteam.ch/" version="1.0">
+  <xsd:element name="getCountryByShortName" type="targetNamespace:getCountryByShortName"/>
+  <xsd:element name="getCountryByShortNameResponse" type="targetNamespace:getCountryByShortNameResponse"/>
+  <xsd:complexType name="getCountryByShortName">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="shortName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getCountryByShortNameResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="targetNamespace:country"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="country">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="name" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="shortName" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

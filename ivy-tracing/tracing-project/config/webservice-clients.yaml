@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/webservice-clients-3.json
+WebServiceClients:
+  Persons:
+    Name: Persons
+    ServiceClass: ch.ivyteam.test.soap.service.client.CountryServiceService
+    Endpoints:
+      CountryServicePort:
+        - http://backend:8080/soap-service/webservices/country
+    Codegen:
+      WsdlUrl: http://localhost:9080/soap-service/webservices/country?wsdl
+    LegacyId: 17BE44CFF88DB795

@@ -1,0 +1,51 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/process.json",
+  "id" : "017BE44CD960A46A",
+  "config" : {
+    "data" : "telemetry.Data"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "soap.ivp",
+      "config" : {
+        "signature" : "soap",
+        "request" : {
+          "name" : "Soap"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 37 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 },
+        "labelOffset" : { "x" : 0, "y" : 15 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "WebServiceCall",
+      "config" : {
+        "clientId" : "Persons",
+        "operation" : {
+          "name" : "getCountryByShortName",
+          "port" : "CountryServicePort",
+          "parameters" : {
+            "parameters.shortName" : "\"us\""
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    } ]
+}

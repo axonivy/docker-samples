@@ -1,0 +1,83 @@
+<wsdl:definitions xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:targetNamespace="http://service.soap.test.ivyteam.ch/" xmlns:tns="http://service.soap.test.ivyteam.ch/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CountryServiceService" targetNamespace="http://service.soap.test.ivyteam.ch/">
+<wsdl:documentation>Here to serve countries</wsdl:documentation>
+  <wsdl:types>
+<xs:schema xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:targetNamespace="http://service.soap.test.ivyteam.ch/" xmlns:tns="http://service.soap.test.ivyteam.ch/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://service.soap.test.ivyteam.ch/" version="1.0">
+
+  
+  <xs:element name="getCountryByShortName" type="tns:getCountryByShortName"/>
+
+  
+  <xs:element name="getCountryByShortNameResponse" type="tns:getCountryByShortNameResponse"/>
+
+  
+  <xs:complexType name="getCountryByShortName">
+    
+    <xs:sequence>
+      
+      <xs:element minOccurs="0" name="shortName" type="xs:string"/>
+    
+    </xs:sequence>
+  
+  </xs:complexType>
+
+  
+  <xs:complexType name="getCountryByShortNameResponse">
+    
+    <xs:sequence>
+      
+      <xs:element minOccurs="0" name="return" type="tns:country"/>
+    
+    </xs:sequence>
+  
+  </xs:complexType>
+
+  
+  <xs:complexType name="country">
+    
+    <xs:sequence>
+      
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      
+      <xs:element minOccurs="0" name="shortName" type="xs:string"/>
+    
+    </xs:sequence>
+  
+  </xs:complexType>
+
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getCountryByShortName">
+    <wsdl:part element="targetNamespace:getCountryByShortName" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCountryByShortNameResponse">
+    <wsdl:part element="targetNamespace:getCountryByShortNameResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CountryService">
+    <wsdl:operation name="getCountryByShortName">
+      <wsdl:input message="targetNamespace:getCountryByShortName" name="getCountryByShortName">
+    </wsdl:input>
+      <wsdl:output message="targetNamespace:getCountryByShortNameResponse" name="getCountryByShortNameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CountryServiceServiceSoapBinding" type="targetNamespace:CountryService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getCountryByShortName">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getCountryByShortName">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCountryByShortNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CountryServiceService">
+    <wsdl:port binding="targetNamespace:CountryServiceServiceSoapBinding" name="CountryServicePort">
+      <soap:address location="http://localhost:9080/soap-service/webservices/country"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
