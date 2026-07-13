@@ -106,7 +106,7 @@ services:
   # POSTGRES (PATRONI - 3 NODES)
   #################################
   postgres-1:
-    image: ghcr.io/zalando/spilo-15:3.0-p1
+    image: ghcr.io/zalando/spilo-15:3.2-p1
     restart: on-failure
     environment:
       PATRONI_CONFIGURATION: |
@@ -157,7 +157,7 @@ services:
       retries: 10
 
   postgres-2:
-    image: ghcr.io/zalando/spilo-15:3.0-p1
+    image: ghcr.io/zalando/spilo-15:3.2-p1
     restart: on-failure
     environment:
       PATRONI_CONFIGURATION: |
@@ -208,7 +208,7 @@ services:
       retries: 10
 
   postgres-3:
-    image: ghcr.io/zalando/spilo-15:3.0-p1
+    image: ghcr.io/zalando/spilo-15:3.2-p1
     restart: on-failure
     environment:
       PATRONI_CONFIGURATION: |
