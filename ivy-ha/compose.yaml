@@ -1,0 +1,291 @@
+services:
+  loadbalancer:
+    build: apache
+    ports:
+      - 80:80
+    volumes:
+      - ./apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
+    depends_on:
+      - ivy-1
+      - ivy-2
+      - opensearch-1
+      - opensearch-2
+
+  ivy-1:
+    image: axonivy/axonivy-engine:sprint
+    volumes:
+      - ivy-applications:/ivy/applications
+      - ivy-configuration:/ivy/configuration
+      - ivy-data-1:/ivy/data
+      - ./ivy.yaml:/ivy/configuration/ivy.yaml
+      - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
+    depends_on:
+      postgres-lb:
+        condition: service_started
+      opensearch-1:
+        condition: service_healthy
+ 
+  ivy-2:
+    image: axonivy/axonivy-engine:sprint
+    volumes:
+      - ivy-applications:/ivy/applications
+      - ivy-configuration:/ivy/configuration
+      - ivy-data-2:/ivy/data
+      - ./ivy.yaml:/ivy/configuration/ivy.yaml
+      - ../demo-enterprise-licence.lic:/ivy/configuration/licence.lic
+    depends_on:
+      postgres-lb:
+        condition: service_started
+      opensearch-1:
+        condition: service_healthy
+
+  opensearch-1:
+    image: opensearchproject/opensearch:3.5.0
+    ports:    
+     - 9201:9200
+    volumes:
+      - opensearch-data-1:/usr/share/opensearch/data
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-1
+      - cluster.initial_master_nodes=opensearch-1,opensearch-2
+      - discovery.seed_hosts=opensearch-1,opensearch-2
+      - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=opensearchPassword2024?"
+      - "plugins.security.disabled=true"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+  
+  opensearch-2:
+    image: opensearchproject/opensearch:3.5.0
+    ports:    
+     - 9202:9200
+    volumes:
+      - opensearch-data-2:/usr/share/opensearch/data
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-2
+      - cluster.initial_master_nodes=opensearch-1,opensearch-2
+      - discovery.seed_hosts=opensearch-1,opensearch-2
+      - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=opensearchPassword2024?"
+      - "plugins.security.disabled=true"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+        
+  #################################
+  # ETCD (cluster state)
+  #################################
+  etcd:
+    image: gcr.io/etcd-development/etcd:v3.5.13
+    environment:
+      - ETCD_ENABLE_V2=true
+      - ALLOW_NONE_AUTHENTICATION=yes
+    command: >
+      /usr/local/bin/etcd
+      --name etcd0
+      --data-dir /etcd-data
+      --advertise-client-urls http://etcd:2379
+      --listen-client-urls http://0.0.0.0:2379
+    ports:
+      - "2379:2379"
+    volumes:
+      - etcd-data:/etcd-data
+
+  #################################
+  # POSTGRES (PATRONI - 3 NODES)
+  #################################
+  postgres-1:
+    image: ghcr.io/zalando/spilo-15:3.0-p1
+    restart: on-failure
+    environment:
+      PATRONI_CONFIGURATION: |
+        scope: postgres-cluster
+        name: postgres-1
+        etcd3:
+          hosts: etcd:2379
+        bootstrap:
+          dcs:
+            ttl: 30 
+            loop_wait: 10 
+            retry_timeout: 10 
+            maximum_lag_on_failover: 33554432 
+            synchronous_mode: true
+            synchronous_mode_strict: false
+            check_timeline: true
+            postgresql:
+              use_pg_rewind: true
+              use_slots: true
+              parameters:
+                wal_level: replica
+                hot_standby: "on"
+                max_wal_senders: 10
+                max_replication_slots: 10
+                wal_keep_size: 512MB
+        postgresql:
+          authentication:
+            superuser:
+              username: postgres
+              password: postgres
+            replication:
+              username: replicator
+              password: replicator
+          pg_hba:
+            - local replication replicator trust
+            - local all all trust
+            - host replication replicator 0.0.0.0/0 md5
+            - host all all 0.0.0.0/0 md5
+    ports:
+      - "8001:8008"
+    volumes:
+      - pgdata1:/home/postgres/pgdata
+    depends_on:
+      - etcd
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
+      interval: 5s
+      retries: 10
+
+  postgres-2:
+    image: ghcr.io/zalando/spilo-15:3.0-p1
+    restart: on-failure
+    environment:
+      PATRONI_CONFIGURATION: |
+        scope: postgres-cluster
+        name: postgres-2
+        etcd3:
+          hosts: etcd:2379
+        bootstrap:
+          dcs:
+            ttl: 30
+            loop_wait: 10
+            retry_timeout: 10
+            maximum_lag_on_failover: 33554432
+            synchronous_mode: true
+            synchronous_mode_strict: false
+            check_timeline: true
+            postgresql:
+              use_pg_rewind: true
+              use_slots: true
+              parameters:
+                wal_level: replica
+                hot_standby: "on"
+                max_wal_senders: 10
+                max_replication_slots: 10
+                wal_keep_size: 512MB
+        postgresql:
+          authentication:
+            superuser:
+              username: postgres
+              password: postgres
+            replication:
+              username: replicator
+              password: replicator
+          pg_hba:
+            - local replication replicator trust
+            - local all all trust
+            - host replication replicator 0.0.0.0/0 md5
+            - host all all 0.0.0.0/0 md5
+    ports:
+      - "8002:8008"
+    volumes:
+      - pgdata2:/home/postgres/pgdata
+    depends_on:
+      - etcd
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
+      interval: 5s
+      retries: 10
+
+  postgres-3:
+    image: ghcr.io/zalando/spilo-15:3.0-p1
+    restart: on-failure
+    environment:
+      PATRONI_CONFIGURATION: |
+        scope: postgres-cluster
+        name: postgres-3
+        etcd3:
+          hosts: etcd:2379
+        bootstrap:
+          dcs:
+            ttl: 30
+            loop_wait: 10
+            retry_timeout: 10
+            maximum_lag_on_failover: 33554432
+            synchronous_mode: true
+            synchronous_mode_strict: false
+            check_timeline: true
+            postgresql:
+              use_pg_rewind: true
+              use_slots: true
+              parameters:
+                wal_level: replica
+                hot_standby: "on"
+                max_wal_senders: 10
+                max_replication_slots: 10
+                wal_keep_size: 512MB
+        postgresql:
+          authentication:
+            superuser:
+              username: postgres
+              password: postgres
+            replication:
+              username: replicator
+              password: replicator
+          pg_hba:
+            - local replication replicator trust
+            - local all all trust
+            - host replication replicator 0.0.0.0/0 md5
+            - host all all 0.0.0.0/0 md5
+    ports:
+      - "8003:8008"
+    volumes:
+      - pgdata3:/home/postgres/pgdata
+    depends_on:
+      - etcd
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
+      interval: 5s
+      retries: 10
+
+  #################################
+  # HAPROXY (DB LOAD BALANCER)
+  #################################
+  postgres-lb:
+    image: haproxy:2.9
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "5432:5432"
+      - "5433:5433"
+      - "8404:8404"
+    depends_on:
+      - postgres-1
+      - postgres-2
+      - postgres-3
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "5432"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  ivy-applications:
+  ivy-configuration:
+  ivy-data-1:
+  ivy-data-2:
+  opensearch-data-1:
+  opensearch-data-2:
+  pgdata1:
+  pgdata2:
+  pgdata3:
+  etcd-data:

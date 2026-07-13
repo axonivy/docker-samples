@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/13.2.9/ivy.json
+SystemDb:
+  Driver: org.postgresql.Driver
+  Url: jdbc:postgresql://postgres-lb:5432/AxonIvySystemDatabase?sslmode=require
+  UserName: postgres
+  Password: postgres
+Administrators:
+  admin:
+    Password: admin
+SearchEngine:
+  ExternalServer:
+    Url: http://loadbalancer/opensearch
