@@ -40,7 +40,7 @@ services:
         condition: service_healthy
 
   opensearch-1:
-    image: opensearchproject/opensearch:3.5.0
+    image: opensearchproject/opensearch:3.7.0
     ports:    
      - 9201:9200
     volumes:
@@ -65,7 +65,7 @@ services:
         hard: -1
   
   opensearch-2:
-    image: opensearchproject/opensearch:3.5.0
+    image: opensearchproject/opensearch:3.7.0
     ports:    
      - 9202:9200
     volumes:
