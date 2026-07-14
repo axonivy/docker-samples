@@ -262,7 +262,7 @@ services:
   # HAPROXY (DB LOAD BALANCER)
   #################################
   postgres-lb:
-    image: haproxy:2.9
+    image: haproxy:3.4
     volumes:
       - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
     ports:
