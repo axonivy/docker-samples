@@ -87,7 +87,7 @@ services:
   # ETCD (cluster state)
   #################################
   etcd:
-    image: gcr.io/etcd-development/etcd:v3.7.0
+    image: gcr.io/etcd-development/etcd:v3.7.1
     environment:
       - ETCD_ENABLE_V2=true
       - ALLOW_NONE_AUTHENTICATION=yes
