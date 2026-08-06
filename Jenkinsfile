@@ -55,6 +55,7 @@ def examples() {
     'ivy-systemdb-mysql': { assertIvyIsNotRunningInDemoMode() },
     'ivy-systemdb-mariadb': { assertIvyIsNotRunningInDemoMode() },
     'ivy-systemdb-mssql': { assertIvyIsNotRunningInDemoMode() },
+    'ivy-systemdb-mssql-tls': { assertIvyIsNotRunningInDemoMode() },
     'ivy-sso-saml': { assertSSO() },
     'ivy-sso-openid-connect': { assertSSO() },
     'ivy-deploy-app': { assertAppIsDeployed("myApp") },
