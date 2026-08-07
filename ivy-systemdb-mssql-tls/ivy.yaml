@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/ivy/13.2.9/ivy.json
+SystemDb:
+  Url: jdbc:sqlserver://mssql:1433;DatabaseName=AxonIvySystemDatabase
+  UserName: sa
+  Password: secure1234PASSWORD!
+  DriverProperties:
+    # Use the ivy truststore with the self-signed certificate of the mssql server so that
+    # the TLS connection can be established correctly and the certificate is trusted
+    trustStore: /ivy/configuration/truststore.p12
+    trustStorePassword: changeit
+Administrators:
+  admin:
+    Password: admin
+

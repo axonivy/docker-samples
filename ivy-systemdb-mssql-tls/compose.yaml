@@ -1,0 +1,27 @@
+services:
+  ivy:
+    image: axonivy/axonivy-engine:dev
+    ports:
+     - 8080:8080
+    volumes:
+     - ../demo-licence.lic:/ivy/configuration/demo-licence.lic
+     - ./ivy.yaml:/ivy/configuration/ivy.yaml
+     # Truststore that contains the self-signed certificate of the mssql server. 
+     # This is required to establish a TLS connection to the mssql server.
+     - ./truststore.p12:/ivy/configuration/truststore.p12:ro
+  mssql:
+    image: mcr.microsoft.com/mssql/server
+    # if you want to use this as a development database and 
+    # access it with a 3rd party database client like DBeaver, uncomment the following 2 lines.
+    # ports:
+    # - 1433:1433
+    environment:
+      ACCEPT_EULA: "Yes"
+      SA_PASSWORD: secure1234PASSWORD!
+      MSSQL_PID: "Express"
+    volumes:
+      # Configures the mssql server to use TLS with the self-signed certificate (mssql.pem) and key (mssql.key).
+      - ./mssql.conf:/var/opt/mssql/mssql.conf:ro
+      - ./mssql.pem:/etc/ssl/certs/mssql.pem:ro
+      - ./mssql.key:/etc/ssl/private2/mssql.key:ro
+      
