@@ -3,6 +3,10 @@ services:
   # send them to the Jaeger tracing tool
   reverseProxy:
     image: opentracing/nginx-opentracing
+    # the jaeger tracer is configured at startup (see jaeger-config.json), so the
+    # jaeger host must already be resolvable when nginx starts
+    depends_on:
+     - jaeger
     ports:
      - 80:80
      - 443:443
