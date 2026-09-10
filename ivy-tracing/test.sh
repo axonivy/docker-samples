@@ -3,10 +3,16 @@
 proxy="${1:-http://localhost/tracing/1/pro/telemetry/17BE44A2A4E8C54D/rest.ivp}"
 jaeger=http://localhost:16686
 
-# request via proxy
-status=$(curl -sL -o /dev/null -w "%{http_code}" "${proxy}")
+# request via proxy (the reverse proxy may need a moment until it accepts requests)
+retries=15
+status=""
+for i in $(seq 1 $retries); do
+  status=$(curl -sL -o /dev/null -w "%{http_code}" "${proxy}")
+  [[ "$status" == "200" ]] && break
+  sleep 1
+done
 if [[ "$status" != "200" ]]; then
-  echo "FAIL: proxy returned HTTP $status, expected 200"
+  echo "FAIL: proxy returned HTTP $status, expected 200 after $retries retries"
   exit 1
 fi
 
