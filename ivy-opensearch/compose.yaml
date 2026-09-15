@@ -15,4 +15,4 @@ services:
       ES_JAVA_OPTS: '-Xmx512m -Xms512m'
       discovery.type: single-node
       OPENSEARCH_INITIAL_ADMIN_PASSWORD: opensearchPassword2024?
-      plugins.security.disabled: true
+      DISABLE_SECURITY_PLUGIN: true

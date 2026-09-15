@@ -28,7 +28,7 @@ services:
       - discovery.seed_hosts=opensearch2,opensearch3
       - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
       - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=opensearchPassword2024?"
-      - "plugins.security.disabled=true"
+      - "DISABLE_SECURITY_PLUGIN=true"
 
   opensearch2:
     image: opensearchproject/opensearch:3.8.0
@@ -41,7 +41,7 @@ services:
       - discovery.seed_hosts=opensearch1,opensearch3
       - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
       - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=opensearchPassword2024?"
-      - "plugins.security.disabled=true"
+      - "DISABLE_SECURITY_PLUGIN=true"
 
   opensearch3:
     image: opensearchproject/opensearch:3.8.0
@@ -54,4 +54,4 @@ services:
       - discovery.seed_hosts=opensearch1,opensearch2
       - "ES_JAVA_OPTS=-Xmx256m -Xms256m"
       - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=opensearchPassword2024?"
-      - "plugins.security.disabled=true"
+      - "DISABLE_SECURITY_PLUGIN=true"
