@@ -1,4 +1,4 @@
-FROM axonivy/axonivy-engine:dev
+FROM axonivy/axonivy-engine:nightly-14.0
 
 RUN mkdir /ivy/system/lib/agent && \
     wget -O /ivy/system/lib/agent/opentelemetry-javaagent.jar -q -N https://repo1.maven.org/maven2/io/opentelemetry/javaagent/opentelemetry-javaagent/2.25.0/opentelemetry-javaagent-2.25.0.jar && \ 

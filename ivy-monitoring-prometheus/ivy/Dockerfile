@@ -1,4 +1,4 @@
-FROM axonivy/axonivy-engine:dev
+FROM axonivy/axonivy-engine:nightly-14.0
 
 ADD --chown=ivy deploy/tracing.iar /ivy/deploy/tracing.iar 
 

@@ -18,7 +18,7 @@ services:
   # The Axon Ivy Engine natively exports trace in OTLP format to Jaeger.
   # W3C tracecontext is used for propagating the trace context between the reverse proxy, ivy and backend.
   ivy:
-    image: axonivy/axonivy-engine:dev
+    image: axonivy/axonivy-engine:nightly-14.0
     ports:
      - 8080:8080
     volumes:

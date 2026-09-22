@@ -7,7 +7,7 @@ services:
       - ./apache/vhost.conf:/usr/local/apache2/conf/vhost.conf
 
   ivy-1:
-    image: axonivy/axonivy-engine:dev
+    image: axonivy/axonivy-engine:nightly-14.0
     volumes:
       - ivy-applications:/ivy/applications
       - ivy-configuration:/ivy/configuration
@@ -21,7 +21,7 @@ services:
      - VIRTUAL_HOST=localhost
  
   ivy-2:
-    image: axonivy/axonivy-engine:dev
+    image: axonivy/axonivy-engine:nightly-14.0
     volumes:
       - ivy-applications:/ivy/applications
       - ivy-configuration:/ivy/configuration
