@@ -10,10 +10,10 @@ services:
     command: [
       "/root/wait-for-engine-running.sh", 
       "ivy", 
-      "mvn com.axonivy.ivy.ci:project-build-plugin:9.1.1-SNAPSHOT:deploy-to-engine",
+      "mvn com.axonivy.ivy.ci:project-build-plugin:14.0.2-SNAPSHOT:deploy-to-engine",
       "-Divy.deploy.file=myApp.zip",
       "-Divy.deploy.method=HTTP",
-      "-Divy.deploy.engine.url=http://ivy:8080",
+      "-Divy.deploy.engine.url=http://ivy:8080/",
       "-Divy.deploy.engine.app=demos -Divy.deploy.server.id=engine"
       ]
   ivy:
