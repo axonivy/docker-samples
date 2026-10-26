@@ -8,4 +8,21 @@
             <!-- <password>admin<password -->
         </server>
     </servers>
+    <activeProfiles>
+        <activeProfile>axon-ivy-nexus</activeProfile>
+    </activeProfiles>
+    <profiles>
+        <profile>
+            <id>axon-ivy-nexus</id>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>maven.axonivy.com</id>
+                    <url>https://maven.axonivy.com</url>
+                    <snapshots>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
 </settings>
