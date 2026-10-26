@@ -8,21 +8,4 @@
             <!-- <password>admin<password -->
         </server>
     </servers>
-    <activeProfiles>
-        <activeProfile>sonatype-snapshots</activeProfile>
-    </activeProfiles>
-    <profiles>
-        <profile>
-            <id>sonatype-snapshots</id>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>sonatype.snapshots</id>
-                    <url>https://central.sonatype.com/repository/maven-snapshots</url>
-                    <snapshots>
-                        <updatePolicy>always</updatePolicy>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-    </profiles>
 </settings>
