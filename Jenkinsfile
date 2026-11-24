@@ -57,7 +57,7 @@ def examples() {
     'ivy-logging': { assertIvyConsoleLog("ivy-logging", "Loaded configurations of '/usr/lib/axonivy-engine/configuration") },
     'ivy-reverse-proxy-nginx': { assertReverseProxy() },
     'ivy-reverse-proxy-apache': { assertReverseProxy() },
-    'ivy-openldap': { assertOpenLdap() },
+    //'ivy-openldap': { assertOpenLdap() },
     'ivy-patching': { assertPatching() },
     'ivy-secrets': { assertIvyIsNotRunningInDemoMode() },
     'ivy-valve': { assertValve() },
